@@ -1834,6 +1834,13 @@
  50% { background-position: 100% center; }
  }
 
+ .mood-selector-wrapper {
+ position: relative;
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ }
+
  .mood-selector {
  display: flex;
  align-items: center;
@@ -1841,10 +1848,45 @@
  overflow-x: auto;
  scrollbar-width: none;
  padding: 5px 0;
+ flex: 1;
+ scroll-behavior: smooth;
  }
 
  .mood-selector::-webkit-scrollbar {
  display: none;
+ }
+
+ .mood-nav-btn {
+ width: 40px;
+ height: 40px;
+ min-width: 40px;
+ border-radius: 50%;
+ background: rgba(255, 255, 255, 0.95);
+ border: 2px solid #667eea;
+ cursor: pointer;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ color: #667eea;
+ transition: all 0.3s ease;
+ box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+ z-index: 10;
+ flex-shrink: 0;
+ }
+
+ .mood-nav-btn:hover {
+ background: linear-gradient(135deg, #667eea, #764ba2);
+ color: #fff;
+ transform: scale(1.1);
+ box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+ }
+
+ .mood-nav-btn:active {
+ transform: scale(0.95);
+ }
+
+ .mood-nav-btn svg {
+ pointer-events: none;
  }
 
  .mood-option {
@@ -1998,6 +2040,66 @@
 
  .mood-option[data-mood="supernova"] {
  background: radial-gradient(circle, #ffffff, #ff4500, #8b0000);
+ }
+
+ .mood-option[data-mood="oceanic"] {
+ background: linear-gradient(135deg, #006994, #1a5f7a);
+ }
+
+ .mood-option[data-mood="desert"] {
+ background: linear-gradient(135deg, #ff8c42, #ffa600);
+ }
+
+ .mood-option[data-mood="arctic"] {
+ background: linear-gradient(135deg, #e0f7ff, #89c2d9);
+ }
+
+ .mood-option[data-mood="jungle"] {
+ background: linear-gradient(135deg, #1e4620, #2c5364);
+ }
+
+ .mood-option[data-mood="cherry"] {
+ background: linear-gradient(135deg, #ffb3d9, #ff99cc);
+ }
+
+ .mood-option[data-mood="thunder"] {
+ background: linear-gradient(135deg, #4a5568, #2d3748);
+ }
+
+ .mood-option[data-mood="mystic"] {
+ background: linear-gradient(135deg, #5b3a70, #44318d);
+ }
+
+ .mood-option[data-mood="cybergrid"] {
+ background: linear-gradient(135deg, #00ff9f, #7000ff);
+ }
+
+ .mood-option[data-mood="royal"] {
+ background: linear-gradient(135deg, #7209b7, #5a189a);
+ }
+
+ .mood-option[data-mood="golden"] {
+ background: linear-gradient(135deg, #ffd700, #ffa500);
+ }
+
+ .mood-option[data-mood="nebula"] {
+ background: linear-gradient(135deg, #b794f6, #f093fb);
+ }
+
+ .mood-option[data-mood="crimson"] {
+ background: linear-gradient(135deg, #dc2626, #b91c1c);
+ }
+
+ .mood-option[data-mood="emerald"] {
+ background: linear-gradient(135deg, #10b981, #047857);
+ }
+
+ .mood-option[data-mood="solar"] {
+ background: radial-gradient(circle, #fff7ed, #fb923c, #ea580c);
+ }
+
+ .mood-option[data-mood="moonlight"] {
+ background: linear-gradient(135deg, #e0e7ff, #5b21b6);
  }
 
  /* Playlist Tabs */
@@ -3045,6 +3147,11 @@
  font-size: 18px;
  }
 
+ /* Hide navigation buttons on mobile - touch scrolling works fine */
+ .mood-nav-btn {
+ display: none;
+ }
+
  .mood-selector {
  gap: 6px;
  padding: 5px 0;
@@ -3389,7 +3496,13 @@
  <div class="mood-header">
  <h2 class="mood-title">🎭 Mood</h2>
  </div>
- <div class="mood-selector">
+ <div class="mood-selector-wrapper">
+ <button class="mood-nav-btn mood-nav-left" id="moodNavLeft">
+ <svg viewBox="0 0 24 24" width="20" height="20">
+ <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+ </svg>
+ </button>
+ <div class="mood-selector" id="moodSelector">
  <div class="mood-option active" data-mood="default" title="Default Vibes"></div>
  <div class="mood-option" data-mood="sunset" title="Sunset Chill"></div>
  <div class="mood-option" data-mood="ocean" title="Ocean Waves"></div>
@@ -3420,6 +3533,27 @@
  <div class="mood-option" data-mood="disco" title="Disco Lights"></div>
  <div class="mood-option" data-mood="nuclear" title="Nuclear Glow"></div>
  <div class="mood-option" data-mood="supernova" title="Supernova Explosion"></div>
+ <div class="mood-option" data-mood="oceanic" title="Oceanic Depths"></div>
+ <div class="mood-option" data-mood="desert" title="Desert Sunset"></div>
+ <div class="mood-option" data-mood="arctic" title="Arctic Freeze"></div>
+ <div class="mood-option" data-mood="jungle" title="Jungle Night"></div>
+ <div class="mood-option" data-mood="cherry" title="Cherry Blossom"></div>
+ <div class="mood-option" data-mood="thunder" title="Thunderstorm"></div>
+ <div class="mood-option" data-mood="mystic" title="Mystic Forest"></div>
+ <div class="mood-option" data-mood="cybergrid" title="Cyber Grid"></div>
+ <div class="mood-option" data-mood="royal" title="Royal Purple"></div>
+ <div class="mood-option" data-mood="golden" title="Golden Hour"></div>
+ <div class="mood-option" data-mood="nebula" title="Nebula Dream"></div>
+ <div class="mood-option" data-mood="crimson" title="Crimson Tide"></div>
+ <div class="mood-option" data-mood="emerald" title="Emerald City"></div>
+ <div class="mood-option" data-mood="solar" title="Solar Flare"></div>
+ <div class="mood-option" data-mood="moonlight" title="Moonlight Serenade"></div>
+ </div>
+ <button class="mood-nav-btn mood-nav-right" id="moodNavRight">
+ <svg viewBox="0 0 24 24" width="20" height="20">
+ <path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+ </svg>
+ </button>
  </div>
  </div>
 
@@ -3767,6 +3901,29 @@
  applyMood(option.dataset.mood);
  });
  });
+
+ // Mood Navigation Buttons
+ const moodSelector = document.getElementById('moodSelector');
+ const moodNavLeft = document.getElementById('moodNavLeft');
+ const moodNavRight = document.getElementById('moodNavRight');
+
+ if (moodNavLeft && moodNavRight && moodSelector) {
+ moodNavLeft.addEventListener('click', () => {
+ const scrollAmount = 200; // Scroll 200px to the left
+ moodSelector.scrollBy({
+ left: -scrollAmount,
+ behavior: 'smooth'
+ });
+ });
+
+ moodNavRight.addEventListener('click', () => {
+ const scrollAmount = 200; // Scroll 200px to the right
+ moodSelector.scrollBy({
+ left: scrollAmount,
+ behavior: 'smooth'
+ });
+ });
+ }
 
  // Settings Management
  function loadSettings() {

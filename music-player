@@ -4617,12 +4617,17 @@ transform: scale(1.05);
  function applyMood(mood) {
  currentMood = mood;
  document.body.className = mood !== 'default' ? `mood-${mood}` : '';
- 
+
  moodOptions.forEach(option => {
  option.classList.toggle('active', option.dataset.mood === mood);
  });
- 
+
  localStorage.setItem('musicPlayerMood', mood);
+
+ // Update sticky color if Easter egg feature is enabled
+ if (typeof updateStickyColor === 'function') {
+ updateStickyColor(mood);
+ }
  }
 
  moodOptions.forEach(option => {
@@ -6274,7 +6279,6 @@ const moodColors = {
   moonlight: 'rgba(192, 192, 192, 0.95)'
 };
 
-let currentMood = 'default';
 let particleContainer = null;
 
 // Load settings from localStorage
@@ -6506,14 +6510,6 @@ moodTitle.addEventListener('click', openEasterEggModal);
 closeEasterEggModal.addEventListener('click', closeEasterEggModalFunc);
 easterEggModalOverlay.addEventListener('click', (e) => {
   if (e.target === easterEggModalOverlay) closeEasterEggModalFunc();
-});
-
-// Track current mood for sticky color feature
-document.querySelectorAll('.mood-option').forEach(option => {
-  option.addEventListener('click', () => {
-    currentMood = option.getAttribute('data-mood');
-    updateStickyColor(currentMood);
-  });
 });
 
 // Load settings on page load

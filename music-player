@@ -242,10 +242,10 @@
  }
 
  @keyframes heartPulse {
- 0%, 100% { background-position: 50% 50%; transform: scale(1) translateZ(0); }
- 25% { background-position: 100% 100%; transform: scale(1.1) translateZ(0); }
- 50% { background-position: 0% 0%; transform: scale(1) translateZ(0); }
- 75% { background-position: 100% 0%; transform: scale(1.1) translateZ(0); }
+ 0%, 100% { background-position: 50% 50%; transform: scale(1); }
+ 25% { background-position: 100% 100%; transform: scale(1.1); }
+ 50% { background-position: 0% 0%; transform: scale(1); }
+ 75% { background-position: 100% 0%; transform: scale(1.1); }
  }
 
  @keyframes prismRotate {
@@ -266,8 +266,8 @@
  }
 
  @keyframes warpSpeed {
- 0%, 100% { background-position: 50% 50%; transform: scale(1) translateZ(0); filter: blur(0px); }
- 50% { background-position: 100% 100%; transform: scale(1.2) translateZ(0); filter: blur(5px); }
+ 0%, 100% { background-position: 50% 50%; transform: scale(1); filter: blur(0px); }
+ 50% { background-position: 100% 100%; transform: scale(1.2); filter: blur(5px); }
  }
 
  @keyframes discoRotate {
@@ -284,10 +284,10 @@
  }
 
  @keyframes supernovaExplosion {
- 0%, 100% { background-position: 50% 50%; transform: scale(1) translateZ(0); filter: brightness(1); }
- 25% { background-position: 75% 75%; transform: scale(1.3) translateZ(0); filter: brightness(2); }
- 50% { background-position: 100% 100%; transform: scale(1.5) translateZ(0); filter: brightness(3); }
- 75% { background-position: 75% 75%; transform: scale(1.3) translateZ(0); filter: brightness(2); }
+ 0%, 100% { background-position: 50% 50%; transform: scale(1); filter: brightness(1); }
+ 25% { background-position: 75% 75%; transform: scale(1.3); filter: brightness(2); }
+ 50% { background-position: 100% 100%; transform: scale(1.5); filter: brightness(3); }
+ 75% { background-position: 75% 75%; transform: scale(1.3); filter: brightness(2); }
  }
 
  /* CSS Animated Elements for ALL Moods */
@@ -681,24 +681,24 @@
 
  /* Element Animations */
  @keyframes orbsFloat {
- 0%, 100% { transform: translate(0, 0) scale(1) translateZ(0); opacity: 0.9; }
- 25% { transform: translate(80px, -80px) scale(1.2) translateZ(0); opacity: 1; }
- 50% { transform: translate(-50px, 50px) scale(1.1) translateZ(0); opacity: 0.95; }
- 75% { transform: translate(-80px, -60px) scale(1.15) translateZ(0); opacity: 1; }
+ 0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.9; }
+ 25% { transform: translate(80px, -80px) scale(1.2); opacity: 1; }
+ 50% { transform: translate(-50px, 50px) scale(1.1); opacity: 0.95; }
+ 75% { transform: translate(-80px, -60px) scale(1.15); opacity: 1; }
  }
 
  @keyframes starsTwinkle {
- 0%, 100% { opacity: 0.6; transform: scale(1) translateZ(0); }
- 25% { opacity: 1; transform: scale(1.2) translateZ(0); }
- 50% { opacity: 0.4; transform: scale(0.9) translateZ(0); }
- 75% { opacity: 1; transform: scale(1.1) translateZ(0); }
+ 0%, 100% { opacity: 0.6; transform: scale(1); }
+ 25% { opacity: 1; transform: scale(1.2); }
+ 50% { opacity: 0.4; transform: scale(0.9); }
+ 75% { opacity: 1; transform: scale(1.1); }
  }
 
  @keyframes lavaBubble {
- 0%, 100% { transform: translateY(0) scale(1) translateZ(0); opacity: 0.9; }
- 25% { transform: translateY(-40px) scale(1.15) translateZ(0); opacity: 1; }
- 50% { transform: translateY(-20px) scale(1.2) translateZ(0); opacity: 0.95; }
- 75% { transform: translateY(-50px) scale(1.1) translateZ(0); opacity: 1; }
+ 0%, 100% { transform: translateY(0) scale(1); opacity: 0.9; }
+ 25% { transform: translateY(-40px) scale(1.15); opacity: 1; }
+ 50% { transform: translateY(-20px) scale(1.2); opacity: 0.95; }
+ 75% { transform: translateY(-50px) scale(1.1); opacity: 1; }
  }
 
  @keyframes lightningStrike {
@@ -710,13 +710,13 @@
  }
 
  @keyframes matrixRain {
- 0% { transform: translateY(0) translateZ(0); opacity: 0.8; }
- 100% { transform: translateY(100px) translateZ(0); opacity: 1; }
+ 0% { transform: translateY(0); opacity: 0.8; }
+ 100% { transform: translateY(100px); opacity: 1; }
  }
 
  @keyframes rainbowShimmer {
- 0% { transform: translateX(0) rotate(0deg) translateZ(0); }
- 100% { transform: translateX(100%) rotate(5deg) translateZ(0); }
+ 0% { transform: translateX(0) rotate(0deg); }
+ 100% { transform: translateX(100%) rotate(5deg); }
  }
 
  @keyframes vaporwaveGrid {
@@ -725,36 +725,36 @@
  }
 
  @keyframes flamesRise {
- 0%, 100% { transform: translateY(0) scale(1) scaleY(1) translateZ(0); opacity: 0.9; }
- 25% { transform: translateY(-60px) scale(1.1) scaleY(1.3) translateZ(0); opacity: 1; }
- 50% { transform: translateY(-40px) scale(1.15) scaleY(1.2) translateZ(0); opacity: 0.95; }
- 75% { transform: translateY(-70px) scale(1.08) scaleY(1.4) translateZ(0); opacity: 1; }
+ 0%, 100% { transform: translateY(0) scale(1) scaleY(1); opacity: 0.9; }
+ 25% { transform: translateY(-60px) scale(1.1) scaleY(1.3); opacity: 1; }
+ 50% { transform: translateY(-40px) scale(1.15) scaleY(1.2); opacity: 0.95; }
+ 75% { transform: translateY(-70px) scale(1.08) scaleY(1.4); opacity: 1; }
  }
 
  @keyframes cyberpunkGlitchBars {
- 0%, 100% { transform: translateX(0) skew(0deg) translateZ(0); opacity: 0.8; }
- 20% { transform: translateX(50%) skew(5deg) translateZ(0); opacity: 1; }
- 40% { transform: translateX(-30%) skew(-3deg) translateZ(0); opacity: 0.9; }
- 60% { transform: translateX(70%) skew(4deg) translateZ(0); opacity: 1; }
- 80% { transform: translateX(-50%) skew(-5deg) translateZ(0); opacity: 0.95; }
+ 0%, 100% { transform: translateX(0) skew(0deg); opacity: 0.8; }
+ 20% { transform: translateX(50%) skew(5deg); opacity: 1; }
+ 40% { transform: translateX(-30%) skew(-3deg); opacity: 0.9; }
+ 60% { transform: translateX(70%) skew(4deg); opacity: 1; }
+ 80% { transform: translateX(-50%) skew(-5deg); opacity: 0.95; }
  }
 
  @keyframes nebulaRotate {
- 0% { transform: rotate(0deg) scale(1) translateZ(0); opacity: 0.9; }
- 25% { transform: rotate(90deg) scale(1.1) translateZ(0); opacity: 1; }
- 50% { transform: rotate(180deg) scale(1.05) translateZ(0); opacity: 0.95; }
- 75% { transform: rotate(270deg) scale(1.1) translateZ(0); opacity: 1; }
- 100% { transform: rotate(360deg) scale(1) translateZ(0); opacity: 0.9; }
+ 0% { transform: rotate(0deg) scale(1); opacity: 0.9; }
+ 25% { transform: rotate(90deg) scale(1.1); opacity: 1; }
+ 50% { transform: rotate(180deg) scale(1.05); opacity: 0.95; }
+ 75% { transform: rotate(270deg) scale(1.1); opacity: 1; }
+ 100% { transform: rotate(360deg) scale(1); opacity: 0.9; }
  }
 
  /* New Mood Element Animations */
  @keyframes glitchSplit {
- 0%, 100% { transform: translate(0, 0) translateZ(0); opacity: 0.8; }
- 10% { transform: translate(10px, -5px) translateZ(0); opacity: 1; }
- 20% { transform: translate(-8px, 8px) translateZ(0); opacity: 0.9; }
- 30% { transform: translate(5px, -10px) translateZ(0); opacity: 1; }
- 40% { transform: translate(-10px, 5px) translateZ(0); opacity: 0.85; }
- 50% { transform: translate(0, 0) translateZ(0); opacity: 0.9; }
+ 0%, 100% { transform: translate(0, 0); opacity: 0.8; }
+ 10% { transform: translate(10px, -5px); opacity: 1; }
+ 20% { transform: translate(-8px, 8px); opacity: 0.9; }
+ 30% { transform: translate(5px, -10px); opacity: 1; }
+ 40% { transform: translate(-10px, 5px); opacity: 0.85; }
+ 50% { transform: translate(0, 0); opacity: 0.9; }
  }
 
  @keyframes lightningBolt {
@@ -764,8 +764,8 @@
  }
 
  @keyframes pulseRings {
- 0%, 100% { transform: scale(0.8) translateZ(0); opacity: 1; }
- 50% { transform: scale(1.3) translateZ(0); opacity: 0.6; }
+ 0%, 100% { transform: scale(0.8); opacity: 1; }
+ 50% { transform: scale(1.3); opacity: 0.6; }
  }
 
  @keyframes prismRefract {
@@ -774,18 +774,18 @@
  }
 
  @keyframes hologramScan {
- 0%, 100% { transform: translateY(0) scaleY(1) translateZ(0); opacity: 0.9; }
- 50% { transform: translateY(-20px) scaleY(1.1) translateZ(0); opacity: 1; }
+ 0%, 100% { transform: translateY(0) scaleY(1); opacity: 0.9; }
+ 50% { transform: translateY(-20px) scaleY(1.1); opacity: 1; }
  }
 
  @keyframes laserSweep {
- 0%, 100% { transform: translateX(-100%) rotate(0deg) translateZ(0); opacity: 0.8; }
- 50% { transform: translateX(100%) rotate(15deg) translateZ(0); opacity: 1; }
+ 0%, 100% { transform: translateX(-100%) rotate(0deg); opacity: 0.8; }
+ 50% { transform: translateX(100%) rotate(15deg); opacity: 1; }
  }
 
  @keyframes warpStreaks {
- 0% { transform: translate(0, 0) scale(1) translateZ(0); }
- 100% { transform: translate(-100px, -100px) scale(1.2) translateZ(0); }
+ 0% { transform: translate(0, 0) scale(1); }
+ 100% { transform: translate(-100px, -100px) scale(1.2); }
  }
 
  @keyframes discoSpotlight {
@@ -794,26 +794,26 @@
  }
 
  @keyframes radioactiveGlow {
- 0%, 100% { transform: scale(1) translateZ(0); opacity: 0.8; filter: blur(60px); }
- 25% { transform: scale(1.2) translateZ(0); opacity: 1; filter: blur(70px); }
- 50% { transform: scale(1.4) translateZ(0); opacity: 0.9; filter: blur(80px); }
- 75% { transform: scale(1.2) translateZ(0); opacity: 1; filter: blur(70px); }
+ 0%, 100% { transform: scale(1); opacity: 0.8; filter: blur(60px); }
+ 25% { transform: scale(1.2); opacity: 1; filter: blur(70px); }
+ 50% { transform: scale(1.4); opacity: 0.9; filter: blur(80px); }
+ 75% { transform: scale(1.2); opacity: 1; filter: blur(70px); }
  }
 
  @keyframes explosionExpand {
- 0%, 100% { transform: scale(0.5) translateZ(0); opacity: 1; }
- 25% { transform: scale(1.5) translateZ(0); opacity: 0.9; }
- 50% { transform: scale(2) translateZ(0); opacity: 0.7; }
- 75% { transform: scale(1.5) translateZ(0); opacity: 0.9; }
+ 0%, 100% { transform: scale(0.5); opacity: 1; }
+ 25% { transform: scale(1.5); opacity: 0.9; }
+ 50% { transform: scale(2); opacity: 0.7; }
+ 75% { transform: scale(1.5); opacity: 0.9; }
  }
 
  /* Dramatic Mood Animations */
  @keyframes gradientShift {
- 0% { background-position: 0% 50%; transform: scale(1) translateZ(0); }
- 25% { background-position: 100% 50%; transform: scale(1.05) translateZ(0); }
- 50% { background-position: 100% 100%; transform: scale(1) translateZ(0); }
- 75% { background-position: 0% 100%; transform: scale(1.05) translateZ(0); }
- 100% { background-position: 0% 50%; transform: scale(1) translateZ(0); }
+ 0% { background-position: 0% 50%; transform: scale(1); }
+ 25% { background-position: 100% 50%; transform: scale(1.05); }
+ 50% { background-position: 100% 100%; transform: scale(1); }
+ 75% { background-position: 0% 100%; transform: scale(1.05); }
+ 100% { background-position: 0% 50%; transform: scale(1); }
  }
 
  @keyframes sunsetPulse {
@@ -848,11 +848,11 @@
  }
 
  @keyframes auroraFlow {
- 0% { background-position: 0% 0%; transform: rotate(0deg) scale(1) translateZ(0); }
+ 0% { background-position: 0% 0%; transform: rotate(0deg) scale(1); }
  25% { background-position: 100% 50%; transform: rotate(1deg) scale(1.03); }
  50% { background-position: 100% 100%; transform: rotate(0deg) scale(1.05); }
  75% { background-position: 50% 50%; transform: rotate(-1deg) scale(1.03); }
- 100% { background-position: 0% 0%; transform: rotate(0deg) scale(1) translateZ(0); }
+ 100% { background-position: 0% 0%; transform: rotate(0deg) scale(1); }
  }
 
  @keyframes candyPop {
@@ -941,7 +941,7 @@
 
  @keyframes float {
  0%, 100% {
- transform: translateY(0) translateX(0) translateZ(0);
+ transform: translateY(0) translateX(0);
  opacity: 0;
  }
  10% {
@@ -951,7 +951,7 @@
  opacity: 1;
  }
  100% {
- transform: translateY(-100vh) translateX(50px) translateZ(0);
+ transform: translateY(-100vh) translateX(50px);
  opacity: 0;
  }
  }
@@ -1295,7 +1295,7 @@
 
  .floating-control-btn:hover {
  background: rgba(255, 255, 255, 0.2);
- transform: scale(1.05) translateZ(0);
+ transform: scale(1.05);
  }
 
  .floating-control-btn.large {

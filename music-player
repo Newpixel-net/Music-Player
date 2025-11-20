@@ -226,68 +226,199 @@
  animation: supernovaExplosion 12s ease-in-out infinite;
  }
 
+ /* 15 NEW AMAZING MOOD THEMES */
+ body.mood-oceanic {
+ background: radial-gradient(circle at 30% 30%, #006994, transparent 50%),
+             radial-gradient(circle at 70% 70%, #0a4d68, transparent 50%),
+             linear-gradient(135deg, #003366, #1a5f7a, #002244);
+ background-size: 350% 350%;
+ animation: oceanicDepths 14s ease-in-out infinite;
+ }
+
+ body.mood-desert {
+ background: radial-gradient(circle at 20% 60%, #ff8c42, transparent 40%),
+             radial-gradient(circle at 80% 40%, #ffa600, transparent 40%),
+             linear-gradient(180deg, #ff6b35, #f7931e, #c1440e);
+ background-size: 300% 300%;
+ animation: desertSunset 11s ease-in-out infinite;
+ }
+
+ body.mood-arctic {
+ background: radial-gradient(circle at 40% 50%, #e0f7ff, transparent 45%),
+             radial-gradient(circle at 60% 50%, #b8e6f5, transparent 45%),
+             linear-gradient(135deg, #d4f1f9, #a8dadc, #89c2d9);
+ background-size: 280% 280%;
+ animation: arcticFreeze 16s ease-in-out infinite;
+ }
+
+ body.mood-jungle {
+ background: radial-gradient(circle at 25% 25%, #1e4620, transparent 55%),
+             radial-gradient(circle at 75% 75%, #2d5a2f, transparent 55%),
+             linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+ background-size: 320% 320%;
+ animation: jungleNight 13s ease-in-out infinite;
+ }
+
+ body.mood-cherry {
+ background: radial-gradient(circle at 35% 35%, #ffb3d9, transparent 40%),
+             radial-gradient(circle at 65% 65%, #ff6bc5, transparent 40%),
+             linear-gradient(135deg, #ffc8dd, #ff99cc, #ff66b2);
+ background-size: 310% 310%;
+ animation: cherryBlossom 10s ease-in-out infinite;
+ }
+
+ body.mood-thunder {
+ background: radial-gradient(circle at 50% 50%, #4a5568, transparent 60%),
+             linear-gradient(135deg, #1a202c, #2d3748, #1a1f2e);
+ background-size: 330% 330%;
+ animation: thunderstorm 9s ease-in-out infinite;
+ }
+
+ body.mood-mystic {
+ background: radial-gradient(circle at 40% 40%, #5b3a70, transparent 50%),
+             radial-gradient(circle at 60% 60%, #3d2d52, transparent 50%),
+             linear-gradient(135deg, #2a1b3d, #44318d, #2f184b);
+ background-size: 340% 340%;
+ animation: mysticForest 15s ease-in-out infinite;
+ }
+
+ body.mood-cybergrid {
+ background: linear-gradient(90deg, #0d1117 1px, transparent 1px),
+             linear-gradient(180deg, #0d1117 1px, transparent 1px),
+             linear-gradient(135deg, #00ff9f, #00b8d4, #7000ff);
+ background-size: 50px 50px, 50px 50px, 400% 400%;
+ animation: cyberGrid 8s linear infinite;
+ }
+
+ body.mood-royal {
+ background: radial-gradient(circle at 30% 30%, #7209b7, transparent 50%),
+             radial-gradient(circle at 70% 70%, #560bad, transparent 50%),
+             linear-gradient(135deg, #3c096c, #5a189a, #240046);
+ background-size: 360% 360%;
+ animation: royalPurple 12s ease-in-out infinite;
+ }
+
+ body.mood-golden {
+ background: radial-gradient(circle at 50% 40%, #ffd700, transparent 45%),
+             radial-gradient(circle at 50% 60%, #ffaa00, transparent 45%),
+             linear-gradient(135deg, #ff8c00, #ffa500, #cc7000);
+ background-size: 290% 290%;
+ animation: goldenHour 11s ease-in-out infinite;
+ }
+
+ body.mood-nebula {
+ background: radial-gradient(circle at 30% 50%, #b794f6, transparent 45%),
+             radial-gradient(circle at 70% 50%, #f687b3, transparent 45%),
+             linear-gradient(135deg, #667eea, #f093fb, #4facfe);
+ background-size: 380% 380%;
+ animation: nebulaDream 17s ease-in-out infinite;
+ }
+
+ body.mood-crimson {
+ background: radial-gradient(circle at 40% 40%, #dc2626, transparent 50%),
+             radial-gradient(circle at 60% 60%, #991b1b, transparent 50%),
+             linear-gradient(135deg, #7f1d1d, #b91c1c, #450a0a);
+ background-size: 320% 320%;
+ animation: crimsonTide 10s ease-in-out infinite;
+ }
+
+ body.mood-emerald {
+ background: radial-gradient(circle at 35% 35%, #10b981, transparent 50%),
+             radial-gradient(circle at 65% 65%, #059669, transparent 50%),
+             linear-gradient(135deg, #064e3b, #047857, #022c22);
+ background-size: 340% 340%;
+ animation: emeraldCity 13s ease-in-out infinite;
+ }
+
+ body.mood-solar {
+ background: radial-gradient(circle at 50% 50%, #fff7ed, #fed7aa, #fb923c, #ea580c, #9a3412);
+ background-size: 350% 350%;
+ animation: solarFlare 9s ease-in-out infinite;
+ }
+
+ body.mood-moonlight {
+ background: radial-gradient(circle at 50% 30%, #e0e7ff, transparent 40%),
+             radial-gradient(circle at 50% 70%, #c7d2fe, transparent 40%),
+             linear-gradient(135deg, #4c1d95, #5b21b6, #2e1065);
+ background-size: 300% 300%;
+ animation: moonlightSerenade 14s ease-in-out infinite;
+ }
+
  /* NEW MOOD ANIMATIONS */
  @keyframes glitchShift {
- 0%, 100% { background-position: 0% 50%; filter: hue-rotate(0deg) saturate(1); }
- 10% { background-position: 100% 50%; filter: hue-rotate(90deg) saturate(2); }
- 20% { background-position: 0% 100%; filter: hue-rotate(180deg) saturate(1.5); }
- 30% { background-position: 100% 0%; filter: hue-rotate(270deg) saturate(2); }
- 40% { background-position: 50% 50%; filter: hue-rotate(0deg) saturate(1); }
+ 0%, 100% { background-position: 0% 50%; }
+ 10% { background-position: 100% 50%; }
+ 20% { background-position: 0% 100%; }
+ 30% { background-position: 100% 0%; }
+ 40% { background-position: 50% 50%; }
+ 60% { background-position: 20% 80%; }
+ 80% { background-position: 80% 20%; }
  }
 
  @keyframes lightningFlash {
- 0%, 90%, 100% { filter: brightness(0.8); }
- 91%, 93%, 95% { filter: brightness(3) saturate(2); }
- 92%, 94% { filter: brightness(0.5); }
+ 0%, 90%, 100% { background-position: 50% 50%; }
+ 91%, 93%, 95% { background-position: 100% 100%; }
+ 92%, 94% { background-position: 0% 0%; }
+ 96% { background-position: 75% 25%; }
+ 97% { background-position: 25% 75%; }
  }
 
  @keyframes heartPulse {
- 0%, 100% { background-position: 50% 50%; transform: scale(1); }
- 25% { background-position: 100% 100%; transform: scale(1.1); }
- 50% { background-position: 0% 0%; transform: scale(1); }
- 75% { background-position: 100% 0%; transform: scale(1.1); }
+ 0%, 100% { background-position: 50% 50%; }
+ 25% { background-position: 100% 100%; }
+ 50% { background-position: 0% 0%; }
+ 75% { background-position: 100% 0%; }
  }
 
  @keyframes prismRotate {
- 0% { background-position: 0% 50%; filter: hue-rotate(0deg); }
- 100% { background-position: 100% 50%; filter: hue-rotate(360deg); }
+ 0% { background-position: 0% 50%; }
+ 25% { background-position: 100% 0%; }
+ 50% { background-position: 100% 50%; }
+ 75% { background-position: 0% 100%; }
+ 100% { background-position: 0% 50%; }
  }
 
  @keyframes hologramShimmer {
- 0%, 100% { background-position: 0% 50%; filter: brightness(1) saturate(1.5); }
- 25% { background-position: 100% 50%; filter: brightness(1.3) saturate(2); }
- 50% { background-position: 50% 100%; filter: brightness(1.5) saturate(2.5); }
- 75% { background-position: 50% 0%; filter: brightness(1.3) saturate(2); }
+ 0%, 100% { background-position: 0% 50%; }
+ 25% { background-position: 100% 50%; }
+ 50% { background-position: 50% 100%; }
+ 75% { background-position: 50% 0%; }
  }
 
  @keyframes laserBeam {
- 0%, 100% { filter: brightness(1) contrast(1); }
- 50% { filter: brightness(2) contrast(2) saturate(3); }
+ 0%, 100% { background-position: 0% 50%; }
+ 25% { background-position: 100% 100%; }
+ 50% { background-position: 50% 0%; }
+ 75% { background-position: 100% 50%; }
  }
 
  @keyframes warpSpeed {
- 0%, 100% { background-position: 50% 50%; transform: scale(1); filter: blur(0px); }
- 50% { background-position: 100% 100%; transform: scale(1.2); filter: blur(5px); }
+ 0%, 100% { background-position: 50% 50%; }
+ 25% { background-position: 100% 100%; }
+ 50% { background-position: 0% 0%; }
+ 75% { background-position: 0% 100%; }
  }
 
  @keyframes discoRotate {
- 0% { background-position: 0% 50%; filter: hue-rotate(0deg) brightness(1); }
- 25% { background-position: 100% 50%; filter: hue-rotate(90deg) brightness(1.3); }
- 50% { background-position: 100% 100%; filter: hue-rotate(180deg) brightness(1); }
- 75% { background-position: 0% 100%; filter: hue-rotate(270deg) brightness(1.3); }
- 100% { background-position: 0% 50%; filter: hue-rotate(360deg) brightness(1); }
+ 0% { background-position: 0% 50%; }
+ 25% { background-position: 100% 50%; }
+ 50% { background-position: 100% 100%; }
+ 75% { background-position: 0% 100%; }
+ 100% { background-position: 0% 50%; }
  }
 
  @keyframes nuclearGlow {
- 0%, 100% { background-position: 50% 50%; filter: brightness(1) saturate(1.5); }
- 50% { background-position: 100% 100%; filter: brightness(2) saturate(3) drop-shadow(0 0 50px #00ff00); }
+ 0%, 100% { background-position: 50% 50%; }
+ 25% { background-position: 100% 0%; }
+ 50% { background-position: 100% 100%; }
+ 75% { background-position: 0% 100%; }
  }
 
  @keyframes supernovaExplosion {
- 0%, 100% { background-position: 50% 50%; transform: scale(1); filter: brightness(1); }
- 25% { background-position: 75% 75%; transform: scale(1.3); filter: brightness(2); }
- 50% { background-position: 100% 100%; transform: scale(1.5); filter: brightness(3); }
- 75% { background-position: 75% 75%; transform: scale(1.3); filter: brightness(2); }
+ 0%, 100% { background-position: 50% 50%; }
+ 25% { background-position: 75% 75%; }
+ 50% { background-position: 100% 100%; }
+ 75% { background-position: 75% 75%; }
  }
 
  /* CSS Animated Elements for ALL Moods */
@@ -884,6 +1015,124 @@
  50% { background-position: 100% 100%; }
  75% { background-position: 0% 100%; }
  100% { background-position: 0% 50%; }
+ }
+
+ /* 15 NEW MOOD ANIMATIONS - SAFE (background-position only) */
+ @keyframes oceanicDepths {
+ 0% { background-position: 0% 0%; }
+ 25% { background-position: 50% 100%; }
+ 50% { background-position: 100% 50%; }
+ 75% { background-position: 50% 0%; }
+ 100% { background-position: 0% 0%; }
+ }
+
+ @keyframes desertSunset {
+ 0% { background-position: 0% 100%; }
+ 33% { background-position: 100% 50%; }
+ 66% { background-position: 50% 0%; }
+ 100% { background-position: 0% 100%; }
+ }
+
+ @keyframes arcticFreeze {
+ 0% { background-position: 50% 50%; }
+ 20% { background-position: 80% 20%; }
+ 40% { background-position: 20% 80%; }
+ 60% { background-position: 70% 30%; }
+ 80% { background-position: 30% 70%; }
+ 100% { background-position: 50% 50%; }
+ }
+
+ @keyframes jungleNight {
+ 0% { background-position: 0% 50%; }
+ 30% { background-position: 100% 70%; }
+ 60% { background-position: 30% 30%; }
+ 90% { background-position: 70% 100%; }
+ 100% { background-position: 0% 50%; }
+ }
+
+ @keyframes cherryBlossom {
+ 0% { background-position: 0% 0%; }
+ 25% { background-position: 100% 100%; }
+ 50% { background-position: 0% 100%; }
+ 75% { background-position: 100% 0%; }
+ 100% { background-position: 0% 0%; }
+ }
+
+ @keyframes thunderstorm {
+ 0% { background-position: 50% 50%; }
+ 33% { background-position: 100% 100%; }
+ 66% { background-position: 0% 0%; }
+ 100% { background-position: 50% 50%; }
+ }
+
+ @keyframes mysticForest {
+ 0% { background-position: 0% 50%; }
+ 20% { background-position: 60% 80%; }
+ 40% { background-position: 100% 40%; }
+ 60% { background-position: 40% 20%; }
+ 80% { background-position: 20% 60%; }
+ 100% { background-position: 0% 50%; }
+ }
+
+ @keyframes cyberGrid {
+ 0% { background-position: 0 0, 0 0, 0% 50%; }
+ 100% { background-position: 50px 50px, 50px 50px, 100% 50%; }
+ }
+
+ @keyframes royalPurple {
+ 0% { background-position: 0% 0%; }
+ 25% { background-position: 100% 50%; }
+ 50% { background-position: 50% 100%; }
+ 75% { background-position: 0% 50%; }
+ 100% { background-position: 0% 0%; }
+ }
+
+ @keyframes goldenHour {
+ 0% { background-position: 50% 0%; }
+ 33% { background-position: 100% 100%; }
+ 66% { background-position: 0% 50%; }
+ 100% { background-position: 50% 0%; }
+ }
+
+ @keyframes nebulaDream {
+ 0% { background-position: 0% 50%; }
+ 20% { background-position: 80% 80%; }
+ 40% { background-position: 100% 20%; }
+ 60% { background-position: 20% 100%; }
+ 80% { background-position: 50% 30%; }
+ 100% { background-position: 0% 50%; }
+ }
+
+ @keyframes crimsonTide {
+ 0% { background-position: 0% 50%; }
+ 25% { background-position: 100% 100%; }
+ 50% { background-position: 100% 0%; }
+ 75% { background-position: 0% 100%; }
+ 100% { background-position: 0% 50%; }
+ }
+
+ @keyframes emeraldCity {
+ 0% { background-position: 50% 50%; }
+ 30% { background-position: 100% 0%; }
+ 60% { background-position: 0% 100%; }
+ 90% { background-position: 80% 20%; }
+ 100% { background-position: 50% 50%; }
+ }
+
+ @keyframes solarFlare {
+ 0% { background-position: 50% 50%; }
+ 25% { background-position: 100% 100%; }
+ 50% { background-position: 50% 50%; }
+ 75% { background-position: 0% 0%; }
+ 100% { background-position: 50% 50%; }
+ }
+
+ @keyframes moonlightSerenade {
+ 0% { background-position: 0% 0%; }
+ 25% { background-position: 100% 50%; }
+ 50% { background-position: 50% 100%; }
+ 75% { background-position: 50% 0%; }
+ 100% { background-position: 0% 0%; }
  }
 
  /* Animated Background Elements */

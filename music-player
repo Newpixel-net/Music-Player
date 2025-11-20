@@ -3206,6 +3206,214 @@
  transition: opacity 0.3s ease;
  }
 
+/* Easter Egg Modal */
+.easter-egg-modal {
+max-width: 600px;
+max-height: 85vh;
+overflow-y: auto;
+}
+
+.easter-egg-content {
+padding: 20px;
+display: flex;
+flex-direction: column;
+gap: 15px;
+}
+
+.easter-egg-option {
+background: #2a2a2a;
+border-radius: 12px;
+padding: 15px;
+border: 2px solid #3a3a3a;
+transition: all 0.3s ease;
+}
+
+.easter-egg-option:hover {
+border-color: #667eea;
+box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+}
+
+.easter-egg-option-header {
+display: flex;
+align-items: center;
+gap: 12px;
+margin-bottom: 12px;
+}
+
+.easter-egg-icon {
+font-size: 24px;
+width: 40px;
+height: 40px;
+display: flex;
+align-items: center;
+justify-content: center;
+background: rgba(102, 126, 234, 0.1);
+border-radius: 10px;
+flex-shrink: 0;
+}
+
+.easter-egg-option-info {
+flex: 1;
+}
+
+.easter-egg-option-title {
+font-size: 15px;
+font-weight: 600;
+color: #fff;
+margin-bottom: 4px;
+}
+
+.easter-egg-option-desc {
+font-size: 12px;
+color: #999;
+}
+
+.easter-egg-control {
+display: flex;
+align-items: center;
+gap: 12px;
+}
+
+.easter-egg-slider {
+flex: 1;
+height: 6px;
+border-radius: 3px;
+background: #3a3a3a;
+outline: none;
+-webkit-appearance: none;
+}
+
+.easter-egg-slider::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: linear-gradient(135deg, #667eea, #764ba2);
+cursor: pointer;
+box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+}
+
+.easter-egg-slider::-moz-range-thumb {
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: linear-gradient(135deg, #667eea, #764ba2);
+cursor: pointer;
+border: none;
+box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+}
+
+.easter-egg-value {
+font-size: 13px;
+font-weight: 600;
+color: #667eea;
+min-width: 45px;
+text-align: right;
+}
+
+.easter-egg-select {
+flex: 1;
+padding: 8px 12px;
+background: #3a3a3a;
+border: 2px solid #4a4a4a;
+border-radius: 8px;
+color: #fff;
+font-size: 13px;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+
+.easter-egg-select:hover {
+border-color: #667eea;
+}
+
+.easter-egg-select:focus {
+outline: none;
+border-color: #667eea;
+box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.easter-egg-toggle {
+position: relative;
+width: 50px;
+height: 26px;
+cursor: pointer;
+}
+
+.easter-egg-toggle input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+
+.easter-egg-toggle-slider {
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: #3a3a3a;
+border-radius: 26px;
+transition: all 0.3s ease;
+}
+
+.easter-egg-toggle-slider:before {
+content: "";
+position: absolute;
+height: 20px;
+width: 20px;
+left: 3px;
+bottom: 3px;
+background: #fff;
+border-radius: 50%;
+transition: all 0.3s ease;
+}
+
+.easter-egg-toggle input:checked + .easter-egg-toggle-slider {
+background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.easter-egg-toggle input:checked + .easter-egg-toggle-slider:before {
+transform: translateX(24px);
+}
+
+.easter-egg-footer {
+margin-top: 10px;
+padding-top: 15px;
+border-top: 1px solid #3a3a3a;
+}
+
+.easter-egg-reset {
+width: 100%;
+padding: 12px;
+background: rgba(255, 107, 107, 0.1);
+border: 2px solid rgba(255, 107, 107, 0.3);
+border-radius: 10px;
+color: #ff6b6b;
+font-size: 14px;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+
+.easter-egg-reset:hover {
+background: rgba(255, 107, 107, 0.2);
+border-color: #ff6b6b;
+transform: translateY(-2px);
+}
+
+.mood-title {
+cursor: pointer;
+transition: all 0.3s ease;
+user-select: none;
+}
+
+.mood-title:hover {
+color: #667eea;
+transform: scale(1.05);
+}
+
  .input-modal-content {
  padding: 20px;
  }
@@ -3466,37 +3674,49 @@
  }
 
  .sticky-controls {
- padding: 8px 12px;
- flex-direction: column;
- gap: 8px;
+ padding: 6px 10px;
+ flex-direction: row;
+ flex-wrap: wrap;
+ gap: 6px;
  min-height: auto;
  max-height: none;
+ align-items: center;
  }
 
  .sticky-info {
- width: 100%;
+ flex: 1;
  order: 2;
+ min-width: 0;
+ display: flex;
+ align-items: center;
+ gap: 8px;
  }
 
  .sticky-thumb {
- width: 36px;
- height: 36px;
+ width: 32px;
+ height: 32px;
+ flex-shrink: 0;
+ }
+
+ .sticky-text {
+ flex: 1;
+ min-width: 0;
  }
 
  .sticky-song {
- font-size: 13px;
+ font-size: 12px;
  }
 
  .sticky-artist {
- font-size: 11px;
+ font-size: 10px;
  }
 
  .music-visualizer {
  width: 100%;
  order: 1;
- height: 30px;
- max-height: 30px;
- margin: 0 0 8px 0;
+ height: 20px;
+ max-height: 20px;
+ margin: 0;
  }
 
  .visualizer-bar {
@@ -3505,26 +3725,27 @@
 
  .sticky-controls-buttons {
  order: 3;
- width: 100%;
- justify-content: center;
- gap: 15px;
+ display: flex;
+ justify-content: flex-end;
+ gap: 10px;
+ flex-shrink: 0;
  }
 
  .sticky-btn {
- width: 44px;
- height: 44px;
+ width: 38px;
+ height: 38px;
  }
 
  .sticky-btn.large {
- width: 54px;
- height: 54px;
+ width: 46px;
+ height: 46px;
  }
 
  /* Mobile floating add playlist button */
  .add-playlist-btn-mobile {
  display: flex;
  position: fixed;
- bottom: 90px;
+ bottom: 60px;
  right: 15px;
  width: 56px;
  height: 56px;
@@ -4094,6 +4315,144 @@
  </div>
  </div>
  </div>
+
+  <!-- Easter Egg Settings Modal -->
+  <div class="modal-overlay" id="easterEggModalOverlay">
+    <div class="modal easter-egg-modal">
+      <div class="modal-header">
+        <h2 class="modal-title">✨ Advanced Atmosphere Settings</h2>
+        <button class="modal-close" id="closeEasterEggModal">×</button>
+      </div>
+      <div class="easter-egg-content">
+
+        <!-- Player Transparency -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">🎨</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Player Background Opacity</div>
+              <div class="easter-egg-option-desc">Adjust music player transparency</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <input type="range" class="easter-egg-slider" id="playerOpacity" min="0" max="100" value="98">
+            <span class="easter-egg-value" id="playerOpacityValue">98%</span>
+          </div>
+        </div>
+
+        <!-- Sticky Mood Colors -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">🌈</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Sticky Controller Mood Colors</div>
+              <div class="easter-egg-option-desc">Controller changes color with mood</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <label class="easter-egg-toggle">
+              <input type="checkbox" id="stickyMoodColors">
+              <span class="easter-egg-toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Animation Speed -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">⚡</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Animation Speed</div>
+              <div class="easter-egg-option-desc">Control mood animation tempo</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <select class="easter-egg-select" id="animationSpeed">
+              <option value="0.5">Slow (0.5x)</option>
+              <option value="0.75">Relaxed (0.75x)</option>
+              <option value="1" selected>Normal (1x)</option>
+              <option value="1.5">Fast (1.5x)</option>
+              <option value="2">Hyper (2x)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Blur Intensity -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">🌫️</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Backdrop Blur Intensity</div>
+              <div class="easter-egg-option-desc">Glassmorphism effect strength</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <select class="easter-egg-select" id="blurIntensity">
+              <option value="0">None</option>
+              <option value="10">Light (10px)</option>
+              <option value="20" selected>Medium (20px)</option>
+              <option value="30">Heavy (30px)</option>
+              <option value="40">Ultra (40px)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Visualizer Bar Count -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">📊</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Visualizer Complexity</div>
+              <div class="easter-egg-option-desc">Number of visualizer bars</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <input type="range" class="easter-egg-slider" id="visualizerBars" min="20" max="100" value="50" step="10">
+            <span class="easter-egg-value" id="visualizerBarsValue">50</span>
+          </div>
+        </div>
+
+        <!-- Border Glow -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">✨</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Border Glow Effect</div>
+              <div class="easter-egg-option-desc">Glowing borders on player elements</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <label class="easter-egg-toggle">
+              <input type="checkbox" id="borderGlow">
+              <span class="easter-egg-toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Particle Effects -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">🎆</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Floating Particles</div>
+              <div class="easter-egg-option-desc">Animated particles in background</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <label class="easter-egg-toggle">
+              <input type="checkbox" id="particleEffects">
+              <span class="easter-egg-toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="easter-egg-footer">
+          <button class="easter-egg-reset" id="resetEasterEgg">Reset to Defaults</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
  <!-- Mobile Floating Add Playlist Button -->
  <button class="add-playlist-btn-mobile" id="addPlaylistBtnMobile">+</button>
@@ -5851,6 +6210,314 @@
  if (e.target === playlistModalOverlay) closePlaylistModalFunc();
  });
  
+
+// Easter Egg Modal - Advanced Atmosphere Settings
+const easterEggModalOverlay = document.getElementById('easterEggModalOverlay');
+const closeEasterEggModal = document.getElementById('closeEasterEggModal');
+const moodTitle = document.querySelector('.mood-title');
+const resetEasterEgg = document.getElementById('resetEasterEgg');
+
+// Easter Egg Controls
+const playerOpacity = document.getElementById('playerOpacity');
+const playerOpacityValue = document.getElementById('playerOpacityValue');
+const stickyMoodColors = document.getElementById('stickyMoodColors');
+const animationSpeed = document.getElementById('animationSpeed');
+const blurIntensity = document.getElementById('blurIntensity');
+const visualizerBars = document.getElementById('visualizerBars');
+const visualizerBarsValue = document.getElementById('visualizerBarsValue');
+const borderGlow = document.getElementById('borderGlow');
+const particleEffects = document.getElementById('particleEffects');
+
+// Mood colors for sticky controller
+const moodColors = {
+  default: 'rgba(26, 26, 26, 0.98)',
+  sunset: 'rgba(255, 94, 77, 0.95)',
+  ocean: 'rgba(52, 152, 219, 0.95)',
+  forest: 'rgba(39, 174, 96, 0.95)',
+  midnight: 'rgba(44, 62, 80, 0.95)',
+  aurora: 'rgba(155, 89, 182, 0.95)',
+  candy: 'rgba(255, 107, 107, 0.95)',
+  neon: 'rgba(236, 112, 99, 0.95)',
+  tropical: 'rgba(253, 121, 168, 0.95)',
+  cosmic: 'rgba(142, 68, 173, 0.95)',
+  plasma: 'rgba(187, 143, 206, 0.95)',
+  starfield: 'rgba(41, 47, 76, 0.95)',
+  electric: 'rgba(0, 184, 255, 0.95)',
+  matrix: 'rgba(0, 255, 65, 0.95)',
+  vaporwave: 'rgba(255, 113, 206, 0.95)',
+  fire: 'rgba(255, 87, 34, 0.95)',
+  cyberpunk: 'rgba(255, 0, 128, 0.95)',
+  glitch: 'rgba(128, 0, 255, 0.95)',
+  lightning: 'rgba(255, 235, 59, 0.95)',
+  heart: 'rgba(255, 192, 203, 0.95)',
+  prism: 'rgba(179, 136, 255, 0.95)',
+  hologram: 'rgba(0, 255, 255, 0.95)',
+  laser: 'rgba(255, 0, 0, 0.95)',
+  warp: 'rgba(138, 43, 226, 0.95)',
+  disco: 'rgba(255, 215, 0, 0.95)',
+  nuclear: 'rgba(0, 255, 0, 0.95)',
+  supernova: 'rgba(255, 165, 0, 0.95)',
+  oceanic: 'rgba(0, 105, 148, 0.95)',
+  desert: 'rgba(205, 133, 63, 0.95)',
+  arctic: 'rgba(176, 224, 230, 0.95)',
+  jungle: 'rgba(34, 139, 34, 0.95)',
+  cherry: 'rgba(220, 20, 60, 0.95)',
+  thunder: 'rgba(75, 0, 130, 0.95)',
+  mystic: 'rgba(138, 43, 226, 0.95)',
+  cybergrid: 'rgba(0, 255, 255, 0.95)',
+  royal: 'rgba(75, 0, 130, 0.95)',
+  golden: 'rgba(255, 215, 0, 0.95)',
+  nebula: 'rgba(218, 112, 214, 0.95)',
+  crimson: 'rgba(220, 20, 60, 0.95)',
+  emerald: 'rgba(0, 201, 87, 0.95)',
+  solar: 'rgba(255, 140, 0, 0.95)',
+  moonlight: 'rgba(192, 192, 192, 0.95)'
+};
+
+let currentMood = 'default';
+let particleContainer = null;
+
+// Load settings from localStorage
+function loadEasterEggSettings() {
+  const settings = JSON.parse(localStorage.getItem('easterEggSettings') || '{}');
+  
+  playerOpacity.value = settings.playerOpacity || 98;
+  playerOpacityValue.textContent = playerOpacity.value + '%';
+  document.querySelector('.music-player').style.opacity = playerOpacity.value / 100;
+  
+  stickyMoodColors.checked = settings.stickyMoodColors || false;
+  
+  animationSpeed.value = settings.animationSpeed || 1;
+  document.body.style.animationDuration = (10 / parseFloat(animationSpeed.value)) + 's';
+  
+  blurIntensity.value = settings.blurIntensity !== undefined ? settings.blurIntensity : 20;
+  updateBlur();
+  
+  visualizerBars.value = settings.visualizerBars || 50;
+  visualizerBarsValue.textContent = visualizerBars.value;
+  updateVisualizerBars();
+  
+  borderGlow.checked = settings.borderGlow || false;
+  updateBorderGlow();
+  
+  particleEffects.checked = settings.particleEffects || false;
+  if (particleEffects.checked) createParticles();
+}
+
+// Save settings to localStorage
+function saveEasterEggSettings() {
+  const settings = {
+    playerOpacity: parseFloat(playerOpacity.value),
+    stickyMoodColors: stickyMoodColors.checked,
+    animationSpeed: parseFloat(animationSpeed.value),
+    blurIntensity: parseInt(blurIntensity.value),
+    visualizerBars: parseInt(visualizerBars.value),
+    borderGlow: borderGlow.checked,
+    particleEffects: particleEffects.checked
+  };
+  localStorage.setItem('easterEggSettings', JSON.stringify(settings));
+}
+
+// Open Easter Egg Modal
+function openEasterEggModal() {
+  easterEggModalOverlay.classList.add('active');
+}
+
+// Close Easter Egg Modal
+function closeEasterEggModalFunc() {
+  easterEggModalOverlay.classList.remove('active');
+}
+
+// Player Opacity
+playerOpacity.addEventListener('input', () => {
+  playerOpacityValue.textContent = playerOpacity.value + '%';
+  document.querySelector('.music-player').style.opacity = playerOpacity.value / 100;
+  saveEasterEggSettings();
+});
+
+// Sticky Mood Colors
+stickyMoodColors.addEventListener('change', () => {
+  if (stickyMoodColors.checked) {
+    updateStickyColor(currentMood);
+  } else {
+    document.querySelector('.sticky-controls').style.background = 'rgba(26, 26, 26, 0.98)';
+  }
+  saveEasterEggSettings();
+});
+
+// Update sticky color when mood changes
+function updateStickyColor(mood) {
+  if (stickyMoodColors.checked && moodColors[mood]) {
+    document.querySelector('.sticky-controls').style.background = moodColors[mood];
+  }
+}
+
+// Animation Speed
+animationSpeed.addEventListener('change', () => {
+  const speed = parseFloat(animationSpeed.value);
+  const allMoodClasses = Array.from(document.body.classList).filter(c => c.startsWith('mood-'));
+  allMoodClasses.forEach(moodClass => {
+    const style = document.createElement('style');
+    const duration = (10 / speed);
+    style.textContent = 'body.' + moodClass + ' { animation-duration: ' + duration + 's !important; }';
+    document.head.appendChild(style);
+  });
+  saveEasterEggSettings();
+});
+
+// Blur Intensity
+blurIntensity.addEventListener('change', () => {
+  updateBlur();
+  saveEasterEggSettings();
+});
+
+function updateBlur() {
+  const blur = parseInt(blurIntensity.value);
+  const elements = [
+    document.querySelector('.music-player'),
+    document.querySelector('.sticky-controls'),
+    ...document.querySelectorAll('.modal')
+  ];
+  elements.forEach(el => {
+    if (el) {
+      el.style.backdropFilter = blur > 0 ? ('blur(' + blur + 'px)') : 'none';
+    }
+  });
+}
+
+// Visualizer Bars
+visualizerBars.addEventListener('input', () => {
+  visualizerBarsValue.textContent = visualizerBars.value;
+  updateVisualizerBars();
+  saveEasterEggSettings();
+});
+
+function updateVisualizerBars() {
+  const count = parseInt(visualizerBars.value);
+  const visualizer = document.querySelector('.music-visualizer');
+  if (visualizer) {
+    visualizer.innerHTML = '';
+    for (let i = 0; i < count; i++) {
+      const bar = document.createElement('div');
+      bar.className = 'visualizer-bar';
+      visualizer.appendChild(bar);
+    }
+  }
+}
+
+// Border Glow
+borderGlow.addEventListener('change', () => {
+  updateBorderGlow();
+  saveEasterEggSettings();
+});
+
+function updateBorderGlow() {
+  const elements = [
+    document.querySelector('.music-player'),
+    document.querySelector('.sticky-controls'),
+    ...document.querySelectorAll('.control-btn'),
+    ...document.querySelectorAll('.carousel-item')
+  ];
+  
+  if (borderGlow.checked) {
+    elements.forEach(el => {
+      if (el) {
+        el.style.boxShadow = '0 0 20px rgba(102, 126, 234, 0.5), 0 0 40px rgba(118, 75, 162, 0.3)';
+      }
+    });
+  } else {
+    elements.forEach(el => {
+      if (el) {
+        el.style.boxShadow = '';
+      }
+    });
+  }
+}
+
+// Particle Effects
+particleEffects.addEventListener('change', () => {
+  if (particleEffects.checked) {
+    createParticles();
+  } else {
+    removeParticles();
+  }
+  saveEasterEggSettings();
+});
+
+function createParticles() {
+  if (particleContainer) return;
+  
+  particleContainer = document.createElement('div');
+  particleContainer.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden;';
+  
+  for (let i = 0; i < 50; i++) {
+    const particle = document.createElement('div');
+    const size = Math.random() * 4 + 2;
+    const opacity = Math.random() * 0.5 + 0.3;
+    const leftPos = Math.random() * 100;
+    const topPos = Math.random() * 100;
+    const duration = Math.random() * 10 + 10;
+    
+    particle.style.cssText = 'position: absolute; width: ' + size + 'px; height: ' + size + 'px; background: rgba(102, 126, 234, ' + opacity + '); border-radius: 50%; left: ' + leftPos + '%; top: ' + topPos + '%; animation: float ' + duration + 's linear infinite;';
+    particleContainer.appendChild(particle);
+  }
+  
+  const style = document.createElement('style');
+  const randomX = Math.random() * 100 - 50;
+  style.textContent = '@keyframes float { 0%, 100% { transform: translateY(0) translateX(0); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(-100vh) translateX(' + randomX + 'px); opacity: 0; } }';
+  document.head.appendChild(style);
+  
+  document.body.appendChild(particleContainer);
+}
+
+function removeParticles() {
+  if (particleContainer) {
+    particleContainer.remove();
+    particleContainer = null;
+  }
+}
+
+// Reset to defaults
+resetEasterEgg.addEventListener('click', () => {
+  if (confirm('Reset all atmosphere settings to default values?')) {
+    localStorage.removeItem('easterEggSettings');
+    playerOpacity.value = 98;
+    playerOpacityValue.textContent = '98%';
+    document.querySelector('.music-player').style.opacity = 0.98;
+    stickyMoodColors.checked = false;
+    document.querySelector('.sticky-controls').style.background = 'rgba(26, 26, 26, 0.98)';
+    animationSpeed.value = 1;
+    blurIntensity.value = 20;
+    updateBlur();
+    visualizerBars.value = 50;
+    visualizerBarsValue.textContent = '50';
+    updateVisualizerBars();
+    borderGlow.checked = false;
+    updateBorderGlow();
+    particleEffects.checked = false;
+    removeParticles();
+  }
+});
+
+// Mood title click handler (Easter egg trigger)
+moodTitle.addEventListener('click', openEasterEggModal);
+
+// Close modal handlers
+closeEasterEggModal.addEventListener('click', closeEasterEggModalFunc);
+easterEggModalOverlay.addEventListener('click', (e) => {
+  if (e.target === easterEggModalOverlay) closeEasterEggModalFunc();
+});
+
+// Track current mood for sticky color feature
+document.querySelectorAll('.mood-option').forEach(option => {
+  option.addEventListener('click', () => {
+    currentMood = option.getAttribute('data-mood');
+    updateStickyColor(currentMood);
+  });
+});
+
+// Load settings on page load
+loadEasterEggSettings();
  playlistUrlInput.addEventListener('keypress', (e) => {
  if (e.key === 'Enter') loadPlaylist.click();
  });

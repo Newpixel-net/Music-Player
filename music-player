@@ -2216,6 +2216,11 @@
  box-shadow: 0 6px 20px rgba(67, 233, 123, 0.4);
  }
 
+ /* Mobile floating add button - hidden by default */
+ .add-playlist-btn-mobile {
+ display: none;
+ }
+
  .import-playlist-btn {
  width: 100%;
  padding: 12px;
@@ -2971,6 +2976,236 @@
  box-shadow: 0 4px 12px rgba(67, 233, 123, 0.4);
  }
 
+ /* Library Search */
+ .library-search-container {
+ padding: 15px 20px;
+ background: #2a2a2a;
+ border-bottom: 1px solid #3a3a3a;
+ position: relative;
+ }
+
+ .library-search-wrapper {
+ display: flex;
+ gap: 10px;
+ }
+
+ .library-search-input {
+ flex: 1;
+ padding: 10px 15px;
+ background: #1f1f1f;
+ border: 2px solid #3a3a3a;
+ border-radius: 10px;
+ color: #fff;
+ font-size: 14px;
+ transition: all 0.3s ease;
+ }
+
+ .library-search-input:focus {
+ outline: none;
+ border-color: #667eea;
+ background: #2a2a2a;
+ }
+
+ .library-search-input::placeholder {
+ color: #666;
+ }
+
+ .library-search-btn {
+ padding: 10px 24px;
+ background: linear-gradient(135deg, #667eea, #764ba2);
+ color: #fff;
+ border: none;
+ border-radius: 10px;
+ font-size: 14px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.3s ease;
+ white-space: nowrap;
+ }
+
+ .library-search-btn:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+ }
+
+ .library-search-preview {
+ position: absolute;
+ top: 100%;
+ left: 20px;
+ right: 20px;
+ background: #1f1f1f;
+ border: 2px solid #667eea;
+ border-radius: 10px;
+ max-height: 300px;
+ overflow-y: auto;
+ z-index: 1000;
+ margin-top: 5px;
+ box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+ display: none;
+ }
+
+ .library-search-preview.active {
+ display: block;
+ animation: fadeIn 0.2s ease;
+ }
+
+ .library-search-preview-item {
+ padding: 12px 15px;
+ border-bottom: 1px solid #2a2a2a;
+ cursor: pointer;
+ transition: all 0.2s ease;
+ }
+
+ .library-search-preview-item:last-child {
+ border-bottom: none;
+ }
+
+ .library-search-preview-item:hover {
+ background: #2a2a2a;
+ }
+
+ .library-search-preview-title {
+ color: #fff;
+ font-size: 13px;
+ font-weight: 600;
+ margin-bottom: 3px;
+ }
+
+ .library-search-preview-info {
+ color: #888;
+ font-size: 11px;
+ }
+
+ .library-search-preview-empty {
+ padding: 20px;
+ text-align: center;
+ color: #666;
+ font-size: 13px;
+ }
+
+ /* Library Pagination */
+ .library-pagination {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ padding: 15px 20px;
+ gap: 8px;
+ background: #2a2a2a;
+ border-top: 1px solid #3a3a3a;
+ flex-wrap: wrap;
+ }
+
+ .library-pagination-btn {
+ padding: 8px 14px;
+ background: #3a3a3a;
+ color: #fff;
+ border: none;
+ border-radius: 8px;
+ font-size: 13px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.3s ease;
+ min-width: 36px;
+ }
+
+ .library-pagination-btn:hover:not(:disabled) {
+ background: #4a4a4a;
+ transform: translateY(-2px);
+ }
+
+ .library-pagination-btn:disabled {
+ opacity: 0.3;
+ cursor: not-allowed;
+ }
+
+ .library-pagination-btn.active {
+ background: linear-gradient(135deg, #667eea, #764ba2);
+ color: #fff;
+ }
+
+ .library-pagination-btn.dots {
+ background: transparent;
+ cursor: default;
+ color: #666;
+ }
+
+ .library-pagination-info {
+ color: #888;
+ font-size: 12px;
+ margin: 0 10px;
+ }
+
+ /* Library Loading Skeleton */
+ .library-skeleton {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+ gap: 15px;
+ }
+
+ .library-skeleton-card {
+ background: #2a2a2a;
+ border-radius: 12px;
+ overflow: hidden;
+ animation: pulse 1.5s ease-in-out infinite;
+ }
+
+ .library-skeleton-image {
+ width: 100%;
+ height: 140px;
+ background: linear-gradient(90deg, #2a2a2a 25%, #353535 50%, #2a2a2a 75%);
+ background-size: 200% 100%;
+ animation: shimmer 1.5s ease-in-out infinite;
+ }
+
+ .library-skeleton-content {
+ padding: 12px;
+ }
+
+ .library-skeleton-title {
+ height: 16px;
+ background: #353535;
+ border-radius: 4px;
+ margin-bottom: 8px;
+ width: 80%;
+ }
+
+ .library-skeleton-text {
+ height: 12px;
+ background: #353535;
+ border-radius: 4px;
+ margin-bottom: 6px;
+ }
+
+ .library-skeleton-text:last-child {
+ width: 60%;
+ }
+
+ @keyframes shimmer {
+ 0% { background-position: -200% 0; }
+ 100% { background-position: 200% 0; }
+ }
+
+ @keyframes pulse {
+ 0%, 100% { opacity: 1; }
+ 50% { opacity: 0.7; }
+ }
+
+ @keyframes fadeIn {
+ from { opacity: 0; transform: translateY(-10px); }
+ to { opacity: 1; transform: translateY(0); }
+ }
+
+ /* Library Fade Transition */
+ .library-fade-out {
+ opacity: 0;
+ transition: opacity 0.3s ease;
+ }
+
+ .library-fade-in {
+ opacity: 1;
+ transition: opacity 0.3s ease;
+ }
+
  .input-modal-content {
  padding: 20px;
  }
@@ -3231,21 +3466,89 @@
  }
 
  .sticky-controls {
- padding: 10px 15px;
- flex-wrap: wrap;
- gap: 10px;
+ padding: 8px 12px;
+ flex-direction: column;
+ gap: 8px;
+ min-height: auto;
+ max-height: none;
+ }
+
+ .sticky-info {
+ width: 100%;
+ order: 2;
  }
 
  .sticky-thumb {
- width: 40px;
- height: 40px;
+ width: 36px;
+ height: 36px;
+ }
+
+ .sticky-song {
+ font-size: 13px;
+ }
+
+ .sticky-artist {
+ font-size: 11px;
  }
 
  .music-visualizer {
  width: 100%;
- order: -1;
- height: 40px;
- margin: 0 0 10px 0;
+ order: 1;
+ height: 30px;
+ max-height: 30px;
+ margin: 0 0 8px 0;
+ }
+
+ .visualizer-bar {
+ width: 3px;
+ }
+
+ .sticky-controls-buttons {
+ order: 3;
+ width: 100%;
+ justify-content: center;
+ gap: 15px;
+ }
+
+ .sticky-btn {
+ width: 44px;
+ height: 44px;
+ }
+
+ .sticky-btn.large {
+ width: 54px;
+ height: 54px;
+ }
+
+ /* Mobile floating add playlist button */
+ .add-playlist-btn-mobile {
+ display: flex;
+ position: fixed;
+ bottom: 90px;
+ right: 15px;
+ width: 56px;
+ height: 56px;
+ border-radius: 50%;
+ background: linear-gradient(135deg, #43e97b, #38d172);
+ color: white;
+ border: none;
+ font-size: 28px;
+ font-weight: 300;
+ cursor: pointer;
+ align-items: center;
+ justify-content: center;
+ box-shadow: 0 4px 20px rgba(67, 233, 123, 0.5);
+ z-index: 10000;
+ transition: all 0.3s ease;
+ }
+
+ .add-playlist-btn-mobile:active {
+ transform: scale(0.9);
+ }
+
+ /* Hide desktop add playlist button on mobile */
+ .playlist-tabs-wrapper .add-playlist-btn {
+ display: none;
  }
 
  .settings-btn {
@@ -3264,6 +3567,61 @@
  width: 95%;
  max-width: 95%;
  max-height: 90vh;
+ }
+
+ /* Library Search and Pagination Mobile Styles */
+ .library-search-container {
+ padding: 10px 12px;
+ }
+
+ .library-search-input {
+ font-size: 13px;
+ padding: 8px 12px;
+ }
+
+ .library-search-btn {
+ padding: 8px 14px;
+ font-size: 13px;
+ }
+
+ .library-search-preview-item {
+ padding: 8px 10px;
+ }
+
+ .library-search-preview-title {
+ font-size: 13px;
+ }
+
+ .library-search-preview-info {
+ font-size: 10px;
+ }
+
+ .library-pagination {
+ padding: 10px 12px;
+ gap: 6px;
+ }
+
+ /* Simplify pagination on mobile - show only prev/next and current page */
+ .library-pagination-btn:not(.prev):not(.next):not(.active) {
+ display: none;
+ }
+
+ .library-pagination-btn {
+ padding: 6px 10px;
+ font-size: 12px;
+ min-width: 32px;
+ }
+
+ .library-pagination-info {
+ font-size: 11px;
+ }
+
+ .library-skeleton {
+ grid-template-columns: 1fr;
+ }
+
+ .library-skeleton-item {
+ height: 100px;
  }
  }
 
@@ -3690,9 +4048,18 @@
  <h2 class="modal-title">📚 Community Playlist Library</h2>
  <button class="modal-close" id="closeLibraryModal">Close</button>
  </div>
+ <div class="library-search-container">
+ <div class="library-search-wrapper">
+ <input type="text" class="library-search-input" id="librarySearchInput" placeholder="🔍 Search playlists by name, mood, or genre...">
+ <button class="library-search-btn" id="librarySearchBtn">Search</button>
+ </div>
+ <div class="library-search-preview" id="librarySearchPreview"></div>
+ </div>
+ <div class="library-pagination" id="libraryPaginationTop"></div>
  <div class="modal-body" id="libraryModalBody">
  <div class="library-status">Loading community playlists...</div>
  </div>
+ <div class="library-pagination" id="libraryPaginationBottom"></div>
  </div>
  </div>
 
@@ -3727,6 +4094,9 @@
  </div>
  </div>
  </div>
+
+ <!-- Mobile Floating Add Playlist Button -->
+ <button class="add-playlist-btn-mobile" id="addPlaylistBtnMobile">+</button>
 
  <!-- Firebase SDK -->
  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -4605,13 +4975,33 @@
  libraryBadge.textContent = count > 0 ? `(${count} available)` : '(Empty)';
  }
 
+ // Library Pagination State
+ let libraryCurrentPage = 1;
+ const libraryPageSize = 20;
+ let libraryTotalPages = 1;
+ let librarySearchQuery = '';
+ let librarySearchTimeout = null;
+ let libraryPageCache = {};
+
+ // Library Elements
+ const librarySearchInput = document.getElementById('librarySearchInput');
+ const librarySearchBtn = document.getElementById('librarySearchBtn');
+ const librarySearchPreview = document.getElementById('librarySearchPreview');
+ const libraryPaginationTop = document.getElementById('libraryPaginationTop');
+ const libraryPaginationBottom = document.getElementById('libraryPaginationBottom');
+
  function openLibraryModal() {
  libraryModalOverlay.classList.add('active');
- renderLibrary();
+ libraryCurrentPage = 1;
+ librarySearchQuery = '';
+ librarySearchInput.value = '';
+ libraryPageCache = {};
+ loadLibraryPage(1);
  }
 
  function closeLibraryModalFunc() {
  libraryModalOverlay.classList.remove('active');
+ librarySearchPreview.classList.remove('active');
  }
 
  function renderLibrary() {
@@ -4700,6 +5090,251 @@
  
  alert(`✓ Added "${libraryPlaylist.name}" with ${libraryPlaylist.trackCount} songs!\n\n🎉 No API calls needed - loaded from community library!`);
  }
+ }
+
+ // Library Pagination Functions
+ function loadLibraryPage(page) {
+ libraryCurrentPage = page;
+
+ // Check cache first
+ if (libraryPageCache[page]) {
+ renderLibraryPage(libraryPageCache[page]);
+ return;
+ }
+
+ // Show skeleton loading
+ showLibrarySkeleton();
+
+ // Simulate API delay for smooth transition
+ setTimeout(() => {
+ const filteredPlaylists = librarySearchQuery
+ ? playlistLibrary.filter(p =>
+ p.name.toLowerCase().includes(librarySearchQuery.toLowerCase()) ||
+ (p.tags && p.tags.some(tag => tag.toLowerCase().includes(librarySearchQuery.toLowerCase())))
+ )
+ : playlistLibrary;
+
+ libraryTotalPages = Math.ceil(filteredPlaylists.length / libraryPageSize);
+ const start = (page - 1) * libraryPageSize;
+ const end = start + libraryPageSize;
+ const pageData = filteredPlaylists.slice(start, end);
+
+ // Cache the page
+ libraryPageCache[page] = {
+ playlists: pageData,
+ total: filteredPlaylists.length
+ };
+
+ renderLibraryPage(libraryPageCache[page]);
+ }, 300);
+ }
+
+ function showLibrarySkeleton() {
+ const skeleton = document.createElement('div');
+ skeleton.className = 'library-skeleton';
+
+ for (let i = 0; i < libraryPageSize; i++) {
+ const card = document.createElement('div');
+ card.className = 'library-skeleton-card';
+ card.innerHTML = `
+ <div class="library-skeleton-image"></div>
+ <div class="library-skeleton-content">
+ <div class="library-skeleton-title"></div>
+ <div class="library-skeleton-text"></div>
+ <div class="library-skeleton-text"></div>
+ </div>
+ `;
+ skeleton.appendChild(card);
+ }
+
+ libraryModalBody.classList.add('library-fade-out');
+ setTimeout(() => {
+ libraryModalBody.innerHTML = '';
+ libraryModalBody.appendChild(skeleton);
+ libraryModalBody.classList.remove('library-fade-out');
+ libraryModalBody.classList.add('library-fade-in');
+ }, 150);
+ }
+
+ function renderLibraryPage(pageData) {
+ if (pageData.playlists.length === 0) {
+ libraryModalBody.innerHTML = `
+ <div class="library-empty">
+ <div class="library-empty-icon">🔍</div>
+ <div class="library-empty-text">
+ ${librarySearchQuery ? `No playlists found matching "${librarySearchQuery}"` : 'No playlists available'}
+ </div>
+ </div>
+ `;
+ renderPagination(0);
+ return;
+ }
+
+ const grid = document.createElement('div');
+ grid.className = 'library-grid';
+
+ pageData.playlists.forEach(playlist => {
+ const card = document.createElement('div');
+ card.className = 'library-card';
+
+ const date = new Date(playlist.dateAdded);
+ const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+ card.innerHTML = `
+ <div class="library-card-image">
+ ${playlist.thumbnail ? `<img src="${playlist.thumbnail}" alt="${playlist.name}">` : ''}
+ <div class="library-card-badge">${playlist.trackCount} tracks</div>
+ </div>
+ <div class="library-card-content">
+ <div class="library-card-title">${playlist.name}</div>
+ <div class="library-card-meta">
+ <div class="library-card-tracks">🎵 ${playlist.trackCount} songs</div>
+ <div class="library-card-date">${dateStr}</div>
+ </div>
+ <div class="library-card-actions">
+ <button class="library-add-btn" data-playlist-id="${playlist.id}">
+ <span>+</span>
+ <span>Add to Player</span>
+ </button>
+ </div>
+ </div>
+ `;
+
+ grid.appendChild(card);
+ });
+
+ libraryModalBody.classList.add('library-fade-out');
+ setTimeout(() => {
+ libraryModalBody.innerHTML = '';
+ libraryModalBody.appendChild(grid);
+ libraryModalBody.classList.remove('library-fade-out');
+ libraryModalBody.classList.add('library-fade-in');
+
+ document.querySelectorAll('.library-add-btn').forEach(btn => {
+ btn.addEventListener('click', (e) => {
+ const playlistId = parseInt(e.currentTarget.getAttribute('data-playlist-id'));
+ addFromLibrary(playlistId);
+ });
+ });
+ }, 150);
+
+ renderPagination(pageData.total);
+ }
+
+ function renderPagination(totalItems) {
+ if (totalItems === 0) {
+ libraryPaginationTop.innerHTML = '';
+ libraryPaginationBottom.innerHTML = '';
+ return;
+ }
+
+ const totalPages = Math.ceil(totalItems / libraryPageSize);
+ const startItem = ((libraryCurrentPage - 1) * libraryPageSize) + 1;
+ const endItem = Math.min(libraryCurrentPage * libraryPageSize, totalItems);
+
+ let paginationHTML = '';
+
+ // Previous button
+ paginationHTML += `<button class="library-pagination-btn" ${libraryCurrentPage === 1 ? 'disabled' : ''} data-page="${libraryCurrentPage - 1}">← Prev</button>`;
+
+ // Page numbers
+ if (totalPages <= 7) {
+ // Show all pages
+ for (let i = 1; i <= totalPages; i++) {
+ paginationHTML += `<button class="library-pagination-btn ${i === libraryCurrentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+ }
+ } else {
+ // Show first, last, and pages around current
+ paginationHTML += `<button class="library-pagination-btn ${1 === libraryCurrentPage ? 'active' : ''}" data-page="1">1</button>`;
+
+ if (libraryCurrentPage > 3) {
+ paginationHTML += `<span class="library-pagination-btn dots">...</span>`;
+ }
+
+ const start = Math.max(2, libraryCurrentPage - 1);
+ const end = Math.min(totalPages - 1, libraryCurrentPage + 1);
+
+ for (let i = start; i <= end; i++) {
+ paginationHTML += `<button class="library-pagination-btn ${i === libraryCurrentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+ }
+
+ if (libraryCurrentPage < totalPages - 2) {
+ paginationHTML += `<span class="library-pagination-btn dots">...</span>`;
+ }
+
+ paginationHTML += `<button class="library-pagination-btn ${totalPages === libraryCurrentPage ? 'active' : ''}" data-page="${totalPages}">${totalPages}</button>`;
+ }
+
+ // Next button
+ paginationHTML += `<button class="library-pagination-btn" ${libraryCurrentPage === totalPages ? 'disabled' : ''} data-page="${libraryCurrentPage + 1}">Next →</button>`;
+
+ // Info
+ paginationHTML += `<span class="library-pagination-info">Showing ${startItem}-${endItem} of ${totalItems}</span>`;
+
+ libraryPaginationTop.innerHTML = paginationHTML;
+ libraryPaginationBottom.innerHTML = paginationHTML;
+
+ // Add click handlers
+ document.querySelectorAll('.library-pagination-btn:not(.dots)').forEach(btn => {
+ btn.addEventListener('click', (e) => {
+ const page = parseInt(e.target.getAttribute('data-page'));
+ if (page && !isNaN(page)) {
+ loadLibraryPage(page);
+ }
+ });
+ });
+ }
+
+ // Search functionality
+ function handleLibrarySearch() {
+ librarySearchQuery = librarySearchInput.value.trim();
+ libraryCurrentPage = 1;
+ libraryPageCache = {};
+ librarySearchPreview.classList.remove('active');
+ loadLibraryPage(1);
+ }
+
+ function handleLiveSearch() {
+ clearTimeout(librarySearchTimeout);
+ const query = librarySearchInput.value.trim().toLowerCase();
+
+ if (query.length < 2) {
+ librarySearchPreview.classList.remove('active');
+ return;
+ }
+
+ librarySearchTimeout = setTimeout(() => {
+ const matches = playlistLibrary
+ .filter(p =>
+ p.name.toLowerCase().includes(query) ||
+ (p.tags && p.tags.some(tag => tag.toLowerCase().includes(query)))
+ )
+ .slice(0, 5);
+
+ if (matches.length > 0) {
+ let previewHTML = '';
+ matches.forEach(p => {
+ previewHTML += `
+ <div class="library-search-preview-item" data-playlist-id="${p.id}">
+ <div class="library-search-preview-title">${p.name}</div>
+ <div class="library-search-preview-info">${p.trackCount} tracks</div>
+ </div>
+ `;
+ });
+ librarySearchPreview.innerHTML = previewHTML;
+ librarySearchPreview.classList.add('active');
+
+ document.querySelectorAll('.library-search-preview-item').forEach(item => {
+ item.addEventListener('click', (e) => {
+ const playlistId = parseInt(e.currentTarget.getAttribute('data-playlist-id'));
+ addFromLibrary(playlistId);
+ });
+ });
+ } else {
+ librarySearchPreview.innerHTML = '<div class="library-search-preview-empty">No matches found</div>';
+ librarySearchPreview.classList.add('active');
+ }
+ }, 300);
  }
 
  // Carousel Functions
@@ -5181,10 +5816,25 @@
  libraryModalOverlay.addEventListener('click', (e) => {
  if (e.target === libraryModalOverlay) closeLibraryModalFunc();
  });
+ librarySearchBtn.addEventListener('click', handleLibrarySearch);
+ librarySearchInput.addEventListener('input', handleLiveSearch);
+ librarySearchInput.addEventListener('keypress', (e) => {
+ if (e.key === 'Enter') handleLibrarySearch();
+ });
+ // Close preview when clicking outside
+ document.addEventListener('click', (e) => {
+ if (!librarySearchPreview.contains(e.target) && !librarySearchInput.contains(e.target)) {
+ librarySearchPreview.classList.remove('active');
+ }
+ });
  
  // Event Listeners - Import
  importPlaylistBtn.addEventListener('click', openPlaylistModal);
  addPlaylistBtn.addEventListener('click', openPlaylistModal);
+ const addPlaylistBtnMobile = document.getElementById('addPlaylistBtnMobile');
+ if (addPlaylistBtnMobile) {
+ addPlaylistBtnMobile.addEventListener('click', openPlaylistModal);
+ }
  closePlaylistModal.addEventListener('click', closePlaylistModalFunc);
  cancelPlaylist.addEventListener('click', closePlaylistModalFunc);
  loadPlaylist.addEventListener('click', () => {

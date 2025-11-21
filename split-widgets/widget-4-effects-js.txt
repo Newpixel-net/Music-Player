@@ -1399,13 +1399,19 @@ window.applyTexture = function(texture) {
     window.moodSection.style.backgroundImage = '';
     window.moodSection.style.backgroundBlendMode = '';
   } else {
-    // Remove all texture classes first
-    window.moodSection.classList.remove('texture-speaker-grille', 'texture-sound-waves', 'texture-equalizer',
-                                   'texture-waveform', 'texture-bass-ripples', 'texture-studio-foam',
-                                   'texture-audio-jack', 'texture-mic-mesh', 'texture-piano-keys',
-                                   'texture-guitar-strings', 'texture-drum-skin', 'texture-foam-pyramids',
-                                   'texture-xlr-connector', 'texture-cassette-tape', 'texture-cd-diffraction',
-                                   'texture-mixing-console');
+    // CRITICAL FIX: Remove ALL texture classes (including new ones added)
+    // This prevents textures from stacking when switching between them
+    window.moodSection.classList.remove(
+      'texture-speaker-grille', 'texture-sound-waves', 'texture-equalizer',
+      'texture-waveform', 'texture-bass-ripples', 'texture-studio-foam',
+      'texture-audio-jack', 'texture-mic-mesh', 'texture-piano-keys',
+      'texture-guitar-strings', 'texture-drum-skin', 'texture-foam-pyramids',
+      'texture-xlr-connector', 'texture-cassette-tape', 'texture-cd-diffraction',
+      'texture-mixing-console', 'texture-frequency-spectrum', 'texture-oscilloscope',
+      'texture-soundwave-circular', 'texture-amplitude-pulse', 'texture-stereo-waves',
+      'texture-frequency-rings', 'texture-audio-spectrum-3d', 'texture-sine-waves',
+      'texture-beat-grid', 'texture-harmonic-waves'
+    );
 
     // Add the selected texture class
     window.moodSection.classList.add('texture-' + texture);
@@ -1491,16 +1497,21 @@ effectResetBtn.addEventListener('click', () => {
   window.moodSection.style.borderRadius = '';
   window.moodSection.style.boxShadow = '';
 
-  // Reset texture
+  // Reset texture - Remove ALL texture classes
   currentTexture = 'none';
   window.moodSection.style.backgroundImage = '';
   window.moodSection.style.backgroundBlendMode = '';
-  window.moodSection.classList.remove('texture-speaker-grille', 'texture-sound-waves', 'texture-equalizer',
-                                'texture-waveform', 'texture-bass-ripples', 'texture-studio-foam',
-                                'texture-audio-jack', 'texture-mic-mesh', 'texture-piano-keys',
-                                'texture-guitar-strings', 'texture-drum-skin', 'texture-foam-pyramids',
-                                'texture-xlr-connector', 'texture-cassette-tape', 'texture-cd-diffraction',
-                                'texture-mixing-console');
+  window.moodSection.classList.remove(
+    'texture-speaker-grille', 'texture-sound-waves', 'texture-equalizer',
+    'texture-waveform', 'texture-bass-ripples', 'texture-studio-foam',
+    'texture-audio-jack', 'texture-mic-mesh', 'texture-piano-keys',
+    'texture-guitar-strings', 'texture-drum-skin', 'texture-foam-pyramids',
+    'texture-xlr-connector', 'texture-cassette-tape', 'texture-cd-diffraction',
+    'texture-mixing-console', 'texture-frequency-spectrum', 'texture-oscilloscope',
+    'texture-soundwave-circular', 'texture-amplitude-pulse', 'texture-stereo-waves',
+    'texture-frequency-rings', 'texture-audio-spectrum-3d', 'texture-sine-waves',
+    'texture-beat-grid', 'texture-harmonic-waves'
+  );
   document.querySelectorAll('.texture-btn').forEach(btn => btn.classList.remove('active'));
   const noneTextureBtn = document.querySelector('.texture-btn[data-texture="none"]');
   if (noneTextureBtn) noneTextureBtn.classList.add('active');
@@ -1605,7 +1616,9 @@ loadEasterEggSettings();
  // Initialize
  loadMood();
  loadSettings();
- createParticles();
+ // CRITICAL FIX: Don't create particles on page load - only if enabled in settings
+ // This prevents annoying flickering effect on initial page load
+ // Particles will be created by loadEasterEggSettings() if particleEffects is enabled
  setupDragging();
  
  window.loadLibrary().then(() => {

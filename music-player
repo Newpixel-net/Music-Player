@@ -1378,10 +1378,6 @@
  75% { transform: rotate(-0.3deg); }
  }
 
- @keyframes bgRotate {
- 0% { transform: rotate(0deg); }
- 100% { transform: rotate(360deg); }
- }
 
  @keyframes bgTilt3D {
  0%, 100% { transform: perspective(1000px) rotateX(0deg) rotateY(0deg); }
@@ -2138,6 +2134,8 @@
  border-radius: 12px;
  position: relative;
  transition: all 0.3s ease;
+ isolation: isolate;
+ z-index: 1;
  }
 
  .mood-header {
@@ -2369,6 +2367,33 @@
  border: none;
  }
 
+
+ .style-control {
+ padding: 8px;
+ background: #f8f8f8;
+ border-radius: 8px;
+ margin-bottom: 8px;
+ }
+
+ .style-control label {
+ font-size: 12px;
+ font-weight: 600;
+ color: #555;
+ margin-bottom: 6px;
+ display: block;
+ }
+
+ .style-control input[type="color"] {
+ width: 100%;
+ height: 40px;
+ border: 2px solid #ddd;
+ border-radius: 8px;
+ cursor: pointer;
+ }
+
+ .style-control input[type="range"] {
+ margin-top: 4px;
+ }
  .effect-reset-btn {
  width: 100%;
  padding: 10px;
@@ -4536,6 +4561,10 @@ transform: scale(1.05);
  max-height: 420px;
  }
 
+ .style-control input[type="color"] {
+ height: 35px;
+ }
+
  /* Library Search and Pagination Mobile Styles */
  .library-search-container {
  padding: 10px 12px;
@@ -4934,7 +4963,6 @@ transform: scale(1.05);
  <button class="effect-btn" data-effect="sway">🎐 Sway</button>
  <button class="effect-btn" data-effect="float">☁️ Float</button>
  <button class="effect-btn" data-effect="wobble">🌀 Wobble</button>
- <button class="effect-btn" data-effect="rotate">🔄 Rotate</button>
  <button class="effect-btn" data-effect="tilt3d">🎲 Tilt 3D</button>
  </div>
  </div>
@@ -4964,6 +4992,38 @@ transform: scale(1.05);
  </div>
  </div>
 
+
+ <!-- Style Customization -->
+ <div class="effect-category">
+ <div class="effect-category-title" data-category="style">🎨 Style Customization <span>▼</span></div>
+ <div class="effect-options" id="styleEffects" style="grid-template-columns: 1fr;">
+ <div class="style-control">
+ <label>🎨 Background Color</label>
+ <input type="color" id="bgColor" value="#f8f8f8">
+ </div>
+ <div class="style-control">
+ <label>Opacity: <span id="bgOpacityValue">100%</span></label>
+ <input type="range" class="effect-slider" id="bgOpacity" min="0" max="100" value="100">
+ </div>
+ <div class="style-control">
+ <label>Blur: <span id="bgBlurValue">0px</span></label>
+ <input type="range" class="effect-slider" id="bgBlur" min="0" max="20" value="0">
+ </div>
+ <div class="style-control">
+ <label>Border Radius: <span id="borderRadiusValue">12px</span></label>
+ <input type="range" class="effect-slider" id="borderRadius" min="0" max="50" value="12">
+ </div>
+ <div class="style-control">
+ <label>Shadow Depth: <span id="shadowDepthValue">0px</span></label>
+ <input type="range" class="effect-slider" id="shadowDepth" min="0" max="30" value="0">
+ </div>
+ <div class="style-control">
+ <label>Border Glow: <span id="borderGlowValue">0px</span></label>
+ <input type="range" class="effect-slider" id="borderGlow" min="0" max="20" value="0">
+ <input type="color" id="borderGlowColor" value="#667eea">
+ </div>
+ </div>
+ </div>
  <button class="effect-reset-btn" id="effectResetBtn">🔄 Reset All Effects</button>
  </div>
  </div>
@@ -7830,6 +7890,19 @@ const effectIntensity = document.getElementById('effectIntensity');
 const effectIntensityValue = document.getElementById('effectIntensityValue');
 const effectResetBtn = document.getElementById('effectResetBtn');
 const moodSection = document.querySelector('.mood-section');
+const bgColor = document.getElementById('bgColor');
+const bgOpacity = document.getElementById('bgOpacity');
+const bgOpacityValue = document.getElementById('bgOpacityValue');
+const bgBlur = document.getElementById('bgBlur');
+const bgBlurValue = document.getElementById('bgBlurValue');
+const borderRadius = document.getElementById('borderRadius');
+const borderRadiusValue = document.getElementById('borderRadiusValue');
+const shadowDepth = document.getElementById('shadowDepth');
+const shadowDepthValue = document.getElementById('shadowDepthValue');
+const borderGlow = document.getElementById('borderGlow');
+const borderGlowValue = document.getElementById('borderGlowValue');
+const borderGlowColor = document.getElementById('borderGlowColor');
+
 
 let activeEffects = [];
 let effectSettings = {
@@ -7895,6 +7968,74 @@ document.querySelectorAll('.effect-btn').forEach(btn => {
   });
 });
 
+
+// Style Customization Event Listeners
+bgColor.addEventListener('input', () => {
+  updateStyleCustomization();
+});
+
+bgOpacity.addEventListener('input', () => {
+  bgOpacityValue.textContent = bgOpacity.value + '%';
+  updateStyleCustomization();
+});
+
+bgBlur.addEventListener('input', () => {
+  bgBlurValue.textContent = bgBlur.value + 'px';
+  updateStyleCustomization();
+});
+
+borderRadius.addEventListener('input', () => {
+  borderRadiusValue.textContent = borderRadius.value + 'px';
+  updateStyleCustomization();
+});
+
+shadowDepth.addEventListener('input', () => {
+  shadowDepthValue.textContent = shadowDepth.value + 'px';
+  updateStyleCustomization();
+});
+
+borderGlow.addEventListener('input', () => {
+  borderGlowValue.textContent = borderGlow.value + 'px';
+  updateStyleCustomization();
+});
+
+borderGlowColor.addEventListener('input', () => {
+  updateStyleCustomization();
+});
+
+// Update style customization function
+function updateStyleCustomization() {
+  const color = bgColor.value;
+  const opacity = bgOpacity.value / 100;
+  const blur = bgBlur.value;
+  const radius = borderRadius.value;
+  const shadow = shadowDepth.value;
+  const glow = borderGlow.value;
+  const glowColor = borderGlowColor.value;
+
+  // Convert hex to rgba
+  const r = parseInt(color.substr(1, 2), 16);
+  const g = parseInt(color.substr(3, 2), 16);
+  const b = parseInt(color.substr(5, 2), 16);
+
+  moodSection.style.backgroundColor = 'rgba(' + r + ', ' + g + ', ' + b + ', ' + opacity + ')';
+  moodSection.style.backdropFilter = blur > 0 ? 'blur(' + blur + 'px)' : '';
+  moodSection.style.webkitBackdropFilter = blur > 0 ? 'blur(' + blur + 'px)' : '';
+  moodSection.style.borderRadius = radius + 'px';
+  
+  let boxShadow = '';
+  if (shadow > 0) {
+    boxShadow = '0 ' + shadow + 'px ' + (shadow * 2) + 'px rgba(0, 0, 0, 0.2)';
+  }
+  if (glow > 0) {
+    const glowR = parseInt(glowColor.substr(1, 2), 16);
+    const glowG = parseInt(glowColor.substr(3, 2), 16);
+    const glowB = parseInt(glowColor.substr(5, 2), 16);
+    const glowShadow = '0 0 ' + glow + 'px rgba(' + glowR + ', ' + glowG + ', ' + glowB + ', 0.6)';
+    boxShadow = boxShadow ? boxShadow + ', ' + glowShadow : glowShadow;
+  }
+  moodSection.style.boxShadow = boxShadow;
+}
 // Reset button
 effectResetBtn.addEventListener('click', () => {
   activeEffects = [];
@@ -7903,6 +8044,25 @@ effectResetBtn.addEventListener('click', () => {
   });
   moodSection.style.animation = '';
   moodSection.style.border = '';
+  
+  // Reset style customizations
+  bgColor.value = '#f8f8f8';
+  bgOpacity.value = 100;
+  bgOpacityValue.textContent = '100%';
+  bgBlur.value = 0;
+  bgBlurValue.textContent = '0px';
+  borderRadius.value = 12;
+  borderRadiusValue.textContent = '12px';
+  shadowDepth.value = 0;
+  shadowDepthValue.textContent = '0px';
+  borderGlow.value = 0;
+  borderGlowValue.textContent = '0px';
+  moodSection.style.backgroundColor = '';
+  moodSection.style.backdropFilter = '';
+  moodSection.style.webkitBackdropFilter = '';
+  moodSection.style.borderRadius = '';
+  moodSection.style.boxShadow = '';
+  
   updateEffects();
 });
 
@@ -7930,7 +8090,6 @@ function updateEffects() {
       case 'sway': animName = 'bgSway'; break;
       case 'float': animName = 'bgFloat'; break;
       case 'wobble': animName = 'bgWobble'; break;
-      case 'rotate': animName = 'bgRotate'; break;
       case 'tilt3d': animName = 'bgTilt3D'; break;
       case 'flicker': animName = 'bgFlicker'; break;
       case 'glitch': animName = 'bgGlitch'; break;

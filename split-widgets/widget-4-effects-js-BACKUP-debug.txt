@@ -312,34 +312,26 @@ window.initPlaylist = function() {
  }
 
 window.selectSong = function(index) {
- console.log('🎵 selectSong called with index:', index);
  const songs = window.getCurrentSongs();
- console.log('📋 Songs available:', songs.length);
- console.log('✓ Player ready:', window.playerReady);
-
- if (songs.length === 0 || !window.playerReady) {
- console.log('❌ Returning early - no songs or player not ready');
- return;
- }
-
+ if (songs.length === 0 || !window.playerReady) return;
+ 
  window.currentSongIndex = index;
  const song = songs[window.currentSongIndex];
- console.log('🎶 Selected song:', song.title, 'VideoID:', song.videoId);
-
+ 
  window.songTitle.textContent = song.title;
  window.artistName.textContent = song.artist;
-
+ 
  // Update floating and sticky displays
  window.updateFloatingPlayerInfo();
  window.updateStickyControlsInfo();
-
+ 
  // Setup Media Session for native mobile controls
  window.setupMediaSession();
-
+ 
  document.querySelectorAll('.playlist-item').forEach((item, i) => {
  item.classList.toggle('active', i === window.currentSongIndex);
  });
-
+ 
  document.querySelectorAll('.carousel-item').forEach((item, i) => {
  item.classList.remove('playing', 'active');
  if (i === window.currentSongIndex) {
@@ -354,20 +346,14 @@ window.selectSong = function(index) {
  if (badge) badge.remove();
  }
  });
-
+ 
  window.scrollCarouselToActive();
-
- console.log('🔍 Checking player:', 'videoId?', !!song.videoId, 'player?', !!window.player, 'loadVideoById?', !!(window.player && window.player.loadVideoById));
-
+ 
  if (song.videoId  && window.player && window.player.loadVideoById) {
- console.log('▶️ Loading video:', song.videoId);
  window.player.loadVideoById(song.videoId);
  window.progressFill.style.width = '0%';
  window.currentTimeEl.textContent = '0:00';
  window.totalTimeEl.textContent = song.duration;
- console.log('✅ Video loaded successfully');
- } else {
- console.log('❌ Cannot load video - missing:', !song.videoId ? 'videoId' : !window.player ? 'player' : 'loadVideoById method');
  }
  }
 

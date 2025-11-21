@@ -1318,6 +1318,149 @@
  100% { background-position: 50% 100%; }
  }
 
+ /* Background Motion Effects */
+ @keyframes bgHeartbeat {
+ 0%, 100% { transform: scale(1); }
+ 14% { transform: scale(1.02); }
+ 28% { transform: scale(1); }
+ 42% { transform: scale(1.02); }
+ 56% { transform: scale(1); }
+ }
+
+ @keyframes bgFlash {
+ 0%, 50%, 100% { filter: brightness(1); }
+ 25%, 75% { filter: brightness(1.3); }
+ }
+
+ @keyframes bgGlowPulse {
+ 0%, 100% { box-shadow: 0 0 10px rgba(102, 126, 234, 0.3); }
+ 50% { box-shadow: 0 0 30px rgba(102, 126, 234, 0.8), 0 0 60px rgba(118, 75, 162, 0.5); }
+ }
+
+ @keyframes bgScaleBounce {
+ 0%, 100% { transform: scale(1); }
+ 50% { transform: scale(1.03); }
+ }
+
+ @keyframes bgBreathe {
+ 0%, 100% { transform: scale(1); opacity: 1; }
+ 50% { transform: scale(1.02); opacity: 0.95; }
+ }
+
+ @keyframes bgBeatDrop {
+ 0%, 90%, 100% { transform: scale(1); }
+ 95% { transform: scale(1.05); }
+ }
+
+ @keyframes bgShake {
+ 0%, 100% { transform: translateX(0); }
+ 10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
+ 20%, 40%, 60%, 80% { transform: translateX(3px); }
+ }
+
+ @keyframes bgSway {
+ 0%, 100% { transform: rotate(0deg); }
+ 25% { transform: rotate(0.5deg); }
+ 75% { transform: rotate(-0.5deg); }
+ }
+
+ @keyframes bgFloat {
+ 0%, 100% { transform: translateY(0); }
+ 50% { transform: translateY(-10px); }
+ }
+
+ @keyframes bgWobble {
+ 0%, 100% { transform: rotate(0deg); }
+ 15% { transform: rotate(-1deg); }
+ 30% { transform: rotate(1deg); }
+ 45% { transform: rotate(-0.5deg); }
+ 60% { transform: rotate(0.5deg); }
+ 75% { transform: rotate(-0.3deg); }
+ }
+
+ @keyframes bgRotate {
+ 0% { transform: rotate(0deg); }
+ 100% { transform: rotate(360deg); }
+ }
+
+ @keyframes bgTilt3D {
+ 0%, 100% { transform: perspective(1000px) rotateX(0deg) rotateY(0deg); }
+ 25% { transform: perspective(1000px) rotateX(1deg) rotateY(-1deg); }
+ 50% { transform: perspective(1000px) rotateX(-1deg) rotateY(1deg); }
+ 75% { transform: perspective(1000px) rotateX(1deg) rotateY(1deg); }
+ }
+
+ @keyframes bgFlicker {
+ 0%, 100% { opacity: 1; }
+ 5%, 15%, 25%, 35%, 45% { opacity: 0.95; }
+ 10%, 20%, 30%, 40% { opacity: 0.98; }
+ 50% { opacity: 0.92; }
+ }
+
+ @keyframes bgGlitch {
+ 0%, 100% { transform: translate(0); }
+ 20% { transform: translate(-2px, 2px); }
+ 40% { transform: translate(-2px, -2px); }
+ 60% { transform: translate(2px, 2px); }
+ 80% { transform: translate(2px, -2px); }
+ }
+
+ @keyframes bgRGBSplit {
+ 0%, 100% { text-shadow: 0 0 0 rgba(255, 0, 0, 0); }
+ 33% { text-shadow: -2px 0 0 rgba(255, 0, 0, 0.7), 2px 0 0 rgba(0, 255, 255, 0.7); }
+ 66% { text-shadow: 2px 0 0 rgba(255, 0, 0, 0.7), -2px 0 0 rgba(0, 255, 255, 0.7); }
+ }
+
+ @keyframes bgWaveMotion {
+ 0% { background-position: 0% 50%; }
+ 50% { background-position: 100% 50%; }
+ 100% { background-position: 0% 50%; }
+ }
+
+ @keyframes bgRipple {
+ 0% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7); }
+ 100% { box-shadow: 0 0 0 20px rgba(102, 126, 234, 0); }
+ }
+
+ @keyframes bgPrism {
+ 0% { filter: hue-rotate(0deg); }
+ 100% { filter: hue-rotate(360deg); }
+ }
+
+ @keyframes bgBorderPulse {
+ 0%, 100% { border-color: rgba(102, 126, 234, 0.5); border-width: 2px; }
+ 50% { border-color: rgba(102, 126, 234, 1); border-width: 4px; }
+ }
+
+ @keyframes bgNeonGlow {
+ 0%, 100% { box-shadow: 0 0 5px #667eea, 0 0 10px #667eea; }
+ 50% { box-shadow: 0 0 20px #667eea, 0 0 30px #764ba2, 0 0 40px #f093fb; }
+ }
+
+ @keyframes bgRainbowBorder {
+ 0% { border-color: #ff0000; }
+ 16% { border-color: #ff7f00; }
+ 33% { border-color: #ffff00; }
+ 50% { border-color: #00ff00; }
+ 66% { border-color: #0000ff; }
+ 83% { border-color: #8b00ff; }
+ 100% { border-color: #ff0000; }
+ }
+
+ @keyframes bgShadowDance {
+ 0%, 100% { box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); }
+ 25% { box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.3); }
+ 50% { box-shadow: -5px -5px 15px rgba(0, 0, 0, 0.3); }
+ 75% { box-shadow: 5px -5px 15px rgba(0, 0, 0, 0.3); }
+ }
+
+ @keyframes bgElectricEdges {
+ 0%, 100% { box-shadow: 0 0 5px #667eea, inset 0 0 5px #667eea; }
+ 25% { box-shadow: 0 0 15px #764ba2, inset 0 0 10px #764ba2; }
+ 50% { box-shadow: 0 0 20px #f093fb, inset 0 0 15px #f093fb; }
+ 75% { box-shadow: 0 0 15px #764ba2, inset 0 0 10px #764ba2; }
+ }
+
  /* Animated Background Elements */
  .bg-animation {
  position: fixed;
@@ -1993,6 +2136,8 @@
  padding: 15px;
  background: #f8f8f8;
  border-radius: 12px;
+ position: relative;
+ transition: all 0.3s ease;
  }
 
  .mood-header {
@@ -2041,6 +2186,204 @@
  .mood-help-btn:hover {
  transform: scale(1.1);
  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
+ }
+
+ /* Background Effects Button & Popup */
+ .mood-effects-btn {
+ position: absolute;
+ top: 12px;
+ right: 12px;
+ width: 34px;
+ height: 34px;
+ border-radius: 50%;
+ background: linear-gradient(135deg, #f093fb, #f5576c);
+ color: white;
+ border: none;
+ font-size: 18px;
+ cursor: pointer;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ transition: all 0.3s ease;
+ box-shadow: 0 2px 8px rgba(245, 87, 108, 0.3);
+ z-index: 10;
+ }
+
+ .mood-effects-btn:hover {
+ transform: scale(1.1) rotate(90deg);
+ box-shadow: 0 4px 16px rgba(245, 87, 108, 0.5);
+ }
+
+ .mood-effects-popup {
+ position: absolute;
+ top: 55px;
+ right: 12px;
+ width: 280px;
+ max-height: 0;
+ overflow: hidden;
+ background: white;
+ border-radius: 12px;
+ box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+ z-index: 100;
+ transition: max-height 0.3s ease, opacity 0.3s ease;
+ opacity: 0;
+ }
+
+ .mood-effects-popup.active {
+ max-height: 500px;
+ opacity: 1;
+ overflow-y: auto;
+ }
+
+ .mood-effects-header {
+ padding: 15px;
+ border-bottom: 2px solid #f0f0f0;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ background: linear-gradient(135deg, #f093fb, #f5576c);
+ color: white;
+ border-radius: 12px 12px 0 0;
+ }
+
+ .mood-effects-title {
+ font-size: 16px;
+ font-weight: 700;
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ }
+
+ .mood-effects-body {
+ padding: 12px;
+ max-height: 400px;
+ overflow-y: auto;
+ }
+
+ .effect-category {
+ margin-bottom: 15px;
+ }
+
+ .effect-category-title {
+ font-size: 13px;
+ font-weight: 700;
+ color: #667eea;
+ margin-bottom: 8px;
+ padding: 6px 8px;
+ background: rgba(102, 126, 234, 0.1);
+ border-radius: 6px;
+ cursor: pointer;
+ user-select: none;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ }
+
+ .effect-category-title:hover {
+ background: rgba(102, 126, 234, 0.2);
+ }
+
+ .effect-options {
+ display: grid;
+ grid-template-columns: repeat(2, 1fr);
+ gap: 6px;
+ margin-top: 6px;
+ max-height: 0;
+ overflow: hidden;
+ transition: max-height 0.3s ease;
+ }
+
+ .effect-options.expanded {
+ max-height: 500px;
+ }
+
+ .effect-btn {
+ padding: 8px;
+ background: #f8f8f8;
+ border: 2px solid transparent;
+ border-radius: 8px;
+ font-size: 11px;
+ font-weight: 600;
+ color: #555;
+ cursor: pointer;
+ transition: all 0.2s ease;
+ text-align: center;
+ }
+
+ .effect-btn:hover {
+ background: #667eea;
+ color: white;
+ transform: translateY(-2px);
+ }
+
+ .effect-btn.active {
+ background: linear-gradient(135deg, #667eea, #764ba2);
+ color: white;
+ border-color: #667eea;
+ }
+
+ .effect-controls {
+ padding: 12px;
+ background: #f8f8f8;
+ border-radius: 8px;
+ margin-bottom: 10px;
+ }
+
+ .effect-control-group {
+ margin-bottom: 12px;
+ }
+
+ .effect-control-label {
+ font-size: 12px;
+ font-weight: 600;
+ color: #555;
+ margin-bottom: 6px;
+ display: block;
+ }
+
+ .effect-slider {
+ width: 100%;
+ height: 6px;
+ border-radius: 3px;
+ background: #ddd;
+ outline: none;
+ -webkit-appearance: none;
+ }
+
+ .effect-slider::-webkit-slider-thumb {
+ -webkit-appearance: none;
+ appearance: none;
+ width: 16px;
+ height: 16px;
+ border-radius: 50%;
+ background: linear-gradient(135deg, #667eea, #764ba2);
+ cursor: pointer;
+ }
+
+ .effect-slider::-moz-range-thumb {
+ width: 16px;
+ height: 16px;
+ border-radius: 50%;
+ background: linear-gradient(135deg, #667eea, #764ba2);
+ cursor: pointer;
+ border: none;
+ }
+
+ .effect-reset-btn {
+ width: 100%;
+ padding: 10px;
+ background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+ color: white;
+ border: none;
+ border-radius: 8px;
+ font-weight: 700;
+ cursor: pointer;
+ transition: all 0.2s ease;
+ }
+
+ .effect-reset-btn:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
  }
 
  .mood-selector-wrapper {
@@ -4173,6 +4516,26 @@ transform: scale(1.05);
  max-height: 90vh;
  }
 
+ /* Effects Button and Popup Mobile Styles */
+ .mood-effects-btn {
+ width: 32px;
+ height: 32px;
+ top: 10px;
+ right: 10px;
+ font-size: 16px;
+ }
+
+ .mood-effects-popup {
+ right: 10px;
+ left: auto;
+ width: calc(100vw - 20px);
+ max-width: 320px;
+ }
+
+ .mood-effects-popup.active {
+ max-height: 420px;
+ }
+
  /* Library Search and Pagination Mobile Styles */
  .library-search-container {
  padding: 10px 12px;
@@ -4527,6 +4890,82 @@ transform: scale(1.05);
  <path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
  </svg>
  </button>
+ </div>
+
+ <!-- Background Effects Button -->
+ <button class="mood-effects-btn" id="moodEffectsBtn" title="Background Effects">✨</button>
+
+ <!-- Background Effects Popup -->
+ <div class="mood-effects-popup" id="moodEffectsPopup">
+ <div class="mood-effects-header">
+ <div class="mood-effects-title">✨ Background Effects</div>
+ </div>
+ <div class="mood-effects-body">
+ <!-- Controls -->
+ <div class="effect-controls">
+ <div class="effect-control-group">
+ <label class="effect-control-label">Speed: <span id="effectSpeedValue">1x</span></label>
+ <input type="range" class="effect-slider" id="effectSpeed" min="0.5" max="3" step="0.1" value="1">
+ </div>
+ <div class="effect-control-group">
+ <label class="effect-control-label">Intensity: <span id="effectIntensityValue">50%</span></label>
+ <input type="range" class="effect-slider" id="effectIntensity" min="0" max="100" step="5" value="50">
+ </div>
+ </div>
+
+ <!-- Pulse Effects -->
+ <div class="effect-category">
+ <div class="effect-category-title" data-category="pulse">🎵 Pulse Effects <span>▼</span></div>
+ <div class="effect-options expanded" id="pulseEffects">
+ <button class="effect-btn" data-effect="heartbeat">💓 Heartbeat</button>
+ <button class="effect-btn" data-effect="flash">⚡ Flash</button>
+ <button class="effect-btn" data-effect="glowpulse">💫 Glow Pulse</button>
+ <button class="effect-btn" data-effect="scalebounce">🎯 Scale Bounce</button>
+ <button class="effect-btn" data-effect="breathe">🌬️ Breathe</button>
+ <button class="effect-btn" data-effect="beatdrop">💥 Beat Drop</button>
+ </div>
+ </div>
+
+ <!-- Motion Effects -->
+ <div class="effect-category">
+ <div class="effect-category-title" data-category="motion">🌊 Motion Effects <span>▼</span></div>
+ <div class="effect-options" id="motionEffects">
+ <button class="effect-btn" data-effect="shake">📳 Shake</button>
+ <button class="effect-btn" data-effect="sway">🎐 Sway</button>
+ <button class="effect-btn" data-effect="float">☁️ Float</button>
+ <button class="effect-btn" data-effect="wobble">🌀 Wobble</button>
+ <button class="effect-btn" data-effect="rotate">🔄 Rotate</button>
+ <button class="effect-btn" data-effect="tilt3d">🎲 Tilt 3D</button>
+ </div>
+ </div>
+
+ <!-- Visual FX -->
+ <div class="effect-category">
+ <div class="effect-category-title" data-category="visual">✨ Visual FX <span>▼</span></div>
+ <div class="effect-options" id="visualEffects">
+ <button class="effect-btn" data-effect="flicker">📺 Flicker</button>
+ <button class="effect-btn" data-effect="glitch">⚠️ Glitch</button>
+ <button class="effect-btn" data-effect="rgbsplit">🌈 RGB Split</button>
+ <button class="effect-btn" data-effect="wavemotion">🌊 Wave Motion</button>
+ <button class="effect-btn" data-effect="ripple">💧 Ripple</button>
+ <button class="effect-btn" data-effect="prism">🔮 Prism</button>
+ </div>
+ </div>
+
+ <!-- Border Effects -->
+ <div class="effect-category">
+ <div class="effect-category-title" data-category="border">🎨 Border Effects <span>▼</span></div>
+ <div class="effect-options" id="borderEffects">
+ <button class="effect-btn" data-effect="borderpulse">💠 Border Pulse</button>
+ <button class="effect-btn" data-effect="neonglow">💡 Neon Glow</button>
+ <button class="effect-btn" data-effect="rainbowborder">🌈 Rainbow</button>
+ <button class="effect-btn" data-effect="shadowdance">🕴️ Shadow Dance</button>
+ <button class="effect-btn" data-effect="electricedges">⚡ Electric Edges</button>
+ </div>
+ </div>
+
+ <button class="effect-reset-btn" id="effectResetBtn">🔄 Reset All Effects</button>
+ </div>
  </div>
  </div>
 
@@ -7358,17 +7797,19 @@ moodHelpBtn.addEventListener('click', (e) => {
 
 closeMoodHelpModal.addEventListener('click', closeMoodHelpModalFunc);
 moodHelpModalOverlay.addEventListener('click', (e) => {
-  if (e.target === moodHelpModalOverlay) closeMoodHelpModalFunc();
-});
+  // Close modal if clicking on overlay background
+  if (e.target === moodHelpModalOverlay) {
+    closeMoodHelpModalFunc();
+    return;
+  }
 
-// Mood item click handlers - change mood and close modal
-const moodItems = document.querySelectorAll('.mood-item[data-mood]');
-moodItems.forEach(item => {
-  item.addEventListener('click', () => {
-    const mood = item.getAttribute('data-mood');
+  // Handle mood item clicks using event delegation (works on mobile too)
+  const moodItem = e.target.closest('.mood-item[data-mood]');
+  if (moodItem) {
+    const mood = moodItem.getAttribute('data-mood');
     applyMood(mood);
     closeMoodHelpModalFunc();
-  });
+  }
 });
 
 // Mood title click handler (Easter egg trigger)
@@ -7379,6 +7820,140 @@ closeEasterEggModal.addEventListener('click', closeEasterEggModalFunc);
 easterEggModalOverlay.addEventListener('click', (e) => {
   if (e.target === easterEggModalOverlay) closeEasterEggModalFunc();
 });
+
+// Background Effects System
+const moodEffectsBtn = document.getElementById('moodEffectsBtn');
+const moodEffectsPopup = document.getElementById('moodEffectsPopup');
+const effectSpeed = document.getElementById('effectSpeed');
+const effectSpeedValue = document.getElementById('effectSpeedValue');
+const effectIntensity = document.getElementById('effectIntensity');
+const effectIntensityValue = document.getElementById('effectIntensityValue');
+const effectResetBtn = document.getElementById('effectResetBtn');
+const moodSection = document.querySelector('.mood-section');
+
+let activeEffects = [];
+let effectSettings = {
+  speed: 1,
+  intensity: 50
+};
+
+// Toggle popup
+moodEffectsBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  moodEffectsPopup.classList.toggle('active');
+});
+
+// Close popup when clicking outside
+document.addEventListener('click', (e) => {
+  if (!moodEffectsPopup.contains(e.target) && e.target !== moodEffectsBtn) {
+    moodEffectsPopup.classList.remove('active');
+  }
+});
+
+// Category expand/collapse
+document.querySelectorAll('.effect-category-title').forEach(title => {
+  title.addEventListener('click', () => {
+    const category = title.dataset.category;
+    const options = title.nextElementSibling;
+    const arrow = title.querySelector('span:last-child');
+
+    options.classList.toggle('expanded');
+    arrow.textContent = options.classList.contains('expanded') ? '▼' : '▶';
+  });
+});
+
+// Speed control
+effectSpeed.addEventListener('input', () => {
+  effectSettings.speed = parseFloat(effectSpeed.value);
+  effectSpeedValue.textContent = effectSettings.speed + 'x';
+  updateEffects();
+});
+
+// Intensity control
+effectIntensity.addEventListener('input', () => {
+  effectSettings.intensity = parseInt(effectIntensity.value);
+  effectIntensityValue.textContent = effectSettings.intensity + '%';
+  updateEffects();
+});
+
+// Effect buttons
+document.querySelectorAll('.effect-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const effect = btn.dataset.effect;
+
+    if (activeEffects.includes(effect)) {
+      // Remove effect
+      activeEffects = activeEffects.filter(e => e !== effect);
+      btn.classList.remove('active');
+    } else {
+      // Add effect
+      activeEffects.push(effect);
+      btn.classList.add('active');
+    }
+
+    updateEffects();
+  });
+});
+
+// Reset button
+effectResetBtn.addEventListener('click', () => {
+  activeEffects = [];
+  document.querySelectorAll('.effect-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  moodSection.style.animation = '';
+  moodSection.style.border = '';
+  updateEffects();
+});
+
+// Apply effects
+function updateEffects() {
+  const duration = 2 / effectSettings.speed;
+  const scale = effectSettings.intensity / 100;
+
+  if (activeEffects.length === 0) {
+    moodSection.style.animation = '';
+    moodSection.style.border = '';
+    return;
+  }
+
+  const animations = activeEffects.map(effect => {
+    let animName = '';
+    switch(effect) {
+      case 'heartbeat': animName = 'bgHeartbeat'; break;
+      case 'flash': animName = 'bgFlash'; break;
+      case 'glowpulse': animName = 'bgGlowPulse'; break;
+      case 'scalebounce': animName = 'bgScaleBounce'; break;
+      case 'breathe': animName = 'bgBreathe'; break;
+      case 'beatdrop': animName = 'bgBeatDrop'; break;
+      case 'shake': animName = 'bgShake'; break;
+      case 'sway': animName = 'bgSway'; break;
+      case 'float': animName = 'bgFloat'; break;
+      case 'wobble': animName = 'bgWobble'; break;
+      case 'rotate': animName = 'bgRotate'; break;
+      case 'tilt3d': animName = 'bgTilt3D'; break;
+      case 'flicker': animName = 'bgFlicker'; break;
+      case 'glitch': animName = 'bgGlitch'; break;
+      case 'rgbsplit': animName = 'bgRGBSplit'; break;
+      case 'wavemotion': animName = 'bgWaveMotion'; break;
+      case 'ripple': animName = 'bgRipple'; break;
+      case 'prism': animName = 'bgPrism'; break;
+      case 'borderpulse': animName = 'bgBorderPulse'; break;
+      case 'neonglow': animName = 'bgNeonGlow'; break;
+      case 'rainbowborder': animName = 'bgRainbowBorder'; break;
+      case 'shadowdance': animName = 'bgShadowDance'; break;
+      case 'electricedges': animName = 'bgElectricEdges'; break;
+    }
+    return `${animName} ${duration}s ease-in-out infinite`;
+  }).join(', ');
+
+  moodSection.style.animation = animations;
+
+  // Add border for border effects
+  if (activeEffects.some(e => ['borderpulse', 'neonglow', 'rainbowborder', 'shadowdance', 'electricedges'].includes(e))) {
+    moodSection.style.border = '2px solid transparent';
+  }
+}
 
 // Load settings on page load
 loadEasterEggSettings();

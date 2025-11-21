@@ -7413,20 +7413,15 @@ function handleSongEnd() {
 function prevSong() {
  const songs = getCurrentSongs();
  if (songs.length === 0) return;
- 
+
  if (player && player.getCurrentTime && player.getCurrentTime() > 3) {
  player.seekTo(0);
  } else {
  currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
-
-    addSongBtn.disabled = false;
-    addSongBtnText.textContent = 'Add Song';
-  }
-}
  selectSong(currentSongIndex);
  if (isPlaying) play();
  }
- }
+}
 
 function nextSong() {
  const songs = getCurrentSongs();

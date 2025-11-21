@@ -62,99 +62,99 @@
  let popoutWindow = null;
 
  // DOM Elements
- var playPauseBtn = document.getElementById('playPauseBtn');
- var playIcon = document.getElementById('playIcon');
- var pauseIcon = document.getElementById('pauseIcon');
- var prevBtn = document.getElementById('prevBtn');
- var nextBtn = document.getElementById('nextBtn');
- var shuffleBtn = document.getElementById('shuffleBtn');
- var repeatBtn = document.getElementById('repeatBtn');
- var progressBar = document.getElementById('progressBar');
- var progressFill = document.getElementById('progressFill');
- var currentTimeEl = document.getElementById('currentTime');
- var totalTimeEl = document.getElementById('totalTime');
- var songTitle = document.getElementById('songTitle');
- var artistName = document.getElementById('artistName');
- var playlistContainer = document.getElementById('playlist');
- var playlistCount = document.getElementById('playlistCount');
- var volumeBtn = document.getElementById('volumeBtn');
- var volumeIcon = document.getElementById('volumeIcon');
- var muteIcon = document.getElementById('muteIcon');
- var volumeSlider = document.getElementById('volumeSlider');
- var volumeFill = document.getElementById('volumeFill');
- var playlistTabsContainer = document.getElementById('playlistTabs');
- var addPlaylistBtn = document.getElementById('addPlaylistBtn');
+ const playPauseBtn = document.getElementById('playPauseBtn');
+ const playIcon = document.getElementById('playIcon');
+ const pauseIcon = document.getElementById('pauseIcon');
+ const prevBtn = document.getElementById('prevBtn');
+ const nextBtn = document.getElementById('nextBtn');
+ const shuffleBtn = document.getElementById('shuffleBtn');
+ const repeatBtn = document.getElementById('repeatBtn');
+ const progressBar = document.getElementById('progressBar');
+ const progressFill = document.getElementById('progressFill');
+ const currentTimeEl = document.getElementById('currentTime');
+ const totalTimeEl = document.getElementById('totalTime');
+ const songTitle = document.getElementById('songTitle');
+ const artistName = document.getElementById('artistName');
+ const playlistContainer = document.getElementById('playlist');
+ const playlistCount = document.getElementById('playlistCount');
+ const volumeBtn = document.getElementById('volumeBtn');
+ const volumeIcon = document.getElementById('volumeIcon');
+ const muteIcon = document.getElementById('muteIcon');
+ const volumeSlider = document.getElementById('volumeSlider');
+ const volumeFill = document.getElementById('volumeFill');
+ const playlistTabsContainer = document.getElementById('playlistTabs');
+ const addPlaylistBtn = document.getElementById('addPlaylistBtn');
  
  // Settings elements
- var settingsBtn = document.getElementById('settingsBtn');
- var settingsModalOverlay = document.getElementById('settingsModalOverlay');
- var closeSettingsModal = document.getElementById('closeSettingsModal');
- var toggleStickyControls = document.getElementById('toggleStickyControls');
- var toggleVisualizer = document.getElementById('toggleVisualizer');
- var toggleBackgroundAnim = document.getElementById('toggleBackgroundAnim');
- var toggleFloatingPlayerSetting = document.getElementById('toggleFloatingPlayer');
+ const settingsBtn = document.getElementById('settingsBtn');
+ const settingsModalOverlay = document.getElementById('settingsModalOverlay');
+ const closeSettingsModal = document.getElementById('closeSettingsModal');
+ const toggleStickyControls = document.getElementById('toggleStickyControls');
+ const toggleVisualizer = document.getElementById('toggleVisualizer');
+ const toggleBackgroundAnim = document.getElementById('toggleBackgroundAnim');
+ const toggleFloatingPlayerSetting = document.getElementById('toggleFloatingPlayer');
  
  // Floating Player elements
- var floatingPlayer = document.getElementById('floatingPlayer');
- var floatingPlayerBtn = document.getElementById('floatingPlayerBtn');
- var closeFloatingPlayer = document.getElementById('closeFloatingPlayer');
- var popoutWindowBtn = document.getElementById('popoutWindowBtn');
- var floatingSongTitle = document.getElementById('floatingSongTitle');
-var addSongModalOverlay = document.getElementById('addSongModalOverlay');
-var closeAddSongModal = document.getElementById('closeAddSongModal');
-var cancelAddSong = document.getElementById('cancelAddSong');
-var addSongBtn = document.getElementById('addSongBtn');
-var addSongVideoUrl = document.getElementById('addSongVideoUrl');
-var addSongStatus = document.getElementById('addSongStatus');
-var addSongBtnText = document.getElementById('addSongBtnText');
-var addSongModalTitle = document.getElementById('addSongModalTitle');
+ const floatingPlayer = document.getElementById('floatingPlayer');
+ const floatingPlayerBtn = document.getElementById('floatingPlayerBtn');
+ const closeFloatingPlayer = document.getElementById('closeFloatingPlayer');
+ const popoutWindowBtn = document.getElementById('popoutWindowBtn');
+ const floatingSongTitle = document.getElementById('floatingSongTitle');
+const addSongModalOverlay = document.getElementById('addSongModalOverlay');
+const closeAddSongModal = document.getElementById('closeAddSongModal');
+const cancelAddSong = document.getElementById('cancelAddSong');
+const addSongBtn = document.getElementById('addSongBtn');
+const addSongVideoUrl = document.getElementById('addSongVideoUrl');
+const addSongStatus = document.getElementById('addSongStatus');
+const addSongBtnText = document.getElementById('addSongBtnText');
+const addSongModalTitle = document.getElementById('addSongModalTitle');
 
 let targetPlaylistIndex = null;
 
- var floatingArtistName = document.getElementById('floatingArtistName');
- var floatingPlayPauseBtn = document.getElementById('floatingPlayPauseBtn');
- var floatingPrevBtn = document.getElementById('floatingPrevBtn');
- var floatingNextBtn = document.getElementById('floatingNextBtn');
+ const floatingArtistName = document.getElementById('floatingArtistName');
+ const floatingPlayPauseBtn = document.getElementById('floatingPlayPauseBtn');
+ const floatingPrevBtn = document.getElementById('floatingPrevBtn');
+ const floatingNextBtn = document.getElementById('floatingNextBtn');
  
  // Sticky Controls elements
- var stickyControls = document.getElementById('stickyControls');
- var stickySongTitle = document.getElementById('stickySongTitle');
- var stickyArtistName = document.getElementById('stickyArtistName');
- var stickyThumb = document.getElementById('stickyThumb');
- var stickyPlayPauseBtn = document.getElementById('stickyPlayPauseBtn');
- var stickyPrevBtn = document.getElementById('stickyPrevBtn');
- var stickyNextBtn = document.getElementById('stickyNextBtn');
- var musicVisualizer = document.getElementById('musicVisualizer');
+ const stickyControls = document.getElementById('stickyControls');
+ const stickySongTitle = document.getElementById('stickySongTitle');
+ const stickyArtistName = document.getElementById('stickyArtistName');
+ const stickyThumb = document.getElementById('stickyThumb');
+ const stickyPlayPauseBtn = document.getElementById('stickyPlayPauseBtn');
+ const stickyPrevBtn = document.getElementById('stickyPrevBtn');
+ const stickyNextBtn = document.getElementById('stickyNextBtn');
+ const musicVisualizer = document.getElementById('musicVisualizer');
  
  // Carousel elements
- var carouselSection = document.getElementById('carouselSection');
- var carouselTrack = document.getElementById('carouselTrack');
- var carouselPrev = document.getElementById('carouselPrev');
- var carouselNext = document.getElementById('carouselNext');
+ const carouselSection = document.getElementById('carouselSection');
+ const carouselTrack = document.getElementById('carouselTrack');
+ const carouselPrev = document.getElementById('carouselPrev');
+ const carouselNext = document.getElementById('carouselNext');
  
  // Library elements
- var libraryBtn = document.getElementById('libraryBtn');
- var libraryBadge = document.getElementById('libraryBadge');
- var libraryModalOverlay = document.getElementById('libraryModalOverlay');
- var libraryModalBody = document.getElementById('libraryModalBody');
- var closeLibraryModal = document.getElementById('closeLibraryModal');
+ const libraryBtn = document.getElementById('libraryBtn');
+ const libraryBadge = document.getElementById('libraryBadge');
+ const libraryModalOverlay = document.getElementById('libraryModalOverlay');
+ const libraryModalBody = document.getElementById('libraryModalBody');
+ const closeLibraryModal = document.getElementById('closeLibraryModal');
  
  // Import modal elements
- var importPlaylistBtn = document.getElementById('importPlaylistBtn');
- var playlistModalOverlay = document.getElementById('playlistModalOverlay');
- var closePlaylistModal = document.getElementById('closePlaylistModal');
- var cancelPlaylist = document.getElementById('cancelPlaylist');
- var loadPlaylist = document.getElementById('loadPlaylist');
- var playlistUrlInput = document.getElementById('playlistUrlInput');
- var playlistNameInput = document.getElementById('playlistNameInput');
- var playlistStatus = document.getElementById('playlistStatus');
- var loadPlaylistText = document.getElementById('loadPlaylistText');
-var manualPlaylistCheckbox = document.getElementById('manualPlaylistCheckbox');
-var playlistUrlGroup = document.getElementById('playlistUrlGroup');
-var videoUrlGroup = document.getElementById('videoUrlGroup');
-var videoUrlInput = document.getElementById('videoUrlInput');
-var communityNotice = document.getElementById('communityNotice');
-var playlistModalTitle = document.getElementById('playlistModalTitle');
+ const importPlaylistBtn = document.getElementById('importPlaylistBtn');
+ const playlistModalOverlay = document.getElementById('playlistModalOverlay');
+ const closePlaylistModal = document.getElementById('closePlaylistModal');
+ const cancelPlaylist = document.getElementById('cancelPlaylist');
+ const loadPlaylist = document.getElementById('loadPlaylist');
+ const playlistUrlInput = document.getElementById('playlistUrlInput');
+ const playlistNameInput = document.getElementById('playlistNameInput');
+ const playlistStatus = document.getElementById('playlistStatus');
+ const loadPlaylistText = document.getElementById('loadPlaylistText');
+const manualPlaylistCheckbox = document.getElementById('manualPlaylistCheckbox');
+const playlistUrlGroup = document.getElementById('playlistUrlGroup');
+const videoUrlGroup = document.getElementById('videoUrlGroup');
+const videoUrlInput = document.getElementById('videoUrlInput');
+const communityNotice = document.getElementById('communityNotice');
+const playlistModalTitle = document.getElementById('playlistModalTitle');
 
 
  // Mood Management
@@ -811,8 +811,8 @@ function onPlayerStateChange(event) {
  }
 
 function updateAllPlayButtons(state) {
- var playIconHTML = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
- var pauseIconHTML = '<svg viewBox="0 0 24 24"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>';
+ const playIconHTML = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+ const pauseIconHTML = '<svg viewBox="0 0 24 24"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>';
  
  if (state === 'pause') {
  floatingPlayPauseBtn.innerHTML = pauseIconHTML;

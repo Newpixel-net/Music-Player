@@ -5018,9 +5018,9 @@ transform: scale(1.05);
  <input type="range" class="effect-slider" id="bgShadowDepth" min="0" max="30" value="0">
  </div>
  <div class="style-control">
- <label>Border Glow: <span id="borderGlowValue">0px</span></label>
- <input type="range" class="effect-slider" id="borderGlow" min="0" max="20" value="0">
- <input type="color" id="borderGlowColor" value="#667eea">
+ <label>Border Glow: <span id="bgBorderGlowValue">0px</span></label>
+ <input type="range" class="effect-slider" id="bgBorderGlow" min="0" max="20" value="0">
+ <input type="color" id="bgBorderGlowColor" value="#667eea">
  </div>
  </div>
  </div>
@@ -7899,9 +7899,9 @@ const borderRadius = document.getElementById('borderRadius');
 const borderRadiusValue = document.getElementById('borderRadiusValue');
 const bgShadowDepth = document.getElementById('bgShadowDepth');
 const bgShadowDepthValue = document.getElementById('bgShadowDepthValue');
-const borderGlow = document.getElementById('borderGlow');
-const borderGlowValue = document.getElementById('borderGlowValue');
-const borderGlowColor = document.getElementById('borderGlowColor');
+const bgBorderGlow = document.getElementById('bgBorderGlow');
+const bgBorderGlowValue = document.getElementById('bgBorderGlowValue');
+const bgBorderGlowColor = document.getElementById('bgBorderGlowColor');
 
 
 let activeEffects = [];
@@ -7994,12 +7994,12 @@ bgShadowDepth.addEventListener('input', () => {
   updateStyleCustomization();
 });
 
-borderGlow.addEventListener('input', () => {
-  borderGlowValue.textContent = borderGlow.value + 'px';
+bgBorderGlow.addEventListener('input', () => {
+  bgBorderGlowValue.textContent = bgBorderGlow.value + 'px';
   updateStyleCustomization();
 });
 
-borderGlowColor.addEventListener('input', () => {
+bgBorderGlowColor.addEventListener('input', () => {
   updateStyleCustomization();
 });
 
@@ -8010,8 +8010,8 @@ function updateStyleCustomization() {
   const blur = bgBlur.value;
   const radius = borderRadius.value;
   const shadow = bgShadowDepth.value;
-  const glow = borderGlow.value;
-  const glowColor = borderGlowColor.value;
+  const glow = bgBorderGlow.value;
+  const glowColor = bgBorderGlowColor.value;
 
   // Convert hex to rgba
   const r = parseInt(color.substr(1, 2), 16);
@@ -8055,8 +8055,8 @@ effectResetBtn.addEventListener('click', () => {
   borderRadiusValue.textContent = '12px';
   bgShadowDepth.value = 0;
   bgShadowDepthValue.textContent = '0px';
-  borderGlow.value = 0;
-  borderGlowValue.textContent = '0px';
+  bgBorderGlow.value = 0;
+  bgBorderGlowValue.textContent = '0px';
   moodSection.style.backgroundColor = '';
   moodSection.style.backdropFilter = '';
   moodSection.style.webkitBackdropFilter = '';

@@ -1397,11 +1397,11 @@ document.querySelectorAll('.texture-btn').forEach(btn => {
 // Apply texture function
 window.applyTexture = function(texture) {
   if (texture === 'none') {
-    moodSection.style.backgroundImage = '';
-    moodSection.style.backgroundBlendMode = '';
+    window.moodSection.style.backgroundImage = '';
+    window.moodSection.style.backgroundBlendMode = '';
   } else {
     // Remove all texture classes first
-    moodSection.classList.remove('texture-speaker-grille', 'texture-sound-waves', 'texture-equalizer',
+    window.moodSection.classList.remove('texture-speaker-grille', 'texture-sound-waves', 'texture-equalizer',
                                    'texture-waveform', 'texture-bass-ripples', 'texture-studio-foam',
                                    'texture-audio-jack', 'texture-mic-mesh', 'texture-piano-keys',
                                    'texture-guitar-strings', 'texture-drum-skin', 'texture-foam-pyramids',
@@ -1409,10 +1409,10 @@ window.applyTexture = function(texture) {
                                    'texture-mixing-console');
 
     // Add the selected texture class
-    moodSection.classList.add('texture-' + texture);
+    window.moodSection.classList.add('texture-' + texture);
 
     // Use blend mode to combine texture with background color
-    moodSection.style.backgroundBlendMode = 'overlay';
+    window.moodSection.style.backgroundBlendMode = 'overlay';
   }
 
   updateStyleCustomization();
@@ -1433,10 +1433,10 @@ window.updateStyleCustomization = function() {
   const g = parseInt(color.substr(3, 2), 16);
   const b = parseInt(color.substr(5, 2), 16);
 
-  moodSection.style.backgroundColor = 'rgba(' + r + ', ' + g + ', ' + b + ', ' + opacity + ')';
-  moodSection.style.backdropFilter = blur > 0 ? 'blur(' + blur + 'px)' : '';
-  moodSection.style.webkitBackdropFilter = blur > 0 ? 'blur(' + blur + 'px)' : '';
-  moodSection.style.borderRadius = radius + 'px';
+  window.moodSection.style.backgroundColor = 'rgba(' + r + ', ' + g + ', ' + b + ', ' + opacity + ')';
+  window.moodSection.style.backdropFilter = blur > 0 ? 'blur(' + blur + 'px)' : '';
+  window.moodSection.style.webkitBackdropFilter = blur > 0 ? 'blur(' + blur + 'px)' : '';
+  window.moodSection.style.borderRadius = radius + 'px';
   
   let boxShadow = '';
   if (shadow > 0) {
@@ -1449,7 +1449,7 @@ window.updateStyleCustomization = function() {
     const glowShadow = '0 0 ' + glow + 'px rgba(' + glowR + ', ' + glowG + ', ' + glowB + ', 0.6)';
     boxShadow = boxShadow ? boxShadow + ', ' + glowShadow : glowShadow;
   }
-  moodSection.style.boxShadow = boxShadow;
+  window.moodSection.style.boxShadow = boxShadow;
 
   // Apply border glow to video player container
   const videoPlayerContainer = document.querySelector('.video-player-container');
@@ -1471,8 +1471,8 @@ effectResetBtn.addEventListener('click', () => {
   document.querySelectorAll('.effect-btn').forEach(btn => {
     btn.classList.remove('active');
   });
-  moodSection.style.animation = '';
-  moodSection.style.border = '';
+  window.moodSection.style.animation = '';
+  window.moodSection.style.border = '';
   
   // Reset style customizations
   bgColor.value = '#f8f8f8';
@@ -1486,17 +1486,17 @@ effectResetBtn.addEventListener('click', () => {
   bgShadowDepthValue.textContent = '0px';
   bgBorderGlow.value = 0;
   bgBorderGlowValue.textContent = '0px';
-  moodSection.style.backgroundColor = '';
-  moodSection.style.backdropFilter = '';
-  moodSection.style.webkitBackdropFilter = '';
-  moodSection.style.borderRadius = '';
-  moodSection.style.boxShadow = '';
+  window.moodSection.style.backgroundColor = '';
+  window.moodSection.style.backdropFilter = '';
+  window.moodSection.style.webkitBackdropFilter = '';
+  window.moodSection.style.borderRadius = '';
+  window.moodSection.style.boxShadow = '';
 
   // Reset texture
   currentTexture = 'none';
-  moodSection.style.backgroundImage = '';
-  moodSection.style.backgroundBlendMode = '';
-  moodSection.classList.remove('texture-speaker-grille', 'texture-sound-waves', 'texture-equalizer',
+  window.moodSection.style.backgroundImage = '';
+  window.moodSection.style.backgroundBlendMode = '';
+  window.moodSection.classList.remove('texture-speaker-grille', 'texture-sound-waves', 'texture-equalizer',
                                 'texture-waveform', 'texture-bass-ripples', 'texture-studio-foam',
                                 'texture-audio-jack', 'texture-mic-mesh', 'texture-piano-keys',
                                 'texture-guitar-strings', 'texture-drum-skin', 'texture-foam-pyramids',
@@ -1515,8 +1515,8 @@ window.updateEffects = function() {
   const scale = effectSettings.intensity / 100;
 
   if (activeEffects.length === 0) {
-    moodSection.style.animation = '';
-    moodSection.style.border = '';
+    window.moodSection.style.animation = '';
+    window.moodSection.style.border = '';
     return;
   }
 
@@ -1549,11 +1549,11 @@ window.updateEffects = function() {
     return `${animName} ${duration}s ease-in-out infinite`;
   }).join(', ');
 
-  moodSection.style.animation = animations;
+  window.moodSection.style.animation = animations;
 
   // Add border for border effects
   if (activeEffects.some(e => ['borderpulse', 'neonglow', 'rainbowborder', 'shadowdance', 'electricedges'].includes(e))) {
-    moodSection.style.border = '2px solid transparent';
+    window.moodSection.style.border = '2px solid transparent';
   }
 }
 

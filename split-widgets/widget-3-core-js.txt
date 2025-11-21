@@ -934,8 +934,8 @@ window.extractVideoId = function(url) {
  return {
  title: snippet.title,
  artist: snippet.channelTitle || 'Unknown Artist',
- duration: parseYouTubeDuration(duration),
- albumColor: getRandomColor(),
+ duration: window.parseYouTubeDuration(duration),
+ albumColor: window.getRandomColor(),
  source: `https://www.youtube.com/watch?v=${videoId}`,
  sourceType: 'youtube',
  thumbnail: snippet.thumbnails?.maxres?.url || snippet.thumbnails?.high?.url || snippet.thumbnails?.medium?.url || snippet.thumbnails?.default?.url || null,
@@ -1029,8 +1029,8 @@ window.formatTime = function(seconds) {
  return {
  title: snippet.title,
  artist: snippet.videoOwnerChannelTitle || snippet.channelTitle || 'Unknown Artist',
- duration: parseYouTubeDuration(duration),
- albumColor: getRandomColor(),
+ duration: window.parseYouTubeDuration(duration),
+ albumColor: window.getRandomColor(),
  source: `https://www.youtube.com/watch?v=${videoId}`,
  sourceType: 'youtube',
  thumbnail: snippet.thumbnails?.maxres?.url || snippet.thumbnails?.high?.url || snippet.thumbnails?.medium?.url || snippet.thumbnails?.default?.url || null,
@@ -1047,8 +1047,8 @@ window.formatTime = function(seconds) {
  }
 
  window.importYouTubePlaylist = async function(playlistIdOrUrl, playlistName) {
- const playlistId = extractPlaylistId(playlistIdOrUrl);
- 
+ const playlistId = window.extractPlaylistId(playlistIdOrUrl);
+
  if (!playlistId) {
  alert('Invalid playlist URL or ID. Please check and try again.');
  return;
@@ -1105,8 +1105,8 @@ window.formatTime = function(seconds) {
 
  // Create Manual Playlist with Single Video
  window.createManualPlaylist = async function(videoUrl, playlistName) {
- const videoId = extractVideoId(videoUrl);
- 
+ const videoId = window.extractVideoId(videoUrl);
+
  if (!videoId) {
  alert('Invalid video URL. Please check and try again.');
  return;
@@ -1180,10 +1180,10 @@ window.formatTime = function(seconds) {
  }
  } catch (e) {
  console.error('Firebase save error:', e);
- saveToLocalStorage(libraryEntry);
+ window.saveToLocalStorage(libraryEntry);
  }
  } else {
- saveToLocalStorage(libraryEntry);
+ window.saveToLocalStorage(libraryEntry);
  }
  }
 
@@ -1192,7 +1192,7 @@ window.saveToLocalStorage = function(libraryEntry) {
  if (!exists) {
  playlistLibrary.unshift(libraryEntry);
  localStorage.setItem('playlistLibrary', JSON.stringify(playlistLibrary));
- updateLibraryBadge();
+ window.updateLibraryBadge();
  }
  }
 
@@ -1208,13 +1208,13 @@ window.saveToLocalStorage = function(libraryEntry) {
  
  playlistLibrary.reverse();
  console.log(`✓ Loaded ${playlistLibrary.length} playlists from Firebase`);
- updateLibraryBadge();
+ window.updateLibraryBadge();
  } catch (e) {
  console.error('Firebase load error:', e);
- loadFromLocalStorage();
+ window.loadFromLocalStorage();
  }
  } else {
- loadFromLocalStorage();
+ window.loadFromLocalStorage();
  }
  }
 
@@ -1225,10 +1225,10 @@ window.loadFromLocalStorage = function() {
  playlistLibrary = JSON.parse(saved);
  console.log(`✓ Loaded ${playlistLibrary.length} playlists from localStorage`);
  }
- updateLibraryBadge();
+ window.updateLibraryBadge();
  } catch (e) {
  console.error('Error loading library:', e);
- updateLibraryBadge();
+ window.updateLibraryBadge();
  }
  }
 

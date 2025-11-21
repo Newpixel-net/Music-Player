@@ -1,6 +1,4 @@
 <script>
-// Wait for DOM to be ready before accessing elements
-document.addEventListener('DOMContentLoaded', function() {
  // Firebase Configuration
  const firebaseConfig = {
  apiKey: "AIzaSyDPjVCn59pOyBUVW0vy0e5gAmbvunR8Eaw",
@@ -32,19 +30,19 @@ document.addEventListener('DOMContentLoaded', function() {
  const YOUTUBE_API_BASE = 'https://www.googleapis.com/youtube/v3';
 
  // Data structures
- window.playlists = [];
- window.playlistLibrary = [];
- window.currentPlaylistIndex = 0;
- window.currentSongIndex = 0;
- window.isPlaying = false;
- window.isShuffled = false;
- window.repeatMode = 0;
- window.volume = 70;
- window.isMuted = false;
- window.carouselOffset = 0;
+ let playlists = [];
+ let playlistLibrary = [];
+ let currentPlaylistIndex = 0;
+ let currentSongIndex = 0;
+ let isPlaying = false;
+ let isShuffled = false;
+ let repeatMode = 0;
+ let volume = 70;
+ let isMuted = false;
+ let carouselOffset = 0;
 
  // Settings
- window.settings = {
+ let settings = {
  stickyControls: true,
  visualizer: true,
  backgroundAnim: true,
@@ -52,33 +50,33 @@ document.addEventListener('DOMContentLoaded', function() {
  };
 
  // YouTube Player
- window.player = null;
- window.playerReady = false;
- window.progressInterval = null;
+ let player;
+ let playerReady = false;
+ let progressInterval;
 
  // Floating Player State
- window.floatingPlayerActive = false;
- window.isDragging = false;
- window.dragOffsetX = 0;
- window.dragOffsetY = 0;
- window.popoutWindow = null;
+ let floatingPlayerActive = false;
+ let isDragging = false;
+ let dragOffsetX = 0;
+ let dragOffsetY = 0;
+ let popoutWindow = null;
 
  // DOM Elements
- window.playPauseBtn = document.getElementById('playPauseBtn');
- window.playIcon = document.getElementById('playIcon');
- window.pauseIcon = document.getElementById('pauseIcon');
- window.prevBtn = document.getElementById('prevBtn');
- window.nextBtn = document.getElementById('nextBtn');
- window.shuffleBtn = document.getElementById('shuffleBtn');
- window.repeatBtn = document.getElementById('repeatBtn');
- window.progressBar = document.getElementById('progressBar');
- window.progressFill = document.getElementById('progressFill');
- window.currentTimeEl = document.getElementById('currentTime');
- window.totalTimeEl = document.getElementById('totalTime');
- window.songTitle = document.getElementById('songTitle');
- window.artistName = document.getElementById('artistName');
- window.playlistContainer = document.getElementById('playlist');
- window.playlistCount = document.getElementById('playlistCount');
+ var playPauseBtn = document.getElementById('playPauseBtn');
+ var playIcon = document.getElementById('playIcon');
+ var pauseIcon = document.getElementById('pauseIcon');
+ var prevBtn = document.getElementById('prevBtn');
+ var nextBtn = document.getElementById('nextBtn');
+ var shuffleBtn = document.getElementById('shuffleBtn');
+ var repeatBtn = document.getElementById('repeatBtn');
+ var progressBar = document.getElementById('progressBar');
+ var progressFill = document.getElementById('progressFill');
+ var currentTimeEl = document.getElementById('currentTime');
+ var totalTimeEl = document.getElementById('totalTime');
+ var songTitle = document.getElementById('songTitle');
+ var artistName = document.getElementById('artistName');
+ var playlistContainer = document.getElementById('playlist');
+ var playlistCount = document.getElementById('playlistCount');
  var volumeBtn = document.getElementById('volumeBtn');
  var volumeIcon = document.getElementById('volumeIcon');
  var muteIcon = document.getElementById('muteIcon');
@@ -129,8 +127,8 @@ let targetPlaylistIndex = null;
  var musicVisualizer = document.getElementById('musicVisualizer');
  
  // Carousel elements
- window.carouselSection = document.getElementById('carouselSection');
- window.carouselTrack = document.getElementById('carouselTrack');
+ var carouselSection = document.getElementById('carouselSection');
+ var carouselTrack = document.getElementById('carouselTrack');
  var carouselPrev = document.getElementById('carouselPrev');
  var carouselNext = document.getElementById('carouselNext');
  
@@ -163,12 +161,12 @@ var playlistModalTitle = document.getElementById('playlistModalTitle');
  const moodOptions = document.querySelectorAll('.mood-option');
  let currentMood = 'default';
 
-window.loadMood = function() {
+function loadMood() {
  const savedMood = localStorage.getItem('musicPlayerMood') || 'default';
  applyMood(savedMood);
  }
 
-window.applyMood = function(mood) {
+function applyMood(mood) {
  currentMood = mood;
  document.body.className = mood !== 'default' ? `mood-${mood}` : '';
 
@@ -218,7 +216,7 @@ window.applyMood = function(mood) {
  const allAtmosphereEffects = ['shake', 'sway', 'float', 'wobble', 'tilt3d', 'flicker', 'glitch', 'rgbsplit', 'wavemotion', 'ripple', 'prism', 'borderpulse', 'neonglow', 'rainbowborder', 'shadowdance', 'electricedges'];
  const colorPalette = ['#667eea', '#764ba2', '#f093fb', '#43e97b', '#fa709a', '#fee140', '#667eea', '#ff6b6b', '#ffa07a', '#2e3192', '#1bffff', '#38d172'];
 
-window.applyRandomMood = function() {
+function applyRandomMood() {
  const randomMood = allMoods[Math.floor(Math.random() * allMoods.length)];
  applyMood(randomMood);
 
@@ -234,7 +232,7 @@ window.applyRandomMood = function() {
  setTimeout(() => btn.classList.remove('pulsing'), 600);
 }
 
-window.applyRandomAtmosphere = function() {
+function applyRandomAtmosphere() {
  // Clear all effects first
  activeEffects = [];
  document.querySelectorAll('.effect-btn').forEach(btn => {
@@ -271,7 +269,7 @@ window.applyRandomAtmosphere = function() {
  setTimeout(() => btn.classList.remove('pulsing'), 600);
 }
 
-window.applyRandomBgEffects = function() {
+function applyRandomBgEffects() {
  // Choose random mode for variety
  const modes = ['minimal', 'moderate', 'dramatic', 'neon', 'retro'];
  const mode = modes[Math.floor(Math.random() * modes.length)];
@@ -430,7 +428,7 @@ window.applyRandomBgEffects = function() {
 }
 
  // Settings Management
-window.loadSettings = function() {
+function loadSettings() {
  const saved = localStorage.getItem('musicPlayerSettings');
  if (saved) {
  settings = JSON.parse(saved);
@@ -438,11 +436,11 @@ window.loadSettings = function() {
  applySettings();
  }
 
-window.saveSettings = function() {
+function saveSettings() {
  localStorage.setItem('musicPlayerSettings', JSON.stringify(settings));
  }
 
-window.applySettings = function() {
+function applySettings() {
  toggleStickyControls.checked = settings.stickyControls;
  toggleVisualizer.checked = settings.visualizer;
  toggleBackgroundAnim.checked = settings.backgroundAnim;
@@ -527,7 +525,7 @@ window.applySettings = function() {
  });
 
  // Background Animation - Particles
-window.createParticles = function() {
+function createParticles() {
  const particlesContainer = document.getElementById('particles');
  const particleCount = 20;
  
@@ -542,7 +540,7 @@ window.createParticles = function() {
  }
 
  // Floating Player Functions
-window.toggleFloatingPlayer = function() {
+function toggleFloatingPlayer() {
  floatingPlayerActive = !floatingPlayerActive;
  
  if (floatingPlayerActive) {
@@ -557,7 +555,7 @@ window.toggleFloatingPlayer = function() {
  }
  }
 
-window.updateFloatingPlayerInfo = function() {
+function updateFloatingPlayerInfo() {
  const songs = getCurrentSongs();
  if (songs.length === 0 || currentSongIndex >= songs.length) return;
  
@@ -567,7 +565,7 @@ window.updateFloatingPlayerInfo = function() {
  }
 
  // Pop-out Window Function
-window.openPopoutWindow = function() {
+function openPopoutWindow() {
  const songs = getCurrentSongs();
  if (songs.length === 0 || currentSongIndex >= songs.length) return;
  
@@ -597,7 +595,7 @@ window.openPopoutWindow = function() {
  <script src="https://www.youtube.com/iframe_api"><\/script>
  <script>
  let popoutYTPlayer;
-window.onYouTubeIframeAPIReady = function() {
+function onYouTubeIframeAPIReady() {
  popoutYTPlayer = new YT.Player('popout-player', {
  height: '100%',
  width: '100%',
@@ -619,7 +617,7 @@ window.onYouTubeIframeAPIReady = function() {
  }
 
  // Update Sticky Controls Info
-window.updateStickyControlsInfo = function() {
+function updateStickyControlsInfo() {
  const songs = getCurrentSongs();
  if (songs.length === 0 || currentSongIndex >= songs.length) return;
  
@@ -635,7 +633,7 @@ window.updateStickyControlsInfo = function() {
  }
 
  // Update Visualizer State
-window.updateVisualizerState = function() {
+function updateVisualizerState() {
  if (isPlaying) {
  musicVisualizer.classList.remove('paused');
  musicVisualizer.classList.add('playing');
@@ -646,7 +644,7 @@ window.updateVisualizerState = function() {
  }
 
  // Media Session API for Native Mobile Controls
-window.setupMediaSession = function() {
+function setupMediaSession() {
  if ('mediaSession' in navigator) {
  const songs = getCurrentSongs();
  if (songs.length === 0 || currentSongIndex >= songs.length) return;
@@ -700,7 +698,7 @@ window.setupMediaSession = function() {
  }
 
  // Dragging functionality for floating player
-window.setupDragging = function() {
+function setupDragging() {
  floatingPlayer.addEventListener('mousedown', startDragging);
  document.addEventListener('mousemove', drag);
  document.addEventListener('mouseup', stopDragging);
@@ -710,7 +708,7 @@ window.setupDragging = function() {
  document.addEventListener('touchend', stopDragging);
  }
 
-window.startDragging = function(e) {
+function startDragging(e) {
  if (e.target.closest('.floating-action-btn') || 
  e.target.closest('.floating-control-btn')) {
  return;
@@ -726,7 +724,7 @@ window.startDragging = function(e) {
  floatingPlayer.style.cursor = 'grabbing';
  }
 
-window.drag = function(e) {
+function drag(e) {
  if (!isDragging) return;
  
  e.preventDefault();
@@ -745,13 +743,13 @@ window.drag = function(e) {
  floatingPlayer.style.top = newY + 'px';
  }
 
-window.stopDragging = function() {
+function stopDragging() {
  isDragging = false;
  floatingPlayer.style.cursor = 'move';
  }
 
  // Initialize YouTube Player
-window.onYouTubeIframeAPIReady = function() {
+function onYouTubeIframeAPIReady() {
  player = new YT.Player('player', {
  height: '100%',
  width: '100%',
@@ -771,7 +769,7 @@ window.onYouTubeIframeAPIReady = function() {
  });
  }
 
-window.onPlayerReady = function(event) {
+function onPlayerReady(event) {
  playerReady = true;
  player.setVolume(volume);
  
@@ -782,7 +780,7 @@ window.onPlayerReady = function(event) {
  }
  }
 
-window.onPlayerStateChange = function(event) {
+function onPlayerStateChange(event) {
  if (event.data === YT.PlayerState.PLAYING) {
  isPlaying = true;
  playIcon.style.display = 'none';
@@ -812,7 +810,7 @@ window.onPlayerStateChange = function(event) {
  }
  }
 
-window.updateAllPlayButtons = function(state) {
+function updateAllPlayButtons(state) {
  var playIconHTML = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
  var pauseIconHTML = '<svg viewBox="0 0 24 24"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>';
  
@@ -825,7 +823,7 @@ window.updateAllPlayButtons = function(state) {
  }
  }
 
-window.startProgressUpdater = function() {
+function startProgressUpdater() {
  stopProgressUpdater();
  progressInterval = setInterval(() => {
  if (player && player.getCurrentTime) {
@@ -836,14 +834,14 @@ window.startProgressUpdater = function() {
  }, 100);
  }
 
-window.stopProgressUpdater = function() {
+function stopProgressUpdater() {
  if (progressInterval) {
  clearInterval(progressInterval);
  progressInterval = null;
  }
  }
 
-window.updateProgressDisplay = function(currentTime, duration) {
+function updateProgressDisplay(currentTime, duration) {
  if (duration > 0) {
  const percentage = (currentTime / duration) * 100;
  progressFill.style.width = percentage + '%';
@@ -853,12 +851,12 @@ window.updateProgressDisplay = function(currentTime, duration) {
  }
 
  // Helper Functions
-window.getRandomColor = function() {
+function getRandomColor() {
  const colors = ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#43e97b', '#fa709a', '#fee140', '#30cfd0', '#a8edea', '#fed6e3'];
  return colors[Math.floor(Math.random() * colors.length)];
  }
 
-window.extractPlaylistId = function(url) {
+function extractPlaylistId(url) {
  const patterns = [
  /[?&]list=([^&]+)/,
  /^([A-Za-z0-9_-]+)$/
@@ -873,7 +871,7 @@ window.extractPlaylistId = function(url) {
  }
 
  // Extract Video ID from YouTube URL
-window.extractVideoId = function(url) {
+function extractVideoId(url) {
  const patterns = [
  /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\?\/]+)/,
  /^([A-Za-z0-9_-]{11})$/
@@ -919,7 +917,7 @@ window.extractVideoId = function(url) {
  }
  }
 
-window.parseYouTubeDuration = function(duration) {
+function parseYouTubeDuration(duration) {
  const match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
  if (!match) return '0:00';
  
@@ -933,7 +931,7 @@ window.parseYouTubeDuration = function(duration) {
  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
  }
 
-window.formatTime = function(seconds) {
+function formatTime(seconds) {
  const min = Math.floor(seconds / 60);
  const sec = Math.floor(seconds % 60);
  return `${min}:${sec.toString().padStart(2, '0')}`;
@@ -1158,7 +1156,7 @@ window.formatTime = function(seconds) {
  }
  }
 
-window.saveToLocalStorage = function(libraryEntry) {
+function saveToLocalStorage(libraryEntry) {
  const exists = playlistLibrary.find(p => p.youtubePlaylistId === libraryEntry.youtubePlaylistId);
  if (!exists) {
  playlistLibrary.unshift(libraryEntry);
@@ -1189,7 +1187,7 @@ window.saveToLocalStorage = function(libraryEntry) {
  }
  }
 
-window.loadFromLocalStorage = function() {
+function loadFromLocalStorage() {
  try {
  const saved = localStorage.getItem('playlistLibrary');
  if (saved) {
@@ -1203,7 +1201,7 @@ window.loadFromLocalStorage = function() {
  }
  }
 
-window.updateLibraryBadge = function() {
+function updateLibraryBadge() {
  const count = playlistLibrary.length;
  libraryBadge.textContent = count > 0 ? `(${count} available)` : '(Empty)';
  }
@@ -1223,7 +1221,7 @@ window.updateLibraryBadge = function() {
  const libraryPaginationTop = document.getElementById('libraryPaginationTop');
  const libraryPaginationBottom = document.getElementById('libraryPaginationBottom');
 
-window.openLibraryModal = function() {
+function openLibraryModal() {
  libraryModalOverlay.classList.add('active');
  libraryCurrentPage = 1;
  librarySearchQuery = '';
@@ -1232,12 +1230,12 @@ window.openLibraryModal = function() {
  loadLibraryPage(1);
  }
 
-window.closeLibraryModalFunc = function() {
+function closeLibraryModalFunc() {
  libraryModalOverlay.classList.remove('active');
  librarySearchPreview.classList.remove('active');
  }
 
-window.renderLibrary = function() {
+function renderLibrary() {
  if (playlistLibrary.length === 0) {
  libraryModalBody.innerHTML = `
  <div class="library-empty">
@@ -1296,7 +1294,7 @@ window.renderLibrary = function() {
  });
  }
 
-window.addFromLibrary = function(playlistId) {
+function addFromLibrary(playlistId) {
  const libraryPlaylist = playlistLibrary.find(p => p.id === playlistId);
  
  if (libraryPlaylist) {
@@ -1326,7 +1324,7 @@ window.addFromLibrary = function(playlistId) {
  }
 
  // Library Pagination Functions
-window.loadLibraryPage = function(page) {
+function loadLibraryPage(page) {
  libraryCurrentPage = page;
 
  // Check cache first
@@ -1362,7 +1360,7 @@ window.loadLibraryPage = function(page) {
  }, 300);
  }
 
-window.showLibrarySkeleton = function() {
+function showLibrarySkeleton() {
  const skeleton = document.createElement('div');
  skeleton.className = 'library-skeleton';
 
@@ -1389,7 +1387,7 @@ window.showLibrarySkeleton = function() {
  }, 150);
  }
 
-window.renderLibraryPage = function(pageData) {
+function renderLibraryPage(pageData) {
  if (pageData.playlists.length === 0) {
  libraryModalBody.innerHTML = `
  <div class="library-empty">
@@ -1454,7 +1452,7 @@ window.renderLibraryPage = function(pageData) {
  renderPagination(pageData.total);
  }
 
-window.renderPagination = function(totalItems) {
+function renderPagination(totalItems) {
  if (totalItems === 0) {
  libraryPaginationTop.innerHTML = '';
  libraryPaginationBottom.innerHTML = '';
@@ -1519,7 +1517,7 @@ window.renderPagination = function(totalItems) {
  }
 
  // Search functionality
-window.handleLibrarySearch = function() {
+function handleLibrarySearch() {
  librarySearchQuery = librarySearchInput.value.trim();
  libraryCurrentPage = 1;
  libraryPageCache = {};
@@ -1527,7 +1525,7 @@ window.handleLibrarySearch = function() {
  loadLibraryPage(1);
  }
 
-window.handleLiveSearch = function() {
+function handleLiveSearch() {
  clearTimeout(librarySearchTimeout);
  const query = librarySearchInput.value.trim().toLowerCase();
 
@@ -1569,5 +1567,5 @@ window.handleLiveSearch = function() {
  }
  }, 300);
  }
-}); // End DOMContentLoaded
+
 </script>

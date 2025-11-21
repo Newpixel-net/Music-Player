@@ -1,22 +1,20 @@
 <script>
-// Wait for DOM to be ready before accessing elements
-document.addEventListener('DOMContentLoaded', function() {
  // Carousel Functions
-window.initCarousel = function() {
+function initCarousel() {
  const songs = getCurrentSongs();
  
  if (songs.length === 0) {
- window.carouselSection.style.display = 'none';
+ carouselSection.style.display = 'none';
  return;
  }
  
- window.carouselSection.style.display = 'block';
- window.carouselTrack.innerHTML = '';
- window.carouselOffset = 0;
+ carouselSection.style.display = 'block';
+ carouselTrack.innerHTML = '';
+ carouselOffset = 0;
  
  songs.forEach((song, index) => {
  const item = document.createElement('div');
- item.className = `carousel-item ${index === window.currentSongIndex ? 'playing active' : ''}`;
+ item.className = `carousel-item ${index === currentSongIndex ? 'playing active' : ''}`;
  
  const thumbContent = song.thumbnail 
  ? `<img src="${song.thumbnail}" alt="${song.title}">`
@@ -29,7 +27,7 @@ window.initCarousel = function() {
  <div class="carousel-info">
  <div class="carousel-title">
  ${song.title}
- ${index === window.currentSongIndex ? '<span class="carousel-playing-badge">Playing</span>' : ''}
+ ${index === currentSongIndex ? '<span class="carousel-playing-badge">Playing</span>' : ''}
  </div>
  <div class="carousel-artist">${song.artist}</div>
  </div>
@@ -37,26 +35,26 @@ window.initCarousel = function() {
  `;
  
  item.addEventListener('click', () => selectSong(index));
- window.carouselTrack.appendChild(item);
+ carouselTrack.appendChild(item);
  });
  
  scrollCarouselToActive();
  }
 
-window.scrollCarouselToActive = function() {
- const items = window.carouselTrack.querySelectorAll('.carousel-item');
- const activeIndex = window.currentSongIndex;
+function scrollCarouselToActive() {
+ const items = carouselTrack.querySelectorAll('.carousel-item');
+ const activeIndex = currentSongIndex;
  
  const itemWidth = items[0]?.offsetWidth || 0;
  const gap = 10;
  const offset = Math.max(0, (activeIndex - 1) * (itemWidth + gap));
  
- window.carouselOffset = -offset;
- window.carouselTrack.style.transform = `translateX(${window.carouselOffset}px)`;
+ carouselOffset = -offset;
+ carouselTrack.style.transform = `translateX(${carouselOffset}px)`;
  }
 
-window.scrollCarousel = function(direction) {
- const items = window.carouselTrack.querySelectorAll('.carousel-item');
+function scrollCarousel(direction) {
+ const items = carouselTrack.querySelectorAll('.carousel-item');
  if (items.length === 0) return;
  
  const itemWidth = items[0].offsetWidth;
@@ -64,28 +62,28 @@ window.scrollCarousel = function(direction) {
  const step = itemWidth + gap;
  
  if (direction === 'prev') {
- window.carouselOffset = Math.min(0, window.carouselOffset + step);
+ carouselOffset = Math.min(0, carouselOffset + step);
  } else {
  const maxOffset = -(items.length - 3) * step;
- window.carouselOffset = Math.max(maxOffset, window.carouselOffset - step);
+ carouselOffset = Math.max(maxOffset, carouselOffset - step);
  }
  
- window.carouselTrack.style.transform = `translateX(${window.carouselOffset}px)`;
+ carouselTrack.style.transform = `translateX(${carouselOffset}px)`;
  }
 
  // Playlist Management
-window.getCurrentPlaylist = function() {
- return window.playlists[currentPlaylistIndex] || { songs: [] };
+function getCurrentPlaylist() {
+ return playlists[currentPlaylistIndex] || { songs: [] };
  }
 
-window.getCurrentSongs = function() {
+function getCurrentSongs() {
  return getCurrentPlaylist().songs || [];
  }
 
 // Add Song Modal Functions
-window.openAddSongModal = function(playlistIndex) {
+function openAddSongModal(playlistIndex) {
   targetPlaylistIndex = playlistIndex;
-  const playlistName = window.playlists[playlistIndex].name;
+  const playlistName = playlists[playlistIndex].name;
   addSongModalTitle.textContent = 'Add Song to "' + playlistName + '"';
   addSongVideoUrl.value = '';
   addSongStatus.textContent = '';
@@ -93,7 +91,7 @@ window.openAddSongModal = function(playlistIndex) {
   addSongModalOverlay.classList.add('active');
 }
 
-window.closeAddSongModalFunc = function() {
+function closeAddSongModalFunc() {
   addSongModalOverlay.classList.remove('active');
   targetPlaylistIndex = null;
 }
@@ -119,7 +117,7 @@ async function addSongToPlaylist() {
     
     const videoInfo = await fetchVideoInfo(videoId);
     
-    window.playlists[targetPlaylistIndex].songs.push(videoInfo);
+    playlists[targetPlaylistIndex].songs.push(videoInfo);
     
     savePlaylists();
     
@@ -145,7 +143,7 @@ async function addSongToPlaylist() {
   }
 }
 
-window.initPlaylistTabs = function() {
+function initPlaylistTabs() {
  playlistTabsContainer.innerHTML = '';
  
  playlists.forEach((playlist, index) => {
@@ -183,15 +181,15 @@ window.initPlaylistTabs = function() {
  });
 }
 
-window.switchPlaylist = function(index) {
+function switchPlaylist(index) {
  if (index === currentPlaylistIndex) return;
  
- if (player && window.player.stopVideo) {
- window.player.stopVideo();
+ if (player && player.stopVideo) {
+ player.stopVideo();
  }
  
  currentPlaylistIndex = index;
- window.currentSongIndex = 0;
+ currentSongIndex = 0;
  isPlaying = false;
  playIcon.style.display = 'block';
  pauseIcon.style.display = 'none';
@@ -210,7 +208,7 @@ window.switchPlaylist = function(index) {
  }
 }
 
-window.deletePlaylist = function(index) {
+function deletePlaylist(index) {
  if (playlists.length === 1) {
  alert('Cannot delete the last playlist!');
  return;
@@ -237,15 +235,15 @@ window.deletePlaylist = function(index) {
  }
 }
 
-window.showEmptyState = function() {
+function showEmptyState() {
  songTitle.textContent = 'No Tracks';
  artistName.textContent = 'Import a playlist to begin';
  totalTimeEl.textContent = '0:00';
  currentTimeEl.textContent = '0:00';
  progressFill.style.width = '0%';
- window.carouselSection.style.display = 'none';
+ carouselSection.style.display = 'none';
  
- window.playlistContainer.innerHTML = `
+ playlistContainer.innerHTML = `
  <div class="empty-state">
  <div class="empty-state-icon">🎵</div>
  <div class="empty-state-text">
@@ -258,9 +256,9 @@ window.showEmptyState = function() {
  }
 
  // Playlist Display
-window.initPlaylist = function() {
+function initPlaylist() {
  const songs = getCurrentSongs();
- window.playlistContainer.innerHTML = '';
+ playlistContainer.innerHTML = '';
  
  if (songs.length === 0) {
  showEmptyState();
@@ -271,7 +269,7 @@ window.initPlaylist = function() {
  
  songs.forEach((song, index) => {
  const item = document.createElement('div');
- item.className = `playlist-item ${index === window.currentSongIndex ? 'active' : ''}`;
+ item.className = `playlist-item ${index === currentSongIndex ? 'active' : ''}`;
  
  const thumbContent = song.thumbnail 
  ? `<img src="${song.thumbnail}" alt="${song.title}">`
@@ -307,16 +305,16 @@ window.initPlaylist = function() {
  deleteSong(index);
  });
 
- window.playlistContainer.appendChild(item);
+ playlistContainer.appendChild(item);
  });
  }
 
-window.selectSong = function(index) {
+function selectSong(index) {
  const songs = getCurrentSongs();
  if (songs.length === 0 || !playerReady) return;
  
- window.currentSongIndex = index;
- const song = songs[window.currentSongIndex];
+ currentSongIndex = index;
+ const song = songs[currentSongIndex];
  
  songTitle.textContent = song.title;
  artistName.textContent = song.artist;
@@ -329,12 +327,12 @@ window.selectSong = function(index) {
  setupMediaSession();
  
  document.querySelectorAll('.playlist-item').forEach((item, i) => {
- item.classList.toggle('active', i === window.currentSongIndex);
+ item.classList.toggle('active', i === currentSongIndex);
  });
  
  document.querySelectorAll('.carousel-item').forEach((item, i) => {
  item.classList.remove('playing', 'active');
- if (i === window.currentSongIndex) {
+ if (i === currentSongIndex) {
  item.classList.add('playing', 'active');
  const badge = item.querySelector('.carousel-playing-badge');
  if (!badge) {
@@ -349,8 +347,8 @@ window.selectSong = function(index) {
  
  scrollCarouselToActive();
  
- if (song.videoId && player && window.player.loadVideoById) {
- window.player.loadVideoById(song.videoId);
+ if (song.videoId && player && player.loadVideoById) {
+ player.loadVideoById(song.videoId);
  progressFill.style.width = '0%';
  currentTimeEl.textContent = '0:00';
  totalTimeEl.textContent = song.duration;
@@ -358,7 +356,7 @@ window.selectSong = function(index) {
  }
 
  // Playback Controls
-window.togglePlay = function() {
+function togglePlay() {
  const songs = getCurrentSongs();
  if (songs.length === 0 || !playerReady) return;
  
@@ -369,25 +367,25 @@ window.togglePlay = function() {
  }
  }
 
-window.play = function() {
- if (player && window.player.playVideo) {
- window.player.playVideo();
+function play() {
+ if (player && player.playVideo) {
+ player.playVideo();
  }
  }
 
-window.pause = function() {
- if (player && window.player.pauseVideo) {
- window.player.pauseVideo();
+function pause() {
+ if (player && player.pauseVideo) {
+ player.pauseVideo();
  }
  }
 
-window.handleSongEnd = function() {
+function handleSongEnd() {
  const songs = getCurrentSongs();
 
  if (repeatMode === 2) {
  // Repeat current song
  play();
- } else if (repeatMode === 1 || window.currentSongIndex < songs.length - 1) {
+ } else if (repeatMode === 1 || currentSongIndex < songs.length - 1) {
  // Continue to next song in current playlist
  nextSong();
  } else {
@@ -415,20 +413,20 @@ window.handleSongEnd = function() {
  }
  }
 
-window.prevSong = function() {
+function prevSong() {
  const songs = getCurrentSongs();
  if (songs.length === 0) return;
 
- if (player && window.player.getCurrentTime && window.player.getCurrentTime() > 3) {
- window.player.seekTo(0);
+ if (player && player.getCurrentTime && player.getCurrentTime() > 3) {
+ player.seekTo(0);
  } else {
- window.currentSongIndex = (window.currentSongIndex - 1 + songs.length) % songs.length;
- selectSong(window.currentSongIndex);
+ currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+ selectSong(currentSongIndex);
  if (isPlaying) play();
  }
 }
 
-window.nextSong = function() {
+function nextSong() {
  const songs = getCurrentSongs();
  if (songs.length === 0) return;
  
@@ -436,21 +434,21 @@ window.nextSong = function() {
  let newIndex;
  do {
  newIndex = Math.floor(Math.random() * songs.length);
- } while (newIndex === window.currentSongIndex && songs.length > 1);
- window.currentSongIndex = newIndex;
+ } while (newIndex === currentSongIndex && songs.length > 1);
+ currentSongIndex = newIndex;
  } else {
- window.currentSongIndex = (window.currentSongIndex + 1) % songs.length;
+ currentSongIndex = (currentSongIndex + 1) % songs.length;
  }
- selectSong(window.currentSongIndex);
+ selectSong(currentSongIndex);
  if (isPlaying) play();
  }
 
-window.toggleShuffle = function() {
+function toggleShuffle() {
  isShuffled = !isShuffled;
  shuffleBtn.classList.toggle('active', isShuffled);
  }
 
-window.toggleRepeat = function() {
+function toggleRepeat() {
  repeatMode = (repeatMode + 1) % 3;
  repeatBtn.classList.toggle('active', repeatMode > 0);
  
@@ -470,10 +468,10 @@ window.toggleRepeat = function() {
  }
  }
 
-window.seekTo = function(event) {
- if (!player || !window.player.getDuration) return;
+function seekTo(event) {
+ if (!player || !player.getDuration) return;
  
- const duration = window.player.getDuration();
+ const duration = player.getDuration();
  if (duration === 0) return;
  
  const rect = progressBar.getBoundingClientRect();
@@ -481,45 +479,45 @@ window.seekTo = function(event) {
  const percentage = clickX / rect.width;
  const seekTime = percentage * duration;
  
- window.player.seekTo(seekTime);
+ player.seekTo(seekTime);
  }
 
-window.toggleMute = function() {
+function toggleMute() {
  isMuted = !isMuted;
  volumeIcon.style.display = isMuted ? 'none' : 'block';
  muteIcon.style.display = isMuted ? 'block' : 'none';
  volumeFill.style.width = isMuted ? '0%' : volume + '%';
  
- if (player && window.player.setVolume) {
+ if (player && player.setVolume) {
  if (isMuted) {
- window.player.mute();
+ player.mute();
  } else {
- window.player.unMute();
+ player.unMute();
  }
  }
  }
 
-window.adjustVolume = function(event) {
+function adjustVolume(event) {
  const rect = volumeSlider.getBoundingClientRect();
  const clickX = event.clientX - rect.left;
  volume = (clickX / rect.width) * 100;
  volumeFill.style.width = volume + '%';
  
- if (player && window.player.setVolume) {
- window.player.setVolume(volume);
+ if (player && player.setVolume) {
+ player.setVolume(volume);
  }
  
  if (volume > 0 && isMuted) {
  isMuted = false;
  volumeIcon.style.display = 'block';
  muteIcon.style.display = 'none';
- if (player && window.player.unMute) {
- window.player.unMute();
+ if (player && player.unMute) {
+ player.unMute();
  }
  }
  }
 
-window.openPlaylistModal = function() {
+function openPlaylistModal() {
   playlistModalOverlay.classList.add('active');
   playlistUrlInput.value = '';
   videoUrlInput.value = '';
@@ -534,12 +532,12 @@ window.openPlaylistModal = function() {
   loadPlaylistText.textContent = 'Import & Share';
  }
 
-window.closePlaylistModalFunc = function() {
+function closePlaylistModalFunc() {
  playlistModalOverlay.classList.remove('active');
  }
 
  // Delete Song from Playlist
-window.deleteSong = function(index) {
+function deleteSong(index) {
  const songs = getCurrentSongs();
  const song = songs[index];
 
@@ -551,26 +549,26 @@ window.deleteSong = function(index) {
  }
 
  // Remove the song
- window.playlists[currentPlaylistIndex].songs.splice(index, 1);
+ playlists[currentPlaylistIndex].songs.splice(index, 1);
 
  // Update current song index if needed
- if (window.currentSongIndex === index) {
+ if (currentSongIndex === index) {
  // If deleted song was playing, pause and reset
  if (isPlaying) {
  pause();
  }
  // If there are more songs, play the next one (which is now at the same index)
  if (playlists[currentPlaylistIndex].songs.length > 0) {
- if (index >= window.playlists[currentPlaylistIndex].songs.length) {
- window.currentSongIndex = window.playlists[currentPlaylistIndex].songs.length - 1;
+ if (index >= playlists[currentPlaylistIndex].songs.length) {
+ currentSongIndex = playlists[currentPlaylistIndex].songs.length - 1;
  }
- selectSong(window.currentSongIndex);
+ selectSong(currentSongIndex);
  } else {
- window.currentSongIndex = -1;
+ currentSongIndex = -1;
  }
- } else if (window.currentSongIndex > index) {
+ } else if (currentSongIndex > index) {
  // Adjust current song index if it's after the deleted song
- window.currentSongIndex--;
+ currentSongIndex--;
  }
 
  // Save and refresh
@@ -580,11 +578,11 @@ window.deleteSong = function(index) {
  }
 
  // LocalStorage
-window.savePlaylists = function() {
+function savePlaylists() {
  localStorage.setItem('universalMusicPlayerPlaylists', JSON.stringify(playlists));
  }
 
-window.loadPlaylists = function() {
+function loadPlaylists() {
  try {
  const saved = localStorage.getItem('universalMusicPlayerPlaylists');
  if (saved) {
@@ -805,7 +803,7 @@ const moodColors = {
 let particleContainer = null;
 
 // Load settings from localStorage
-window.loadEasterEggSettings = function() {
+function loadEasterEggSettings() {
   const settings = JSON.parse(localStorage.getItem('easterEggSettings') || '{}');
 
   // CRITICAL: Remove any body filter from old versions (breaks position: fixed)
@@ -852,7 +850,7 @@ window.loadEasterEggSettings = function() {
 }
 
 // Save settings to localStorage
-window.saveEasterEggSettings = function() {
+function saveEasterEggSettings() {
   const settings = {
     playerOpacity: parseFloat(playerOpacity.value),
     stickyMoodColors: stickyMoodColors.checked,
@@ -871,12 +869,12 @@ window.saveEasterEggSettings = function() {
 }
 
 // Open Easter Egg Modal
-window.openEasterEggModal = function() {
+function openEasterEggModal() {
   easterEggModalOverlay.classList.add('active');
 }
 
 // Close Easter Egg Modal
-window.closeEasterEggModalFunc = function() {
+function closeEasterEggModalFunc() {
   easterEggModalOverlay.classList.remove('active');
 }
 
@@ -899,7 +897,7 @@ stickyMoodColors.addEventListener('change', () => {
 });
 
 // Update sticky color when mood changes
-window.updateStickyColor = function(mood) {
+function updateStickyColor(mood) {
   if (stickyMoodColors.checked && moodColors[mood]) {
     document.querySelector('.sticky-controls').style.background = moodColors[mood];
   }
@@ -924,7 +922,7 @@ blurIntensity.addEventListener('change', () => {
   saveEasterEggSettings();
 });
 
-window.updateBlur = function() {
+function updateBlur() {
   const blur = parseInt(blurIntensity.value);
   const elements = [
     document.querySelector('.music-player'),
@@ -945,7 +943,7 @@ visualizerBars.addEventListener('input', () => {
   saveEasterEggSettings();
 });
 
-window.updateVisualizerBars = function() {
+function updateVisualizerBars() {
   const count = parseInt(visualizerBars.value);
   const visualizer = document.querySelector('.music-visualizer');
   if (visualizer) {
@@ -969,7 +967,7 @@ borderGlow.addEventListener('change', () => {
   saveEasterEggSettings();
 });
 
-window.updateBorderGlow = function() {
+function updateBorderGlow() {
   const elements = [
     document.querySelector('.music-player'),
     document.querySelector('.sticky-controls'),
@@ -1002,7 +1000,7 @@ particleEffects.addEventListener('change', () => {
   saveEasterEggSettings();
 });
 
-window.createParticles = function() {
+function createParticles() {
   if (particleContainer) return;
   
   particleContainer = document.createElement('div');
@@ -1028,7 +1026,7 @@ window.createParticles = function() {
   document.body.appendChild(particleContainer);
 }
 
-window.removeParticles = function() {
+function removeParticles() {
   if (particleContainer) {
     particleContainer.remove();
     particleContainer = null;
@@ -1042,7 +1040,7 @@ shadowDepth.addEventListener('change', () => {
   saveEasterEggSettings();
 });
 
-window.updateShadowDepth = function() {
+function updateShadowDepth() {
   const depth = shadowDepth.value;
   const cards = [
     ...document.querySelectorAll('.carousel-item'),
@@ -1069,7 +1067,7 @@ textGlow.addEventListener('change', () => {
   saveEasterEggSettings();
 });
 
-window.updateTextGlow = function() {
+function updateTextGlow() {
   const titles = [
     ...document.querySelectorAll('.song-title'),
     ...document.querySelectorAll('.modal-title'),
@@ -1096,7 +1094,7 @@ progressGlow.addEventListener('change', () => {
   saveEasterEggSettings();
 });
 
-window.updateProgressGlow = function() {
+function updateProgressGlow() {
   const progressBars = document.querySelectorAll('.progress');
   
   if (progressGlow.checked) {
@@ -1122,7 +1120,7 @@ buttonRotation.addEventListener('change', () => {
   saveEasterEggSettings();
 });
 
-window.updateButtonRotation = function() {
+function updateButtonRotation() {
   const style = document.createElement('style');
   style.id = 'button-rotation-style';
   
@@ -1142,7 +1140,7 @@ colorSaturation.addEventListener('input', () => {
   saveEasterEggSettings();
 });
 
-window.updateColorSaturation = function() {
+function updateColorSaturation() {
   const saturation = parseInt(colorSaturation.value) / 100;
   // Apply filter to visual elements, NOT body (body filter breaks position: fixed)
   document.querySelector('.player-wrapper').style.filter = 'saturate(' + saturation + ')';
@@ -1197,11 +1195,11 @@ const moodHelpBtn = document.getElementById('moodHelpBtn');
 const moodHelpModalOverlay = document.getElementById('moodHelpModalOverlay');
 const closeMoodHelpModal = document.getElementById('closeMoodHelpModal');
 
-window.openMoodHelpModal = function() {
+function openMoodHelpModal() {
   moodHelpModalOverlay.classList.add('active');
 }
 
-window.closeMoodHelpModalFunc = function() {
+function closeMoodHelpModalFunc() {
   moodHelpModalOverlay.classList.remove('active');
 }
 
@@ -1380,7 +1378,7 @@ document.querySelectorAll('.texture-btn').forEach(btn => {
 });
 
 // Apply texture function
-window.applyTexture = function(texture) {
+function applyTexture(texture) {
   if (texture === 'none') {
     moodSection.style.backgroundImage = '';
     moodSection.style.backgroundBlendMode = '';
@@ -1404,7 +1402,7 @@ window.applyTexture = function(texture) {
 }
 
 // Update style customization function
-window.updateStyleCustomization = function() {
+function updateStyleCustomization() {
   const color = bgColor.value;
   const opacity = bgOpacity.value / 100;
   const blur = bgBlur.value;
@@ -1495,7 +1493,7 @@ effectResetBtn.addEventListener('click', () => {
 });
 
 // Apply effects
-window.updateEffects = function() {
+function updateEffects() {
   const duration = 2 / effectSettings.speed;
   const scale = effectSettings.intensity / 100;
 
@@ -1554,7 +1552,7 @@ loadEasterEggSettings();
  getLibrary: () => playlistLibrary,
  getCurrentPlaylist: getCurrentPlaylist,
  getSongs: getCurrentSongs,
- getCurrentSong: () => getCurrentSongs()[window.currentSongIndex],
+ getCurrentSong: () => getCurrentSongs()[currentSongIndex],
  importYouTubePlaylist: (url, name) => importYouTubePlaylist(url, name),
  switchPlaylist: switchPlaylist,
  deletePlaylist: deletePlaylist,
@@ -1609,5 +1607,4 @@ loadEasterEggSettings();
  console.log(`%c📚 ${playlistLibrary.length} playlists in ${firebaseAvailable ? 'community' : 'local'} library`, 'font-size: 14px; color: #764ba2');
  console.log('%c🎭 20 Moods with Animated Effects | 📊 Music Visualizer | ⚙️ Settings Panel | 📺 Enhanced Floating Player', 'font-size: 14px; color: #667eea');
  });
-}); // End DOMContentLoaded
-</script>
+ </script>

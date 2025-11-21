@@ -1,43 +1,6 @@
 <script>
-// YouTube Player Initialization - Define callback BEFORE DOMContentLoaded
-// This ensures the callback exists when YouTube API finishes loading
-var ytPlayerReadyToInit = false;
-var domIsReady = false;
-
-window.onYouTubeIframeAPIReady = function() {
-  console.log('✓ YouTube API loaded');
-  ytPlayerReadyToInit = true;
-  initYouTubePlayerWhenReady();
-};
-
-function initYouTubePlayerWhenReady() {
-  if (ytPlayerReadyToInit && domIsReady && document.getElementById('player')) {
-    console.log('✓ Initializing YouTube player...');
-    window.player = new YT.Player('player', {
-      height: '100%',
-      width: '100%',
-      videoId: '',
-      playerVars: {
-        'autoplay': 0,
-        'controls': 0,
-        'rel': 0,
-        'showinfo': 0,
-        'modestbranding': 1,
-        'playsinline': 1
-      },
-      events: {
-        'onReady': window.onPlayerReady,
-        'onStateChange': window.onPlayerStateChange
-      }
-    });
-  }
-}
-
 // Wait for DOM to be ready before accessing elements
 document.addEventListener('DOMContentLoaded', function() {
-domIsReady = true;
-initYouTubePlayerWhenReady();
-
  // Firebase Configuration
  const firebaseConfig = {
  apiKey: "AIzaSyDPjVCn59pOyBUVW0vy0e5gAmbvunR8Eaw",
@@ -601,30 +564,30 @@ window.toggleFloatingPlayer = function() {
 
 window.updateFloatingPlayerInfo = function() {
  const songs = window.getCurrentSongs();
- if (songs.length === 0 || window.currentSongIndex >= songs.length) return;
+ if (songs.length === 0 || currentSongIndex >= songs.length) return;
  
- const song = songs[window.currentSongIndex];
- window.floatingSongTitle.textContent = song.title || 'No Track';
- window.floatingArtistName.textContent = song.artist || 'Unknown Artist';
+ const song = songs[currentSongIndex];
+ floatingSongTitle.textContent = song.title || 'No Track';
+ floatingArtistName.textContent = song.artist || 'Unknown Artist';
  }
 
  // Pop-out Window Function
 window.openPopoutWindow = function() {
  const songs = window.getCurrentSongs();
- if (songs.length === 0 || window.currentSongIndex >= songs.length) return;
+ if (songs.length === 0 || currentSongIndex >= songs.length) return;
  
- const song = songs[window.currentSongIndex];
+ const song = songs[currentSongIndex];
  const videoId = song.videoId;
  
- if (window.popoutWindow && !window.popoutWindow.closed) {
- window.popoutWindow.focus();
+ if (popoutWindow && !popoutWindow.closed) {
+ popoutWindow.focus();
  return;
  }
  
  const windowFeatures = 'width=500,height=400,menubar=no,toolbar=no,location=no,status=no';
- window.popoutWindow = window.open('', 'MusicPlayerPopout', windowFeatures);
+ popoutWindow = window.open('', 'MusicPlayerPopout', windowFeatures);
  
- window.popoutWindow.document.write(`
+ popoutWindow.document.write(`
  <!DOCTYPE html>
  <html>
  <head>
@@ -657,15 +620,15 @@ window.onYouTubeIframeAPIReady = function() {
  </body>
  </html>
  `);
- window.popoutWindow.document.close();
+ popoutWindow.document.close();
  }
 
  // Update Sticky Controls Info
 window.updateStickyControlsInfo = function() {
  const songs = window.getCurrentSongs();
- if (songs.length === 0 || window.currentSongIndex >= songs.length) return;
+ if (songs.length === 0 || currentSongIndex >= songs.length) return;
  
- const song = songs[window.currentSongIndex];
+ const song = songs[currentSongIndex];
  stickySongTitle.textContent = song.title || 'No Track';
  stickyArtistName.textContent = song.artist || 'Unknown Artist';
  
@@ -691,9 +654,9 @@ window.updateVisualizerState = function() {
 window.setupMediaSession = function() {
  if ('mediaSession' in navigator) {
  const songs = window.getCurrentSongs();
- if (songs.length === 0 || window.currentSongIndex >= songs.length) return;
+ if (songs.length === 0 || currentSongIndex >= songs.length) return;
  
- const song = songs[window.currentSongIndex];
+ const song = songs[currentSongIndex];
  
  navigator.mediaSession.metadata = new MediaMetadata({
  title: song.title || 'Unknown Title',
@@ -793,6 +756,25 @@ window.stopDragging = function() {
  }
 
  // Initialize YouTube Player
+window.onYouTubeIframeAPIReady = function() {
+ window.player = new YT.Player('player', {
+ height: '100%',
+ width: '100%',
+ videoId: '',
+ playerVars: {
+ 'autoplay': 0,
+ 'controls': 0,
+ 'rel': 0,
+ 'showinfo': 0,
+ 'modestbranding': 1,
+ 'playsinline': 1
+ },
+ events: {
+ 'onReady': window.onPlayerReady,
+ 'onStateChange': window.onPlayerStateChange
+ }
+ });
+ }
 
 window.onPlayerReady = function(event) {
  window.playerReady = true;

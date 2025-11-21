@@ -2000,6 +2000,7 @@
  align-items: center;
  justify-content: center;
  margin-bottom: 12px;
+ gap: 10px;
  }
 
  .mood-title {
@@ -2018,6 +2019,28 @@
  @keyframes moodTitleShine {
  0%, 100% { background-position: 0% center; }
  50% { background-position: 100% center; }
+ }
+
+ .mood-help-btn {
+ width: 26px;
+ height: 26px;
+ border-radius: 50%;
+ background: linear-gradient(135deg, #667eea, #764ba2);
+ color: white;
+ border: none;
+ font-size: 14px;
+ font-weight: bold;
+ cursor: pointer;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ transition: all 0.3s ease;
+ box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+ }
+
+ .mood-help-btn:hover {
+ transform: scale(1.1);
+ box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
  }
 
  .mood-selector-wrapper {
@@ -3075,6 +3098,67 @@
  border-radius: 10px;
  }
 
+ /* Mood Help Modal Styles */
+ .mood-help-modal {
+ max-width: 900px;
+ max-height: 85vh;
+ }
+
+ .mood-help-content {
+ padding: 15px;
+ }
+
+ .mood-category {
+ margin-bottom: 25px;
+ }
+
+ .mood-category-title {
+ font-size: 18px;
+ font-weight: 700;
+ color: #fff;
+ margin-bottom: 12px;
+ padding-bottom: 8px;
+ border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ }
+
+ .mood-list {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+ gap: 10px;
+ }
+
+ .mood-item {
+ background: rgba(102, 126, 234, 0.1);
+ border: 1px solid rgba(102, 126, 234, 0.2);
+ border-radius: 10px;
+ padding: 12px;
+ font-size: 14px;
+ color: #ccc;
+ transition: all 0.3s ease;
+ display: flex;
+ align-items: flex-start;
+ gap: 10px;
+ }
+
+ .mood-item:hover {
+ background: rgba(102, 126, 234, 0.2);
+ border-color: rgba(102, 126, 234, 0.4);
+ transform: translateY(-2px);
+ }
+
+ .mood-emoji {
+ font-size: 20px;
+ flex-shrink: 0;
+ }
+
+ .mood-item strong {
+ color: #fff;
+ font-weight: 600;
+ }
+
  .library-status {
  text-align: center;
  padding: 20px;
@@ -3804,6 +3888,24 @@ transform: scale(1.05);
  font-size: 18px;
  }
 
+ .mood-list {
+ grid-template-columns: 1fr;
+ gap: 8px;
+ }
+
+ .mood-item {
+ padding: 10px;
+ font-size: 13px;
+ }
+
+ .mood-emoji {
+ font-size: 18px;
+ }
+
+ .mood-category-title {
+ font-size: 16px;
+ }
+
  .top-bar {
  flex-wrap: wrap;
  }
@@ -4302,6 +4404,7 @@ transform: scale(1.05);
  <div class="mood-section">
  <div class="mood-header">
  <h2 class="mood-title">🎭 Mood</h2>
+ <button class="mood-help-btn" id="moodHelpBtn" title="View all moods">?</button>
  </div>
  <div class="mood-selector-wrapper">
  <button class="mood-nav-btn mood-nav-left" id="moodNavLeft">
@@ -4553,6 +4656,102 @@ transform: scale(1.05);
  </div>
  </div>
  </div>
+
+  <!-- Mood Help Modal -->
+  <div class="modal-overlay" id="moodHelpModalOverlay">
+    <div class="modal mood-help-modal">
+      <div class="modal-header">
+        <h2 class="modal-title">🎭 All Available Moods</h2>
+        <button class="modal-close" id="closeMoodHelpModal">&times;</button>
+      </div>
+      <div class="modal-body mood-help-content">
+        <div class="mood-category">
+          <h3 class="mood-category-title">🌟 Classic Vibes</h3>
+          <div class="mood-list">
+            <div class="mood-item"><span class="mood-emoji">🎨</span><strong>Default Vibes</strong> - Atmospheric gradient animation</div>
+            <div class="mood-item"><span class="mood-emoji">🌅</span><strong>Sunset Chill</strong> - Warm sunset orange and pink</div>
+            <div class="mood-item"><span class="mood-emoji">🌊</span><strong>Ocean Waves</strong> - Cool blue ocean waves</div>
+            <div class="mood-item"><span class="mood-emoji">🌲</span><strong>Forest Calm</strong> - Natural green forest</div>
+            <div class="mood-item"><span class="mood-emoji">🌙</span><strong>Midnight Dreams</strong> - Dark midnight blues</div>
+            <div class="mood-item"><span class="mood-emoji">🌈</span><strong>Aurora Lights</strong> - Northern lights colors</div>
+            <div class="mood-item"><span class="mood-emoji">🍭</span><strong>Candy Pop</strong> - Sweet pink candy colors</div>
+            <div class="mood-item"><span class="mood-emoji">💫</span><strong>Neon Nights</strong> - Vibrant neon colors</div>
+            <div class="mood-item"><span class="mood-emoji">🌺</span><strong>Tropical Heat</strong> - Warm tropical sunset</div>
+            <div class="mood-item"><span class="mood-emoji">🌌</span><strong>Cosmic Journey</strong> - Deep space purple</div>
+          </div>
+        </div>
+
+        <div class="mood-category">
+          <h3 class="mood-category-title">⚡ Dynamic Effects</h3>
+          <div class="mood-list">
+            <div class="mood-item"><span class="mood-emoji">🔮</span><strong>Plasma Orbs</strong> - Floating plasma orbs with blur</div>
+            <div class="mood-item"><span class="mood-emoji">✨</span><strong>Starfield</strong> - Twinkling stars effect</div>
+            <div class="mood-item"><span class="mood-emoji">🌋</span><strong>Lava Bubbles</strong> - Bubbling lava effect</div>
+            <div class="mood-item"><span class="mood-emoji">⚡</span><strong>Electric Storm</strong> - Lightning strikes</div>
+            <div class="mood-item"><span class="mood-emoji">💚</span><strong>Matrix Code</strong> - Falling green code</div>
+            <div class="mood-item"><span class="mood-emoji">🌈</span><strong>Rainbow Shimmer</strong> - Rainbow animation</div>
+            <div class="mood-item"><span class="mood-emoji">🌊</span><strong>Vaporwave</strong> - Retro grid aesthetic</div>
+            <div class="mood-item"><span class="mood-emoji">🔥</span><strong>Fire</strong> - Rising flames effect</div>
+            <div class="mood-item"><span class="mood-emoji">🎮</span><strong>Cyberpunk</strong> - Glitchy cyber bars</div>
+            <div class="mood-item"><span class="mood-emoji">🌌</span><strong>Galaxy</strong> - Spinning nebula</div>
+          </div>
+        </div>
+
+        <div class="mood-category">
+          <h3 class="mood-category-title">💥 Bold & Intense</h3>
+          <div class="mood-list">
+            <div class="mood-item"><span class="mood-emoji">⚡</span><strong>Glitch</strong> - RGB split glitch effect</div>
+            <div class="mood-item"><span class="mood-emoji">⚡</span><strong>Lightning</strong> - Flashing lightning</div>
+            <div class="mood-item"><span class="mood-emoji">💓</span><strong>Pulse</strong> - Heartbeat pulsing</div>
+            <div class="mood-item"><span class="mood-emoji">🌈</span><strong>Prism</strong> - Refracted rainbow light</div>
+            <div class="mood-item"><span class="mood-emoji">💎</span><strong>Hologram</strong> - Holographic shimmer</div>
+            <div class="mood-item"><span class="mood-emoji">🔴</span><strong>Laser</strong> - Sweeping laser beams</div>
+            <div class="mood-item"><span class="mood-emoji">🚀</span><strong>Warp</strong> - Warp speed streaks</div>
+            <div class="mood-item"><span class="mood-emoji">🪩</span><strong>Disco</strong> - Rotating disco lights</div>
+            <div class="mood-item"><span class="mood-emoji">☢️</span><strong>Nuclear</strong> - Radioactive glow</div>
+            <div class="mood-item"><span class="mood-emoji">💥</span><strong>Supernova</strong> - Explosive expansion</div>
+          </div>
+        </div>
+
+        <div class="mood-category">
+          <h3 class="mood-category-title">🎨 Atmosphere Collection</h3>
+          <div class="mood-list">
+            <div class="mood-item"><span class="mood-emoji">🌊</span><strong>Oceanic</strong> - Deep ocean depths</div>
+            <div class="mood-item"><span class="mood-emoji">🏜️</span><strong>Desert</strong> - Warm desert sunset</div>
+            <div class="mood-item"><span class="mood-emoji">❄️</span><strong>Arctic</strong> - Frozen arctic ice</div>
+            <div class="mood-item"><span class="mood-emoji">🌿</span><strong>Jungle</strong> - Dense jungle night</div>
+            <div class="mood-item"><span class="mood-emoji">🌸</span><strong>Cherry</strong> - Cherry blossom pink</div>
+            <div class="mood-item"><span class="mood-emoji">⛈️</span><strong>Thunder</strong> - Stormy thunderclouds</div>
+            <div class="mood-item"><span class="mood-emoji">🌳</span><strong>Mystic</strong> - Mystic forest purple</div>
+            <div class="mood-item"><span class="mood-emoji">🌐</span><strong>Cybergrid</strong> - Cyber grid lines</div>
+            <div class="mood-item"><span class="mood-emoji">👑</span><strong>Royal</strong> - Royal purple luxury</div>
+            <div class="mood-item"><span class="mood-emoji">🌟</span><strong>Golden</strong> - Golden hour glow</div>
+            <div class="mood-item"><span class="mood-emoji">🌌</span><strong>Nebula</strong> - Dreamy nebula clouds</div>
+            <div class="mood-item"><span class="mood-emoji">❤️</span><strong>Crimson</strong> - Deep crimson red</div>
+            <div class="mood-item"><span class="mood-emoji">💚</span><strong>Emerald</strong> - Emerald green city</div>
+            <div class="mood-item"><span class="mood-emoji">☀️</span><strong>Solar</strong> - Solar flare orange</div>
+            <div class="mood-item"><span class="mood-emoji">🌙</span><strong>Moonlight</strong> - Moonlight serenade</div>
+          </div>
+        </div>
+
+        <div class="mood-category">
+          <h3 class="mood-category-title">✨ New Creative Themes</h3>
+          <div class="mood-list">
+            <div class="mood-item"><span class="mood-emoji">🌸</span><strong>Sakura Blossoms</strong> - Delicate pink cherry blossom gradients</div>
+            <div class="mood-item"><span class="mood-emoji">🌋</span><strong>Volcano Lava</strong> - Dark red/orange volcanic eruption</div>
+            <div class="mood-item"><span class="mood-emoji">❄️</span><strong>Arctic Aurora</strong> - Ice blue northern lights shimmer</div>
+            <div class="mood-item"><span class="mood-emoji">💎</span><strong>Amethyst Crystal</strong> - Deep purple gemstone glow</div>
+            <div class="mood-item"><span class="mood-emoji">🌲</span><strong>Emerald Forest</strong> - Rich green forest depths</div>
+            <div class="mood-item"><span class="mood-emoji">🏖️</span><strong>Sunset Beach</strong> - Warm orange/pink beach sunset</div>
+            <div class="mood-item"><span class="mood-emoji">🌊</span><strong>Deep Ocean</strong> - Dark blue ocean depths</div>
+            <div class="mood-item"><span class="mood-emoji">🌹</span><strong>Rose Gold</strong> - Elegant pink metallic shimmer</div>
+            <div class="mood-item"><span class="mood-emoji">🌌</span><strong>Cosmos</strong> - Deep space purple/blue drift</div>
+            <div class="mood-item"><span class="mood-emoji">🔥</span><strong>Phoenix Flame</strong> - Bright orange/gold flames rising</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Easter Egg Settings Modal -->
   <div class="modal-overlay" id="easterEggModalOverlay">
@@ -6315,17 +6514,35 @@ transform: scale(1.05);
 
  function handleSongEnd() {
  const songs = getCurrentSongs();
- 
+
  if (repeatMode === 2) {
+ // Repeat current song
  play();
  } else if (repeatMode === 1 || currentSongIndex < songs.length - 1) {
+ // Continue to next song in current playlist
  nextSong();
  } else {
+ // Last song in playlist - auto-advance to next playlist
+ if (currentPlaylistIndex < playlists.length - 1) {
+ // Switch to next playlist and start playing
+ const nextPlaylistIndex = currentPlaylistIndex + 1;
+ switchPlaylist(nextPlaylistIndex);
+ // Wait a brief moment for playlist to initialize, then start playing
+ setTimeout(() => {
+ const nextSongs = getCurrentSongs();
+ if (nextSongs.length > 0) {
+ selectSong(0);
+ play();
+ }
+ }, 300);
+ } else {
+ // Last song of last playlist - stop
  isPlaying = false;
  playIcon.style.display = 'block';
  pauseIcon.style.display = 'none';
  updateAllPlayButtons('play');
  updateVisualizerState();
+ }
  }
  }
 
@@ -7007,6 +7224,29 @@ resetEasterEgg.addEventListener('click', () => {
     colorSaturationValue.textContent = '100%';
     updateColorSaturation();
   }
+});
+
+// Mood Help Button
+const moodHelpBtn = document.getElementById('moodHelpBtn');
+const moodHelpModalOverlay = document.getElementById('moodHelpModalOverlay');
+const closeMoodHelpModal = document.getElementById('closeMoodHelpModal');
+
+function openMoodHelpModal() {
+  moodHelpModalOverlay.classList.add('active');
+}
+
+function closeMoodHelpModalFunc() {
+  moodHelpModalOverlay.classList.remove('active');
+}
+
+moodHelpBtn.addEventListener('click', (e) => {
+  e.stopPropagation(); // Prevent triggering parent click
+  openMoodHelpModal();
+});
+
+closeMoodHelpModal.addEventListener('click', closeMoodHelpModalFunc);
+moodHelpModalOverlay.addEventListener('click', (e) => {
+  if (e.target === moodHelpModalOverlay) closeMoodHelpModalFunc();
 });
 
 // Mood title click handler (Easter egg trigger)

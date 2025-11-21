@@ -4347,12 +4347,12 @@ transform: scale(1.05);
             <span class="easter-egg-icon">🎨</span>
             <div class="easter-egg-option-info">
               <div class="easter-egg-option-title">Player Background Opacity</div>
-              <div class="easter-egg-option-desc">Adjust music player transparency (70-100%)</div>
+              <div class="easter-egg-option-desc">Adjust background transparency only</div>
             </div>
           </div>
           <div class="easter-egg-control">
-            <input type="range" class="easter-egg-slider" id="playerOpacity" min="70" max="100" value="98">
-            <span class="easter-egg-value" id="playerOpacityValue">98%</span>
+            <input type="range" class="easter-egg-slider" id="playerOpacity" min="0" max="100" value="68">
+            <span class="easter-egg-value" id="playerOpacityValue">68%</span>
           </div>
         </div>
 
@@ -6393,9 +6393,10 @@ let particleContainer = null;
 function loadEasterEggSettings() {
   const settings = JSON.parse(localStorage.getItem('easterEggSettings') || '{}');
   
-  playerOpacity.value = settings.playerOpacity || 98;
+  playerOpacity.value = settings.playerOpacity || 68;
   playerOpacityValue.textContent = playerOpacity.value + '%';
-  document.querySelector('.music-player').style.opacity = playerOpacity.value / 100;
+  const alpha = playerOpacity.value / 100;
+  document.querySelector('.music-player').style.background = `rgba(255, 255, 255, ${alpha})`;
   
   stickyMoodColors.checked = settings.stickyMoodColors || false;
   
@@ -6464,7 +6465,8 @@ function closeEasterEggModalFunc() {
 // Player Opacity
 playerOpacity.addEventListener('input', () => {
   playerOpacityValue.textContent = playerOpacity.value + '%';
-  document.querySelector('.music-player').style.opacity = playerOpacity.value / 100;
+  const alpha = playerOpacity.value / 100;
+  document.querySelector('.music-player').style.background = `rgba(255, 255, 255, ${alpha})`;
   saveEasterEggSettings();
 });
 
@@ -6730,9 +6732,9 @@ function updateColorSaturation() {
 resetEasterEgg.addEventListener('click', () => {
   if (confirm('Reset all atmosphere settings to default values?')) {
     localStorage.removeItem('easterEggSettings');
-    playerOpacity.value = 98;
-    playerOpacityValue.textContent = '98%';
-    document.querySelector('.music-player').style.opacity = 0.98;
+    playerOpacity.value = 68;
+    playerOpacityValue.textContent = '68%';
+    document.querySelector('.music-player').style.background = 'rgba(255, 255, 255, 0.68)';
     stickyMoodColors.checked = false;
     document.querySelector('.sticky-controls').style.background = 'rgba(26, 26, 26, 0.98)';
     animationSpeed.value = 1;

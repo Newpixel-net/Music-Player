@@ -680,11 +680,11 @@ window.setupMediaSession = function() {
  });
 
  navigator.mediaSession.setActionHandler('previoustrack', () => {
- prevSong();
+ window.prevSong();
  });
 
  navigator.mediaSession.setActionHandler('nexttrack', () => {
- nextSong();
+ window.nextSong();
  });
 
  navigator.mediaSession.setActionHandler('seekbackward', (details) => {
@@ -782,7 +782,7 @@ window.onPlayerReady = function(event) {
  
  const songs = getCurrentSongs();
  if (songs.length > 0) {
- selectSong(0);
+ window.selectSong(0);
  updateStickyControlsInfo();
  }
  }
@@ -1059,7 +1059,7 @@ window.formatTime = function(seconds) {
  initCarousel();
  
  if (newSongs.length > 0 && playerReady) {
- selectSong(0);
+ window.selectSong(0);
  }
  
  playlistStatus.style.color = '#34C759';
@@ -1111,7 +1111,7 @@ window.formatTime = function(seconds) {
  initCarousel();
 
  if (playlists[currentPlaylistIndex].songs.length > 0 && playerReady) {
- selectSong(0);
+ window.selectSong(0);
  }
  
  playlistStatus.style.color = '#34C759';
@@ -1321,7 +1321,7 @@ window.addFromLibrary = function(playlistId) {
  initCarousel();
  
  if (newPlaylist.songs.length > 0 && playerReady) {
- selectSong(0);
+ window.selectSong(0);
  }
  
  closeLibraryModalFunc();

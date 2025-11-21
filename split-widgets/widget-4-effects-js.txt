@@ -36,7 +36,7 @@ window.initCarousel = function() {
  <div class="carousel-duration">${song.duration}</div>
  `;
  
- item.addEventListener('click', () => selectSong(index));
+ item.addEventListener('click', () => window.selectSong(index));
  window.carouselTrack.appendChild(item);
  });
  
@@ -89,12 +89,12 @@ window.openAddSongModal = function(playlistIndex) {
   addSongModalTitle.textContent = 'Add Song to "' + playlistName + '"';
   addSongVideoUrl.value = '';
   addSongStatus.textContent = '';
-  addSongBtn.disabled = false;
-  addSongModalOverlay.classList.add('active');
+  window.addSongBtn.disabled = false;
+  window.addSongModalOverlay.classList.add('active');
 }
 
 window.closeAddSongModalFunc = function() {
-  addSongModalOverlay.classList.remove('active');
+  window.addSongModalOverlay.classList.remove('active');
   window.targetPlaylistIndex = null;
 }
 
@@ -114,8 +114,8 @@ window.addSongToPlaylist = async function() {
   }
   
   try {
-    addSongBtn.disabled = true;
-    addSongBtnText.innerHTML = '<span class="loading-spinner"></span> Loading...';
+    window.addSongBtn.disabled = true;
+    window.addSongBtnText.innerHTML = '<span class="loading-spinner"></span> Loading...';
     
     const videoInfo = await window.fetchVideoInfo(videoId);
     
@@ -132,7 +132,7 @@ window.addSongToPlaylist = async function() {
     addSongStatus.textContent = '✓ Song added successfully!';
     
     setTimeout(() => {
-      closeAddSongModalFunc();
+      window.closeAddSongModalFunc();
     }, 1500);
     
   } catch (error) {
@@ -140,8 +140,8 @@ window.addSongToPlaylist = async function() {
     addSongStatus.style.color = '#FF3B30';
     addSongStatus.textContent = '✗ Error: ' + error.message;
     
-    addSongBtn.disabled = false;
-    addSongBtnText.textContent = 'Add Song';
+    window.addSongBtn.disabled = false;
+    window.addSongBtnText.textContent = 'Add Song';
   }
 }
 
@@ -163,7 +163,7 @@ window.initPlaylistTabs = function() {
  addSongTabBtn.title = 'Add song to this playlist';
  addSongTabBtn.addEventListener('click', (e) => {
  e.stopPropagation();
- openAddSongModal(index);
+ window.openAddSongModal(index);
  });
  tab.appendChild(addSongTabBtn);
  
@@ -178,7 +178,7 @@ window.initPlaylistTabs = function() {
  tab.appendChild(deleteBtn);
  }
  
- tab.addEventListener('click', () => switchPlaylist(index));
+ tab.addEventListener('click', () => window.switchPlaylist(index));
  playlistTabsContainer.appendChild(tab);
  });
 }
@@ -186,7 +186,7 @@ window.initPlaylistTabs = function() {
 window.switchPlaylist = function(index) {
  if (index === window.currentPlaylistIndex) return;
  
- if (player && window.player.stopVideo) {
+ if (window.player && window.player.stopVideo) {
  window.player.stopVideo();
  }
  
@@ -204,9 +204,9 @@ window.switchPlaylist = function(index) {
  
  const songs = window.getCurrentSongs();
  if (songs.length > 0 && window.playerReady) {
- selectSong(0);
+ window.selectSong(0);
  } else {
- showEmptyState();
+ window.showEmptyState();
  }
 }
 
@@ -230,19 +230,19 @@ window.deletePlaylist = function(index) {
  
  const songs = window.getCurrentSongs();
  if (songs.length > 0 && window.playerReady) {
- selectSong(0);
+ window.selectSong(0);
  } else {
- showEmptyState();
+ window.showEmptyState();
  }
  }
 }
 
 window.showEmptyState = function() {
- songTitle.textContent = 'No Tracks';
- artistName.textContent = 'Import a playlist to begin';
- totalTimeEl.textContent = '0:00';
- currentTimeEl.textContent = '0:00';
- progressFill.style.width = '0%';
+ window.songTitle.textContent = 'No Tracks';
+ window.artistName.textContent = 'Import a playlist to begin';
+ window.totalTimeEl.textContent = '0:00';
+ window.currentTimeEl.textContent = '0:00';
+ window.progressFill.style.width = '0%';
  window.carouselSection.style.display = 'none';
  
  window.playlistContainer.innerHTML = `
@@ -263,7 +263,7 @@ window.initPlaylist = function() {
  window.playlistContainer.innerHTML = '';
  
  if (songs.length === 0) {
- showEmptyState();
+ window.showEmptyState();
  return;
  }
  
@@ -296,7 +296,7 @@ window.initPlaylist = function() {
  // Click handler for song selection (but not for delete button)
  item.addEventListener('click', (e) => {
  if (!e.target.closest('.playlist-delete-btn')) {
- selectSong(index);
+ window.selectSong(index);
  }
  });
 
@@ -318,15 +318,15 @@ window.selectSong = function(index) {
  window.currentSongIndex = index;
  const song = songs[window.currentSongIndex];
  
- songTitle.textContent = song.title;
- artistName.textContent = song.artist;
+ window.songTitle.textContent = song.title;
+ window.artistName.textContent = song.artist;
  
  // Update floating and sticky displays
- updateFloatingPlayerInfo();
- updateStickyControlsInfo();
+ window.updateFloatingPlayerInfo();
+ window.updateStickyControlsInfo();
  
  // Setup Media Session for native mobile controls
- setupMediaSession();
+ window.setupMediaSession();
  
  document.querySelectorAll('.playlist-item').forEach((item, i) => {
  item.classList.toggle('active', i === window.currentSongIndex);
@@ -349,11 +349,11 @@ window.selectSong = function(index) {
  
  window.scrollCarouselToActive();
  
- if (song.videoId && player && window.player.loadVideoById) {
+ if (song.videoId  && window.player && window.player.loadVideoById) {
  window.player.loadVideoById(song.videoId);
- progressFill.style.width = '0%';
- currentTimeEl.textContent = '0:00';
- totalTimeEl.textContent = song.duration;
+ window.progressFill.style.width = '0%';
+ window.currentTimeEl.textContent = '0:00';
+ window.totalTimeEl.textContent = song.duration;
  }
  }
 
@@ -370,13 +370,13 @@ window.togglePlay = function() {
  }
 
 window.play = function() {
- if (player && window.player.playVideo) {
+ if (window.player && window.player.playVideo) {
  window.player.playVideo();
  }
  }
 
 window.pause = function() {
- if (player && window.player.pauseVideo) {
+ if (window.player && window.player.pauseVideo) {
  window.player.pauseVideo();
  }
  }
@@ -395,12 +395,12 @@ window.handleSongEnd = function() {
  if (window.currentPlaylistIndex < playlists.length - 1) {
  // Switch to next playlist and start playing
  const nextPlaylistIndex = window.currentPlaylistIndex + 1;
- switchPlaylist(nextPlaylistIndex);
+ window.switchPlaylist(nextPlaylistIndex);
  // Wait a brief moment for playlist to initialize, then start playing
  setTimeout(() => {
  const nextSongs = window.getCurrentSongs();
  if (nextSongs.length > 0) {
- selectSong(0);
+ window.selectSong(0);
  window.play();
  }
  }, 300);
@@ -419,11 +419,11 @@ window.prevSong = function() {
  const songs = window.getCurrentSongs();
  if (songs.length === 0) return;
 
- if (player && window.player.getCurrentTime && window.player.getCurrentTime() > 3) {
+ if (window.player && window.player.getCurrentTime && window.player.getCurrentTime() > 3) {
  window.player.seekTo(0);
  } else {
  window.currentSongIndex = (window.currentSongIndex - 1 + songs.length) % songs.length;
- selectSong(window.currentSongIndex);
+ window.selectSong(window.currentSongIndex);
  if (window.isPlaying) window.play();
  }
 }
@@ -441,7 +441,7 @@ window.nextSong = function() {
  } else {
  window.currentSongIndex = (window.currentSongIndex + 1) % songs.length;
  }
- selectSong(window.currentSongIndex);
+ window.selectSong(window.currentSongIndex);
  if (window.isPlaying) window.play();
  }
 
@@ -490,7 +490,7 @@ window.toggleMute = function() {
  muteIcon.style.display = isMuted ? 'block' : 'none';
  volumeFill.style.width = isMuted ? '0%' : volume + '%';
  
- if (player && window.player.setVolume) {
+ if (window.player && window.player.setVolume) {
  if (isMuted) {
  window.player.mute();
  } else {
@@ -505,7 +505,7 @@ window.adjustVolume = function(event) {
  volume = (clickX / rect.width) * 100;
  volumeFill.style.width = volume + '%';
  
- if (player && window.player.setVolume) {
+ if (window.player && window.player.setVolume) {
  window.player.setVolume(volume);
  }
  
@@ -513,29 +513,29 @@ window.adjustVolume = function(event) {
  isMuted = false;
  volumeIcon.style.display = 'block';
  muteIcon.style.display = 'none';
- if (player && window.player.unMute) {
+ if (window.player && window.player.unMute) {
  window.player.unMute();
  }
  }
  }
 
 window.openPlaylistModal = function() {
-  playlistModalOverlay.classList.add('active');
+  window.playlistModalOverlay.classList.add('active');
   playlistUrlInput.value = '';
   videoUrlInput.value = '';
   playlistNameInput.value = '';
   playlistStatus.textContent = '';
-  loadPlaylist.disabled = false;
+  window.loadPlaylist.disabled = false;
   manualPlaylistCheckbox.checked = false;
   playlistUrlGroup.style.display = 'block';
   videoUrlGroup.style.display = 'none';
   communityNotice.style.display = 'block';
   playlistModalTitle.textContent = 'Import YouTube Playlist';
-  loadPlaylistText.textContent = 'Import & Share';
+  window.loadPlaylistText.textContent = 'Import & Share';
  }
 
 window.closePlaylistModalFunc = function() {
- playlistModalOverlay.classList.remove('active');
+ window.playlistModalOverlay.classList.remove('active');
  }
 
  // Delete Song from Playlist
@@ -564,7 +564,7 @@ window.deleteSong = function(index) {
  if (index >= window.playlists[window.currentPlaylistIndex].songs.length) {
  window.currentSongIndex = window.playlists[window.currentPlaylistIndex].songs.length - 1;
  }
- selectSong(window.currentSongIndex);
+ window.selectSong(window.currentSongIndex);
  } else {
  window.currentSongIndex = -1;
  }
@@ -603,11 +603,11 @@ window.loadPlaylists = function() {
  }
 
 // Add Song Modal Event Listeners
-closeAddSongModal.addEventListener('click', closeAddSongModalFunc);
-cancelAddSong.addEventListener('click', closeAddSongModalFunc);
-addSongBtn.addEventListener('click', addSongToPlaylist);
-addSongModalOverlay.addEventListener('click', (e) => {
-  if (e.target === addSongModalOverlay) closeAddSongModalFunc();
+window.closeAddSongModal.addEventListener('click', closeAddSongModalFunc);
+window.cancelAddSong.addEventListener('click', closeAddSongModalFunc);
+window.addSongBtn.addEventListener('click', window.addSongToPlaylist);
+window.addSongModalOverlay.addEventListener('click', (e) => {
+  if (e.target === window.addSongModalOverlay) window.closeAddSongModalFunc();
 });
 addSongVideoUrl.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') addSongToPlaylist();
@@ -615,40 +615,40 @@ addSongVideoUrl.addEventListener('keypress', (e) => {
  }
 
  // Event Listeners - Main Controls
- playPauseBtn.addEventListener('click', togglePlay);
- prevBtn.addEventListener('click', prevSong);
- nextBtn.addEventListener('click', nextSong);
- window.shuffleBtn.addEventListener('click', toggleShuffle);
- window.repeatBtn.addEventListener('click', toggleRepeat);
+ window.playPauseBtn.addEventListener('click', window.togglePlay);
+ window.prevBtn.addEventListener('click', window.prevSong);
+ window.nextBtn.addEventListener('click', window.nextSong);
+ window.shuffleBtn.addEventListener('click', window.toggleShuffle);
+ window.repeatBtn.addEventListener('click', window.toggleRepeat);
  progressBar.addEventListener('click', seekTo);
  volumeBtn.addEventListener('click', toggleMute);
  volumeSlider.addEventListener('click', adjustVolume);
  
  // Event Listeners - Floating Player
- floatingPlayerBtn.addEventListener('click', toggleFloatingPlayer);
- closeFloatingPlayer.addEventListener('click', toggleFloatingPlayer);
+ window.floatingPlayerBtn.addEventListener('click', window.toggleFloatingPlayer);
+ window.closeFloatingPlayer.addEventListener('click', window.toggleFloatingPlayer);
  popoutWindowBtn.addEventListener('click', openPopoutWindow);
- floatingPlayPauseBtn.addEventListener('click', togglePlay);
- floatingPrevBtn.addEventListener('click', prevSong);
- floatingNextBtn.addEventListener('click', nextSong);
+ window.floatingPlayPauseBtn.addEventListener('click', window.togglePlay);
+ window.floatingPrevBtn.addEventListener('click', window.prevSong);
+ window.floatingNextBtn.addEventListener('click', window.nextSong);
  
 const playlistHeaderAddBtn = document.getElementById('playlistHeaderAddBtn');
 
 // Playlist Header Add Button Event Listener
 if (playlistHeaderAddBtn) {
   playlistHeaderAddBtn.addEventListener('click', () => {
-    openAddSongModal(window.currentPlaylistIndex);
+    window.openAddSongModal(window.currentPlaylistIndex);
   });
 }
 
  // Event Listeners - Sticky Controls
- stickyPlayPauseBtn.addEventListener('click', togglePlay);
- stickyPrevBtn.addEventListener('click', prevSong);
- stickyNextBtn.addEventListener('click', nextSong);
+ window.stickyPlayPauseBtn.addEventListener('click', window.togglePlay);
+ window.stickyPrevBtn.addEventListener('click', window.prevSong);
+ window.stickyNextBtn.addEventListener('click', window.nextSong);
  
  // Event Listeners - Carousel
- carouselPrev.addEventListener('click', () => scrollCarousel('prev'));
- carouselNext.addEventListener('click', () => scrollCarousel('next'));
+ window.carouselPrev.addEventListener('click', () => scrollCarousel('prev'));
+ window.carouselNext.addEventListener('click', () => scrollCarousel('next'));
  
  // Event Listeners - Library
  libraryBtn.addEventListener('click', openLibraryModal);
@@ -669,14 +669,14 @@ if (playlistHeaderAddBtn) {
  });
  
  // Event Listeners - Import
- importPlaylistBtn.addEventListener('click', openPlaylistModal);
- addPlaylistBtn.addEventListener('click', openPlaylistModal);
+ window.importPlaylistBtn.addEventListener('click', window.openPlaylistModal);
+ window.addPlaylistBtn.addEventListener('click', window.openPlaylistModal);
  const addPlaylistBtnMobile = document.getElementById('addPlaylistBtnMobile');
  if (addPlaylistBtnMobile) {
- addPlaylistBtnMobile.addEventListener('click', openPlaylistModal);
+ addPlaylistBtnMobile.addEventListener('click', window.openPlaylistModal);
  }
- closePlaylistModal.addEventListener('click', closePlaylistModalFunc);
- cancelPlaylist.addEventListener('click', closePlaylistModalFunc);
+ window.closePlaylistModal.addEventListener('click', window.closePlaylistModalFunc);
+ window.cancelPlaylist.addEventListener('click', window.closePlaylistModalFunc);
 // Manual Playlist Checkbox Toggle
 manualPlaylistCheckbox.addEventListener('change', () => {
   if (manualPlaylistCheckbox.checked) {
@@ -685,18 +685,18 @@ manualPlaylistCheckbox.addEventListener('change', () => {
     videoUrlGroup.style.display = 'block';
     communityNotice.style.display = 'none';
     playlistModalTitle.textContent = 'Create Manual Playlist';
-    loadPlaylistText.textContent = 'Create Playlist';
+    window.loadPlaylistText.textContent = 'Create Playlist';
   } else {
     // Regular playlist mode
     playlistUrlGroup.style.display = 'block';
     videoUrlGroup.style.display = 'none';
     communityNotice.style.display = 'block';
     playlistModalTitle.textContent = 'Import YouTube Playlist';
-    loadPlaylistText.textContent = 'Import & Share';
+    window.loadPlaylistText.textContent = 'Import & Share';
   }
 });
 
- loadPlaylist.addEventListener('click', async () => {
+ window.loadPlaylist.addEventListener('click', async () => {
  const name = playlistNameInput.value.trim();
  
  if (manualPlaylistCheckbox.checked) {
@@ -718,8 +718,8 @@ manualPlaylistCheckbox.addEventListener('change', () => {
  }
  });
  
- playlistModalOverlay.addEventListener('click', (e) => {
- if (e.target === playlistModalOverlay) closePlaylistModalFunc();
+ window.playlistModalOverlay.addEventListener('click', (e) => {
+ if (e.target === window.playlistModalOverlay) closePlaylistModalFunc();
  });
  
 
@@ -1545,7 +1545,7 @@ window.updateEffects = function() {
 // Load settings on page load
 loadEasterEggSettings();
  playlistUrlInput.addEventListener('keypress', (e) => {
- if (e.key === 'Enter') loadPlaylist.click();
+ if (e.key === 'Enter') window.loadPlaylist.click();
  });
 
  // Global API
@@ -1601,7 +1601,7 @@ loadEasterEggSettings();
  window.initCarousel();
 
  if (window.getCurrentSongs().length === 0) {
- showEmptyState();
+ window.showEmptyState();
  }
 
  console.log('%c🎵 Universal Music Player Pro - Enhanced', 'font-size: 20px; font-weight: bold; color: #667eea');

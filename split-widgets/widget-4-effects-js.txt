@@ -86,9 +86,9 @@ window.getCurrentSongs = function() {
 window.openAddSongModal = function(playlistIndex) {
   window.targetPlaylistIndex = playlistIndex;
   const playlistName = window.playlists[playlistIndex].name;
-  addSongModalTitle.textContent = 'Add Song to "' + playlistName + '"';
+  window.addSongModalTitle.textContent = 'Add Song to "' + playlistName + '"';
   window.addSongVideoUrl.value = '';
-  addSongStatus.textContent = '';
+  window.window.addSongStatus.textContent = '';
   window.addSongBtn.disabled = false;
   window.addSongModalOverlay.classList.add('active');
 }
@@ -128,8 +128,8 @@ window.addSongToPlaylist = async function() {
       window.initCarousel();
     }
     
-    addSongStatus.style.color = '#34C759';
-    addSongStatus.textContent = '✓ Song added successfully!';
+    window.addSongStatus.style.color = '#34C759';
+    window.addSongStatus.textContent = '✓ Song added successfully!';
     
     setTimeout(() => {
       window.closeAddSongModalFunc();
@@ -137,8 +137,8 @@ window.addSongToPlaylist = async function() {
     
   } catch (error) {
     console.error('Error adding song:', error);
-    addSongStatus.style.color = '#FF3B30';
-    addSongStatus.textContent = '✗ Error: ' + error.message;
+    window.addSongStatus.style.color = '#FF3B30';
+    window.addSongStatus.textContent = '✗ Error: ' + error.message;
     
     window.addSongBtn.disabled = false;
     window.addSongBtnText.textContent = 'Add Song';
@@ -623,8 +623,8 @@ window.loadPlaylists = function() {
  }
 
 // Add Song Modal Event Listeners
-window.closeAddSongModal.addEventListener('click', closeAddSongModalFunc);
-window.cancelAddSong.addEventListener('click', closeAddSongModalFunc);
+window.closeAddSongModal.addEventListener('click', window.closeAddSongModalFunc);
+window.cancelAddSong.addEventListener('click', window.closeAddSongModalFunc);
 window.addSongBtn.addEventListener('click', window.addSongToPlaylist);
 window.addSongModalOverlay.addEventListener('click', (e) => {
   if (e.target === window.addSongModalOverlay) window.closeAddSongModalFunc();

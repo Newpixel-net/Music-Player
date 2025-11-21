@@ -1,4 +1,55 @@
 <script>
+// CRITICAL FIX: Define YouTube player event callbacks BEFORE DOMContentLoaded
+// This prevents race condition where player tries to use undefined callbacks
+
+// YouTube Player Event Handlers - MUST be defined before player creation
+window.onPlayerReady = function(event) {
+  console.log('✅ YouTube Player Ready!');
+  window.playerReady = true;
+  window.player.setVolume(window.volume);
+  console.log('🔊 Volume set to:', window.volume);
+
+  const songs = window.getCurrentSongs();
+  console.log('📋 Songs in current playlist:', songs.length);
+  if (songs.length > 0) {
+    console.log('🎵 Auto-selecting first song...');
+    window.selectSong(0);
+    window.updateStickyControlsInfo();
+  } else {
+    console.log('⚠️ No songs available to auto-select');
+  }
+};
+
+window.onPlayerStateChange = function(event) {
+  if (event.data === YT.PlayerState.PLAYING) {
+    window.isPlaying = true;
+    window.playIcon.style.display = 'none';
+    window.pauseIcon.style.display = 'block';
+    window.updateAllPlayButtons('pause');
+    window.updateVisualizerState();
+    window.startProgressUpdater();
+
+    // Update Media Session state
+    if ('mediaSession' in navigator) {
+      navigator.mediaSession.playbackState = 'playing';
+    }
+  } else if (event.data === YT.PlayerState.PAUSED) {
+    window.isPlaying = false;
+    window.playIcon.style.display = 'block';
+    window.pauseIcon.style.display = 'none';
+    window.updateAllPlayButtons('play');
+    window.updateVisualizerState();
+    window.stopProgressUpdater();
+
+    // Update Media Session state
+    if ('mediaSession' in navigator) {
+      navigator.mediaSession.playbackState = 'paused';
+    }
+  } else if (event.data === YT.PlayerState.ENDED) {
+    window.handleSongEnd();
+  }
+};
+
 // YouTube Player Initialization - Define callback BEFORE DOMContentLoaded
 // This ensures the callback exists when YouTube API finishes loading
 var ytPlayerReadyToInit = false;
@@ -792,54 +843,8 @@ window.stopDragging = function() {
  floatingPlayer.style.cursor = 'move';
  }
 
- // Initialize YouTube Player
-
-window.onPlayerReady = function(event) {
- console.log('✅ YouTube Player Ready!');
- window.playerReady = true;
- window.player.setVolume(window.volume);
- console.log('🔊 Volume set to:', window.volume);
-
- const songs = window.getCurrentSongs();
- console.log('📋 Songs in current playlist:', songs.length);
- if (songs.length > 0) {
- console.log('🎵 Auto-selecting first song...');
- window.selectSong(0);
- window.updateStickyControlsInfo();
- } else {
- console.log('⚠️ No songs available to auto-select');
- }
- }
-
-window.onPlayerStateChange = function(event) {
- if (event.data === YT.PlayerState.PLAYING) {
- window.isPlaying = true;
- window.playIcon.style.display = 'none';
- window.pauseIcon.style.display = 'block';
- window.updateAllPlayButtons('pause');
- window.updateVisualizerState();
- window.startProgressUpdater();
- 
- // Update Media Session state
- if ('mediaSession' in navigator) {
- navigator.mediaSession.playbackState = 'playing';
- }
- } else if (event.data === YT.PlayerState.PAUSED) {
- window.isPlaying = false;
- window.playIcon.style.display = 'block';
- window.pauseIcon.style.display = 'none';
- window.updateAllPlayButtons('play');
- window.updateVisualizerState();
- window.stopProgressUpdater();
- 
- // Update Media Session state
- if ('mediaSession' in navigator) {
- navigator.mediaSession.playbackState = 'paused';
- }
- } else if (event.data === YT.PlayerState.ENDED) {
- window.handleSongEnd();
- }
- }
+ // YouTube Player callback functions are now defined at the TOP of this file
+ // This prevents race conditions during initialization
 
 window.updateAllPlayButtons = function(state) {
  var playIconHTML = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';

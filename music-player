@@ -3141,12 +3141,19 @@
  display: flex;
  align-items: flex-start;
  gap: 10px;
+ cursor: pointer;
  }
 
  .mood-item:hover {
- background: rgba(102, 126, 234, 0.2);
- border-color: rgba(102, 126, 234, 0.4);
+ background: rgba(102, 126, 234, 0.25);
+ border-color: rgba(102, 126, 234, 0.5);
  transform: translateY(-2px);
+ box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+ }
+
+ .mood-item:active {
+ transform: translateY(0);
+ box-shadow: 0 2px 6px rgba(102, 126, 234, 0.2);
  }
 
  .mood-emoji {
@@ -4668,85 +4675,85 @@ transform: scale(1.05);
         <div class="mood-category">
           <h3 class="mood-category-title">🌟 Classic Vibes</h3>
           <div class="mood-list">
-            <div class="mood-item"><span class="mood-emoji">🎨</span><strong>Default Vibes</strong> - Atmospheric gradient animation</div>
-            <div class="mood-item"><span class="mood-emoji">🌅</span><strong>Sunset Chill</strong> - Warm sunset orange and pink</div>
-            <div class="mood-item"><span class="mood-emoji">🌊</span><strong>Ocean Waves</strong> - Cool blue ocean waves</div>
-            <div class="mood-item"><span class="mood-emoji">🌲</span><strong>Forest Calm</strong> - Natural green forest</div>
-            <div class="mood-item"><span class="mood-emoji">🌙</span><strong>Midnight Dreams</strong> - Dark midnight blues</div>
-            <div class="mood-item"><span class="mood-emoji">🌈</span><strong>Aurora Lights</strong> - Northern lights colors</div>
-            <div class="mood-item"><span class="mood-emoji">🍭</span><strong>Candy Pop</strong> - Sweet pink candy colors</div>
-            <div class="mood-item"><span class="mood-emoji">💫</span><strong>Neon Nights</strong> - Vibrant neon colors</div>
-            <div class="mood-item"><span class="mood-emoji">🌺</span><strong>Tropical Heat</strong> - Warm tropical sunset</div>
-            <div class="mood-item"><span class="mood-emoji">🌌</span><strong>Cosmic Journey</strong> - Deep space purple</div>
+            <div class="mood-item" data-mood="default"><span class="mood-emoji">🎨</span><strong>Default Vibes</strong> - Atmospheric gradient animation</div>
+            <div class="mood-item" data-mood="sunset"><span class="mood-emoji">🌅</span><strong>Sunset Chill</strong> - Warm sunset orange and pink</div>
+            <div class="mood-item" data-mood="ocean"><span class="mood-emoji">🌊</span><strong>Ocean Waves</strong> - Cool blue ocean waves</div>
+            <div class="mood-item" data-mood="forest"><span class="mood-emoji">🌲</span><strong>Forest Calm</strong> - Natural green forest</div>
+            <div class="mood-item" data-mood="midnight"><span class="mood-emoji">🌙</span><strong>Midnight Dreams</strong> - Dark midnight blues</div>
+            <div class="mood-item" data-mood="aurora"><span class="mood-emoji">🌈</span><strong>Aurora Lights</strong> - Northern lights colors</div>
+            <div class="mood-item" data-mood="candy"><span class="mood-emoji">🍭</span><strong>Candy Pop</strong> - Sweet pink candy colors</div>
+            <div class="mood-item" data-mood="neon"><span class="mood-emoji">💫</span><strong>Neon Nights</strong> - Vibrant neon colors</div>
+            <div class="mood-item" data-mood="tropical"><span class="mood-emoji">🌺</span><strong>Tropical Heat</strong> - Warm tropical sunset</div>
+            <div class="mood-item" data-mood="cosmic"><span class="mood-emoji">🌌</span><strong>Cosmic Journey</strong> - Deep space purple</div>
           </div>
         </div>
 
         <div class="mood-category">
           <h3 class="mood-category-title">⚡ Dynamic Effects</h3>
           <div class="mood-list">
-            <div class="mood-item"><span class="mood-emoji">🔮</span><strong>Plasma Orbs</strong> - Floating plasma orbs with blur</div>
-            <div class="mood-item"><span class="mood-emoji">✨</span><strong>Starfield</strong> - Twinkling stars effect</div>
-            <div class="mood-item"><span class="mood-emoji">🌋</span><strong>Lava Bubbles</strong> - Bubbling lava effect</div>
-            <div class="mood-item"><span class="mood-emoji">⚡</span><strong>Electric Storm</strong> - Lightning strikes</div>
-            <div class="mood-item"><span class="mood-emoji">💚</span><strong>Matrix Code</strong> - Falling green code</div>
-            <div class="mood-item"><span class="mood-emoji">🌈</span><strong>Rainbow Shimmer</strong> - Rainbow animation</div>
-            <div class="mood-item"><span class="mood-emoji">🌊</span><strong>Vaporwave</strong> - Retro grid aesthetic</div>
-            <div class="mood-item"><span class="mood-emoji">🔥</span><strong>Fire</strong> - Rising flames effect</div>
-            <div class="mood-item"><span class="mood-emoji">🎮</span><strong>Cyberpunk</strong> - Glitchy cyber bars</div>
-            <div class="mood-item"><span class="mood-emoji">🌌</span><strong>Galaxy</strong> - Spinning nebula</div>
+            <div class="mood-item" data-mood="plasma"><span class="mood-emoji">🔮</span><strong>Plasma Orbs</strong> - Floating plasma orbs with blur</div>
+            <div class="mood-item" data-mood="starfield"><span class="mood-emoji">✨</span><strong>Starfield</strong> - Twinkling stars effect</div>
+            <div class="mood-item" data-mood="lava"><span class="mood-emoji">🌋</span><strong>Lava Bubbles</strong> - Bubbling lava effect</div>
+            <div class="mood-item" data-mood="electric"><span class="mood-emoji">⚡</span><strong>Electric Storm</strong> - Lightning strikes</div>
+            <div class="mood-item" data-mood="matrix"><span class="mood-emoji">💚</span><strong>Matrix Code</strong> - Falling green code</div>
+            <div class="mood-item" data-mood="rainbow"><span class="mood-emoji">🌈</span><strong>Rainbow Shimmer</strong> - Rainbow animation</div>
+            <div class="mood-item" data-mood="vaporwave"><span class="mood-emoji">🌊</span><strong>Vaporwave</strong> - Retro grid aesthetic</div>
+            <div class="mood-item" data-mood="fire"><span class="mood-emoji">🔥</span><strong>Fire</strong> - Rising flames effect</div>
+            <div class="mood-item" data-mood="cyberpunk"><span class="mood-emoji">🎮</span><strong>Cyberpunk</strong> - Glitchy cyber bars</div>
+            <div class="mood-item" data-mood="galaxy"><span class="mood-emoji">🌌</span><strong>Galaxy</strong> - Spinning nebula</div>
           </div>
         </div>
 
         <div class="mood-category">
           <h3 class="mood-category-title">💥 Bold & Intense</h3>
           <div class="mood-list">
-            <div class="mood-item"><span class="mood-emoji">⚡</span><strong>Glitch</strong> - RGB split glitch effect</div>
-            <div class="mood-item"><span class="mood-emoji">⚡</span><strong>Lightning</strong> - Flashing lightning</div>
-            <div class="mood-item"><span class="mood-emoji">💓</span><strong>Pulse</strong> - Heartbeat pulsing</div>
-            <div class="mood-item"><span class="mood-emoji">🌈</span><strong>Prism</strong> - Refracted rainbow light</div>
-            <div class="mood-item"><span class="mood-emoji">💎</span><strong>Hologram</strong> - Holographic shimmer</div>
-            <div class="mood-item"><span class="mood-emoji">🔴</span><strong>Laser</strong> - Sweeping laser beams</div>
-            <div class="mood-item"><span class="mood-emoji">🚀</span><strong>Warp</strong> - Warp speed streaks</div>
-            <div class="mood-item"><span class="mood-emoji">🪩</span><strong>Disco</strong> - Rotating disco lights</div>
-            <div class="mood-item"><span class="mood-emoji">☢️</span><strong>Nuclear</strong> - Radioactive glow</div>
-            <div class="mood-item"><span class="mood-emoji">💥</span><strong>Supernova</strong> - Explosive expansion</div>
+            <div class="mood-item" data-mood="glitch"><span class="mood-emoji">⚡</span><strong>Glitch</strong> - RGB split glitch effect</div>
+            <div class="mood-item" data-mood="lightning"><span class="mood-emoji">⚡</span><strong>Lightning</strong> - Flashing lightning</div>
+            <div class="mood-item" data-mood="pulse"><span class="mood-emoji">💓</span><strong>Pulse</strong> - Heartbeat pulsing</div>
+            <div class="mood-item" data-mood="prism"><span class="mood-emoji">🌈</span><strong>Prism</strong> - Refracted rainbow light</div>
+            <div class="mood-item" data-mood="hologram"><span class="mood-emoji">💎</span><strong>Hologram</strong> - Holographic shimmer</div>
+            <div class="mood-item" data-mood="laser"><span class="mood-emoji">🔴</span><strong>Laser</strong> - Sweeping laser beams</div>
+            <div class="mood-item" data-mood="warp"><span class="mood-emoji">🚀</span><strong>Warp</strong> - Warp speed streaks</div>
+            <div class="mood-item" data-mood="disco"><span class="mood-emoji">🪩</span><strong>Disco</strong> - Rotating disco lights</div>
+            <div class="mood-item" data-mood="nuclear"><span class="mood-emoji">☢️</span><strong>Nuclear</strong> - Radioactive glow</div>
+            <div class="mood-item" data-mood="supernova"><span class="mood-emoji">💥</span><strong>Supernova</strong> - Explosive expansion</div>
           </div>
         </div>
 
         <div class="mood-category">
           <h3 class="mood-category-title">🎨 Atmosphere Collection</h3>
           <div class="mood-list">
-            <div class="mood-item"><span class="mood-emoji">🌊</span><strong>Oceanic</strong> - Deep ocean depths</div>
-            <div class="mood-item"><span class="mood-emoji">🏜️</span><strong>Desert</strong> - Warm desert sunset</div>
-            <div class="mood-item"><span class="mood-emoji">❄️</span><strong>Arctic</strong> - Frozen arctic ice</div>
-            <div class="mood-item"><span class="mood-emoji">🌿</span><strong>Jungle</strong> - Dense jungle night</div>
-            <div class="mood-item"><span class="mood-emoji">🌸</span><strong>Cherry</strong> - Cherry blossom pink</div>
-            <div class="mood-item"><span class="mood-emoji">⛈️</span><strong>Thunder</strong> - Stormy thunderclouds</div>
-            <div class="mood-item"><span class="mood-emoji">🌳</span><strong>Mystic</strong> - Mystic forest purple</div>
-            <div class="mood-item"><span class="mood-emoji">🌐</span><strong>Cybergrid</strong> - Cyber grid lines</div>
-            <div class="mood-item"><span class="mood-emoji">👑</span><strong>Royal</strong> - Royal purple luxury</div>
-            <div class="mood-item"><span class="mood-emoji">🌟</span><strong>Golden</strong> - Golden hour glow</div>
-            <div class="mood-item"><span class="mood-emoji">🌌</span><strong>Nebula</strong> - Dreamy nebula clouds</div>
-            <div class="mood-item"><span class="mood-emoji">❤️</span><strong>Crimson</strong> - Deep crimson red</div>
-            <div class="mood-item"><span class="mood-emoji">💚</span><strong>Emerald</strong> - Emerald green city</div>
-            <div class="mood-item"><span class="mood-emoji">☀️</span><strong>Solar</strong> - Solar flare orange</div>
-            <div class="mood-item"><span class="mood-emoji">🌙</span><strong>Moonlight</strong> - Moonlight serenade</div>
+            <div class="mood-item" data-mood="oceanic"><span class="mood-emoji">🌊</span><strong>Oceanic</strong> - Deep ocean depths</div>
+            <div class="mood-item" data-mood="desert"><span class="mood-emoji">🏜️</span><strong>Desert</strong> - Warm desert sunset</div>
+            <div class="mood-item" data-mood="arctic"><span class="mood-emoji">❄️</span><strong>Arctic</strong> - Frozen arctic ice</div>
+            <div class="mood-item" data-mood="jungle"><span class="mood-emoji">🌿</span><strong>Jungle</strong> - Dense jungle night</div>
+            <div class="mood-item" data-mood="cherry"><span class="mood-emoji">🌸</span><strong>Cherry</strong> - Cherry blossom pink</div>
+            <div class="mood-item" data-mood="thunder"><span class="mood-emoji">⛈️</span><strong>Thunder</strong> - Stormy thunderclouds</div>
+            <div class="mood-item" data-mood="mystic"><span class="mood-emoji">🌳</span><strong>Mystic</strong> - Mystic forest purple</div>
+            <div class="mood-item" data-mood="cybergrid"><span class="mood-emoji">🌐</span><strong>Cybergrid</strong> - Cyber grid lines</div>
+            <div class="mood-item" data-mood="royal"><span class="mood-emoji">👑</span><strong>Royal</strong> - Royal purple luxury</div>
+            <div class="mood-item" data-mood="golden"><span class="mood-emoji">🌟</span><strong>Golden</strong> - Golden hour glow</div>
+            <div class="mood-item" data-mood="nebula"><span class="mood-emoji">🌌</span><strong>Nebula</strong> - Dreamy nebula clouds</div>
+            <div class="mood-item" data-mood="crimson"><span class="mood-emoji">❤️</span><strong>Crimson</strong> - Deep crimson red</div>
+            <div class="mood-item" data-mood="emerald"><span class="mood-emoji">💚</span><strong>Emerald</strong> - Emerald green city</div>
+            <div class="mood-item" data-mood="solar"><span class="mood-emoji">☀️</span><strong>Solar</strong> - Solar flare orange</div>
+            <div class="mood-item" data-mood="moonlight"><span class="mood-emoji">🌙</span><strong>Moonlight</strong> - Moonlight serenade</div>
           </div>
         </div>
 
         <div class="mood-category">
           <h3 class="mood-category-title">✨ New Creative Themes</h3>
           <div class="mood-list">
-            <div class="mood-item"><span class="mood-emoji">🌸</span><strong>Sakura Blossoms</strong> - Delicate pink cherry blossom gradients</div>
-            <div class="mood-item"><span class="mood-emoji">🌋</span><strong>Volcano Lava</strong> - Dark red/orange volcanic eruption</div>
-            <div class="mood-item"><span class="mood-emoji">❄️</span><strong>Arctic Aurora</strong> - Ice blue northern lights shimmer</div>
-            <div class="mood-item"><span class="mood-emoji">💎</span><strong>Amethyst Crystal</strong> - Deep purple gemstone glow</div>
-            <div class="mood-item"><span class="mood-emoji">🌲</span><strong>Emerald Forest</strong> - Rich green forest depths</div>
-            <div class="mood-item"><span class="mood-emoji">🏖️</span><strong>Sunset Beach</strong> - Warm orange/pink beach sunset</div>
-            <div class="mood-item"><span class="mood-emoji">🌊</span><strong>Deep Ocean</strong> - Dark blue ocean depths</div>
-            <div class="mood-item"><span class="mood-emoji">🌹</span><strong>Rose Gold</strong> - Elegant pink metallic shimmer</div>
-            <div class="mood-item"><span class="mood-emoji">🌌</span><strong>Cosmos</strong> - Deep space purple/blue drift</div>
-            <div class="mood-item"><span class="mood-emoji">🔥</span><strong>Phoenix Flame</strong> - Bright orange/gold flames rising</div>
+            <div class="mood-item" data-mood="sakura"><span class="mood-emoji">🌸</span><strong>Sakura Blossoms</strong> - Delicate pink cherry blossom gradients</div>
+            <div class="mood-item" data-mood="volcano"><span class="mood-emoji">🌋</span><strong>Volcano Lava</strong> - Dark red/orange volcanic eruption</div>
+            <div class="mood-item" data-mood="arcticaurora"><span class="mood-emoji">❄️</span><strong>Arctic Aurora</strong> - Ice blue northern lights shimmer</div>
+            <div class="mood-item" data-mood="amethyst"><span class="mood-emoji">💎</span><strong>Amethyst Crystal</strong> - Deep purple gemstone glow</div>
+            <div class="mood-item" data-mood="emeraldforest"><span class="mood-emoji">🌲</span><strong>Emerald Forest</strong> - Rich green forest depths</div>
+            <div class="mood-item" data-mood="sunsetbeach"><span class="mood-emoji">🏖️</span><strong>Sunset Beach</strong> - Warm orange/pink beach sunset</div>
+            <div class="mood-item" data-mood="deepocean"><span class="mood-emoji">🌊</span><strong>Deep Ocean</strong> - Dark blue ocean depths</div>
+            <div class="mood-item" data-mood="rosegold"><span class="mood-emoji">🌹</span><strong>Rose Gold</strong> - Elegant pink metallic shimmer</div>
+            <div class="mood-item" data-mood="cosmos"><span class="mood-emoji">🌌</span><strong>Cosmos</strong> - Deep space purple/blue drift</div>
+            <div class="mood-item" data-mood="phoenix"><span class="mood-emoji">🔥</span><strong>Phoenix Flame</strong> - Bright orange/gold flames rising</div>
           </div>
         </div>
       </div>
@@ -7247,6 +7254,16 @@ moodHelpBtn.addEventListener('click', (e) => {
 closeMoodHelpModal.addEventListener('click', closeMoodHelpModalFunc);
 moodHelpModalOverlay.addEventListener('click', (e) => {
   if (e.target === moodHelpModalOverlay) closeMoodHelpModalFunc();
+});
+
+// Mood item click handlers - change mood and close modal
+const moodItems = document.querySelectorAll('.mood-item[data-mood]');
+moodItems.forEach(item => {
+  item.addEventListener('click', () => {
+    const mood = item.getAttribute('data-mood');
+    applyMood(mood);
+    closeMoodHelpModalFunc();
+  });
 });
 
 // Mood title click handler (Easter egg trigger)

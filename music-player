@@ -7358,17 +7358,19 @@ moodHelpBtn.addEventListener('click', (e) => {
 
 closeMoodHelpModal.addEventListener('click', closeMoodHelpModalFunc);
 moodHelpModalOverlay.addEventListener('click', (e) => {
-  if (e.target === moodHelpModalOverlay) closeMoodHelpModalFunc();
-});
+  // Close modal if clicking on overlay background
+  if (e.target === moodHelpModalOverlay) {
+    closeMoodHelpModalFunc();
+    return;
+  }
 
-// Mood item click handlers - change mood and close modal
-const moodItems = document.querySelectorAll('.mood-item[data-mood]');
-moodItems.forEach(item => {
-  item.addEventListener('click', () => {
-    const mood = item.getAttribute('data-mood');
+  // Handle mood item clicks using event delegation (works on mobile too)
+  const moodItem = e.target.closest('.mood-item[data-mood]');
+  if (moodItem) {
+    const mood = moodItem.getAttribute('data-mood');
     applyMood(mood);
     closeMoodHelpModalFunc();
-  });
+  }
 });
 
 // Mood title click handler (Easter egg trigger)

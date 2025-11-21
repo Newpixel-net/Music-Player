@@ -2141,8 +2141,8 @@
  .mood-header {
  display: flex;
  align-items: center;
- justify-content: space-between;
- margin-bottom: 12px;
+ justify-content: center;
+ margin-bottom: 8px;
  gap: 10px;
  position: relative;
  }
@@ -2187,25 +2187,28 @@
  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
  }
 
- /* Random Effect Buttons */
- .random-buttons-container {
+ /* Random Effect Buttons Row */
+ .random-buttons-row {
  display: flex;
- gap: 8px;
+ gap: 6px;
  align-items: center;
+ justify-content: center;
+ margin-bottom: 12px;
  }
 
  .random-btn {
- padding: 8px 16px;
- border-radius: 12px;
+ padding: 6px 12px;
+ border-radius: 10px;
  border: none;
- font-size: 13px;
+ font-size: 12px;
  font-weight: 600;
  cursor: pointer;
  transition: all 0.3s ease;
  color: white;
  position: relative;
  overflow: hidden;
- box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+ box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+ white-space: nowrap;
  }
 
  .random-btn::before {
@@ -2264,6 +2267,43 @@
 
  .random-btn.pulsing {
  animation: randomPulse 0.6s ease;
+ }
+
+ /* Border Animation Effects */
+ @keyframes borderFlash {
+ 0%, 100% { opacity: 1; }
+ 50% { opacity: 0.3; }
+ }
+
+ @keyframes borderFlicker {
+ 0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+ 20%, 24%, 55% { opacity: 0.4; }
+ }
+
+ @keyframes borderBreathing {
+ 0%, 100% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); }
+ 50% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 20px 10px currentColor; }
+ }
+
+ @keyframes borderColorShift {
+ 0% { filter: hue-rotate(0deg); }
+ 100% { filter: hue-rotate(360deg); }
+ }
+
+ .border-flash {
+ animation: borderFlash 1.5s ease-in-out infinite;
+ }
+
+ .border-flicker {
+ animation: borderFlicker 3s linear infinite;
+ }
+
+ .border-breathing {
+ animation: borderBreathing 2s ease-in-out infinite;
+ }
+
+ .border-colorshift {
+ animation: borderColorShift 4s linear infinite;
  }
 
  /* Background Effects Button & Popup */
@@ -4480,13 +4520,14 @@ transform: scale(1.05);
  font-size: 18px;
  }
 
- .random-buttons-container {
+ .random-buttons-row {
  gap: 4px;
+ margin-bottom: 10px;
  }
 
  .random-btn {
- padding: 6px 10px;
- font-size: 11px;
+ padding: 5px 8px;
+ font-size: 10px;
  }
 
  /* Hide navigation buttons on mobile - touch scrolling works fine */
@@ -4997,21 +5038,19 @@ transform: scale(1.05);
  <!-- Mood Selector -->
  <div class="mood-section">
  <div class="mood-header">
- <div style="display: flex; align-items: center; gap: 10px;">
  <h2 class="mood-title">🎭 Mood</h2>
  <button class="mood-help-btn" id="moodHelpBtn" title="View all moods">?</button>
  </div>
- <div class="random-buttons-container">
+ <div class="random-buttons-row">
  <button class="random-btn random-btn-mood" id="randomMoodBtn" title="Apply random mood">
- 🎲 Random Mood
+ 🎲 Mood
  </button>
  <button class="random-btn random-btn-atmosphere" id="randomAtmosphereBtn" title="Apply random atmosphere">
- 🌟 Random Atmosphere
+ 🎲 Atmosphere
  </button>
  <button class="random-btn random-btn-bg" id="randomBgBtn" title="Apply random background effects">
- 🎨 Random BG Effects
+ 🎲 BG Effects
  </button>
- </div>
  </div>
  <div class="mood-selector-wrapper">
  <button class="mood-nav-btn mood-nav-left" id="moodNavLeft">
@@ -5181,7 +5220,7 @@ transform: scale(1.05);
  </div>
  <div class="style-control">
  <label>Border Glow: <span id="bgBorderGlowValue">0px</span></label>
- <input type="range" class="effect-slider" id="bgBorderGlow" min="0" max="20" value="0">
+ <input type="range" class="effect-slider" id="bgBorderGlow" min="0" max="10" value="0">
  <input type="color" id="bgBorderGlowColor" value="#667eea">
  </div>
  </div>
@@ -5974,13 +6013,29 @@ function applyRandomMood() {
 }
 
 function applyRandomAtmosphere() {
- const randomEffect = allAtmosphereEffects[Math.floor(Math.random() * allAtmosphereEffects.length)];
-
  // Clear all effects first
- moodSection.className = 'mood-section';
+ activeEffects = [];
+ document.querySelectorAll('.effect-btn').forEach(btn => {
+ btn.classList.remove('active');
+ });
 
- // Apply random effect
- moodSection.classList.add(`effect-${randomEffect}`);
+ // Pick 1-3 random effects to combine
+ const numEffects = Math.floor(Math.random() * 3) + 1;
+ const availableEffects = ['heartbeat', 'flash', 'glowpulse', 'scalebounce', 'breathe', 'beatdrop', 'shake', 'sway', 'float', 'wobble', 'tilt3d', 'flicker', 'glitch', 'rgbsplit', 'wavemotion', 'ripple', 'prism', 'borderpulse', 'neonglow', 'rainbowborder', 'shadowdance', 'electricedges'];
+
+ // Randomly select effects
+ const shuffled = availableEffects.sort(() => 0.5 - Math.random());
+ const selectedEffects = shuffled.slice(0, numEffects);
+
+ // Add to activeEffects and mark buttons as active
+ selectedEffects.forEach(effect => {
+ activeEffects.push(effect);
+ const btn = document.querySelector(`.effect-btn[data-effect="${effect}"]`);
+ if (btn) btn.classList.add('active');
+ });
+
+ // Apply effects
+ updateEffects();
 
  const btn = document.getElementById('randomAtmosphereBtn');
  btn.classList.add('pulsing');
@@ -5988,54 +6043,127 @@ function applyRandomAtmosphere() {
 }
 
 function applyRandomBgEffects() {
+ // Choose random mode for variety
+ const modes = ['minimal', 'moderate', 'dramatic', 'neon', 'retro'];
+ const mode = modes[Math.floor(Math.random() * modes.length)];
+
  // Random background color
  const randomColor = colorPalette[Math.floor(Math.random() * colorPalette.length)];
  bgColor.value = randomColor;
 
- // Random opacity (50-100%)
- const randomOpacity = Math.floor(Math.random() * 51) + 50;
+ // Random opacity (60-100%) - NOW INCLUDED!
+ const randomOpacity = Math.floor(Math.random() * 41) + 60;
  bgOpacity.value = randomOpacity;
  bgOpacityValue.textContent = randomOpacity + '%';
 
- // Random blur (0-20px)
- const randomBlur = Math.floor(Math.random() * 21);
+ // Random blur based on mode
+ let randomBlur = 0;
+ if (mode === 'dramatic' || mode === 'neon') {
+ randomBlur = Math.floor(Math.random() * 16) + 5; // 5-20px
+ } else if (mode === 'moderate') {
+ randomBlur = Math.floor(Math.random() * 11); // 0-10px
+ } // minimal and retro: no blur
+
  bgBlur.value = randomBlur;
  bgBlurValue.textContent = randomBlur + 'px';
 
- // Random border radius (10-50px)
- const randomRadius = Math.floor(Math.random() * 41) + 10;
+ // Random border radius (8-30px) - LIMITED!
+ const randomRadius = Math.floor(Math.random() * 23) + 8;
  borderRadius.value = randomRadius;
  borderRadiusValue.textContent = randomRadius + 'px';
 
- // Random shadow depth (0-30px)
- const randomShadow = Math.floor(Math.random() * 31);
+ // Random shadow depth based on mode
+ let randomShadow = 0;
+ if (mode === 'dramatic' || mode === 'neon') {
+ randomShadow = Math.floor(Math.random() * 21) + 10; // 10-30px
+ } else if (mode === 'moderate') {
+ randomShadow = Math.floor(Math.random() * 16); // 0-15px
+ } else if (mode === 'retro') {
+ randomShadow = Math.floor(Math.random() * 6); // 0-5px
+ }
+
  bgShadowDepth.value = randomShadow;
  bgShadowDepthValue.textContent = randomShadow + 'px';
 
- // Random border glow (0-20px with random color)
- const randomGlow = Math.floor(Math.random() * 21);
+ // Random border glow (3-8px) - EVEN SMALLER!
+ let randomGlow = 0;
+ if (mode === 'neon') {
+ randomGlow = Math.floor(Math.random() * 6) + 3; // 3-8px
+ } else if (mode === 'dramatic') {
+ randomGlow = Math.floor(Math.random() * 4) + 3; // 3-6px
+ } else if (mode === 'moderate') {
+ randomGlow = Math.floor(Math.random() * 3) + 3; // 3-5px
+ }
+
  const randomGlowColor = colorPalette[Math.floor(Math.random() * colorPalette.length)];
  bgBorderGlow.value = randomGlow;
  bgBorderGlowValue.textContent = randomGlow + 'px';
  bgBorderGlowColor.value = randomGlowColor;
 
- // Apply all effects
- moodSection.style.backgroundColor = randomColor;
- moodSection.style.opacity = (randomOpacity / 100);
- moodSection.style.backdropFilter = `blur(${randomBlur}px)`;
- moodSection.style.borderRadius = randomRadius + 'px';
- moodSection.style.boxShadow = `0 ${randomShadow}px ${randomShadow * 2}px rgba(0,0,0,0.3)`;
+ // Random border animation
+ const borderAnimations = ['border-flash', 'border-flicker', 'border-breathing', 'border-colorshift'];
+ const randomAnimation = borderAnimations[Math.floor(Math.random() * borderAnimations.length)];
 
- if (randomGlow > 0) {
- moodSection.style.boxShadow += `, 0 0 ${randomGlow}px ${randomGlow * 2}px ${randomGlowColor}`;
+ // Random CSS border (width and style) - NEW!
+ let borderStyle = 'none';
+ let borderWidth = 0;
+ let borderColor = randomGlowColor;
+
+ if (mode === 'retro') {
+ borderStyle = ['solid', 'dashed', 'dotted', 'double'][Math.floor(Math.random() * 4)];
+ borderWidth = Math.floor(Math.random() * 3) + 2; // 2-4px
+ } else if (mode === 'dramatic') {
+ borderStyle = 'solid';
+ borderWidth = Math.floor(Math.random() * 2) + 1; // 1-2px
  }
 
- // Apply border glow to video player container
+ // Random filters - NEW!
+ const saturation = Math.floor(Math.random() * 41) + 80; // 80-120%
+ const brightness = Math.floor(Math.random() * 21) + 90; // 90-110%
+ const contrast = Math.floor(Math.random() * 21) + 90; // 90-110%
+
+ // Random transform - NEW!
+ const rotation = (Math.random() * 4 - 2).toFixed(2); // -2 to +2 degrees
+ const scale = (Math.random() * 0.04 + 0.98).toFixed(2); // 0.98 to 1.02
+
+ // Apply all effects to mood section
+ moodSection.style.backgroundColor = randomColor;
+ moodSection.style.opacity = (randomOpacity / 100);
+ moodSection.style.backdropFilter = randomBlur > 0 ? `blur(${randomBlur}px)` : '';
+ moodSection.style.borderRadius = randomRadius + 'px';
+ moodSection.style.border = borderWidth > 0 ? `${borderWidth}px ${borderStyle} ${borderColor}` : '';
+
+ // Box shadow
+ let boxShadow = randomShadow > 0 ? `0 ${randomShadow}px ${randomShadow * 2}px rgba(0,0,0,0.3)` : '';
+ if (randomGlow > 0) {
+ const glowShadow = `0 0 ${randomGlow}px ${randomGlow * 2}px ${randomGlowColor}`;
+ boxShadow = boxShadow ? boxShadow + ', ' + glowShadow : glowShadow;
+ }
+ moodSection.style.boxShadow = boxShadow;
+
+ // Filters and transform
+ moodSection.style.filter = `saturate(${saturation}%) brightness(${brightness}%) contrast(${contrast}%)`;
+ moodSection.style.transform = `rotate(${rotation}deg) scale(${scale})`;
+
+ // Border animations
+ moodSection.classList.remove('border-flash', 'border-flicker', 'border-breathing', 'border-colorshift');
+ if (randomGlow > 0) {
+ moodSection.classList.add(randomAnimation);
+ }
+
+ // Apply to video player
  const videoPlayerContainer = document.querySelector('.video-player-container');
- if (videoPlayerContainer && randomGlow > 0) {
- videoPlayerContainer.style.boxShadow = `0 10px 30px rgba(0, 0, 0, 0.2), 0 0 ${randomGlow}px ${randomGlow * 2}px ${randomGlowColor}`;
- } else if (videoPlayerContainer) {
- videoPlayerContainer.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.2)';
+ if (videoPlayerContainer) {
+ let videoBoxShadow = '0 10px 30px rgba(0, 0, 0, 0.2)';
+ if (randomGlow > 0) {
+ videoBoxShadow += `, 0 0 ${randomGlow}px ${randomGlow * 2}px ${randomGlowColor}`;
+ }
+ videoPlayerContainer.style.boxShadow = videoBoxShadow;
+ videoPlayerContainer.style.border = borderWidth > 0 ? `${borderWidth}px ${borderStyle} ${borderColor}` : '';
+ videoPlayerContainer.classList.remove('border-flash', 'border-flicker', 'border-breathing', 'border-colorshift');
+ if (randomGlow > 0) {
+ videoPlayerContainer.classList.add(randomAnimation);
+ }
  }
 
  const btn = document.getElementById('randomBgBtn');

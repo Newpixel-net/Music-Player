@@ -1257,12 +1257,17 @@ easterEggModalOverlay.addEventListener('click', (e) => {
 });
 
 // Background Effects System
+const moodEffectsBtn = document.getElementById('moodEffectsBtn');
+const moodEffectsPopup = document.getElementById('moodEffectsPopup');
 const effectSpeed = document.getElementById('effectSpeed');
 const effectSpeedValue = document.getElementById('effectSpeedValue');
 const effectIntensity = document.getElementById('effectIntensity');
 const effectIntensityValue = document.getElementById('effectIntensityValue');
 const effectResetBtn = document.getElementById('effectResetBtn');
+const moodSection = document.querySelector('.mood-section');
 const bgColor = document.getElementById('bgColor');
+const bgOpacity = document.getElementById('bgOpacity');
+const bgOpacityValue = document.getElementById('bgOpacityValue');
 const bgBlur = document.getElementById('bgBlur');
 const bgBlurValue = document.getElementById('bgBlurValue');
 const borderRadius = document.getElementById('borderRadius');
@@ -1283,15 +1288,15 @@ let effectSettings = {
 };
 
 // Toggle popup
-window.moodEffectsBtn.addEventListener('click', (e) => {
+moodEffectsBtn.addEventListener('click', (e) => {
   e.stopPropagation();
-  window.moodEffectsPopup.classList.toggle('active');
+  moodEffectsPopup.classList.toggle('active');
 });
 
 // Close popup when clicking outside
 document.addEventListener('click', (e) => {
-  if (!window.moodEffectsPopup.contains(e.target) && e.target !== window.moodEffectsBtn) {
-    window.moodEffectsPopup.classList.remove('active');
+  if (!moodEffectsPopup.contains(e.target) && e.target !== moodEffectsBtn) {
+    moodEffectsPopup.classList.remove('active');
   }
 });
 

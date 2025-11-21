@@ -28,7 +28,7 @@ Add 4 "Custom Code" widgets, stacked vertically in this exact order.
 
 #### 🔹 Widget 3: Core JavaScript
 **File:** `/home/user/Music-Player/split-widgets/widget-3-core-js.txt`
-**Lines:** 1,573
+**Lines:** 1,578
 **Action:** Copy entire file → Paste into **Widget 3**
 
 #### 🔹 Widget 4: Effects JavaScript

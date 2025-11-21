@@ -3100,7 +3100,7 @@
 
  /* Mood Help Modal Styles */
  .mood-help-modal {
- max-width: 900px;
+ max-width: 1200px;
  max-height: 85vh;
  }
 
@@ -3126,8 +3126,18 @@
 
  .mood-list {
  display: grid;
- grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+ grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
  gap: 10px;
+ }
+
+ @media (max-width: 768px) {
+ .mood-help-modal {
+ max-width: 95vw;
+ }
+
+ .mood-list {
+ grid-template-columns: 1fr;
+ }
  }
 
  .mood-item {

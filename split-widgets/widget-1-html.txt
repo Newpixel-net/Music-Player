@@ -1,0 +1,1000 @@
+<body>
+ <div class="bg-animation">
+ <div class="wave"></div>
+ <div class="wave"></div>
+ <div class="wave"></div>
+ <div class="particles" id="particles"></div>
+ </div>
+
+ <!-- Settings Button -->
+ <button class="settings-btn" id="settingsBtn">
+ <svg viewBox="0 0 24 24">
+ <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+ </svg>
+ </button>
+
+ <!-- Settings Modal -->
+ <div class="settings-modal-overlay" id="settingsModalOverlay">
+ <div class="settings-modal">
+ <div class="settings-header">
+ <div class="settings-title">
+ <span>⚙️</span>
+ <span>Settings</span>
+ </div>
+ <button class="settings-close" id="closeSettingsModal">Close</button>
+ </div>
+ <div class="settings-body">
+ <div class="setting-group">
+ <div class="setting-label">
+ <span>🎛️</span>
+ <span>Display Options</span>
+ </div>
+ <div class="setting-row">
+ <div class="setting-info">
+ <div class="setting-name">Sticky Controls</div>
+ <div class="setting-desc">Show playback controls at bottom of screen</div>
+ </div>
+ <label class="toggle-switch">
+ <input type="checkbox" id="toggleStickyControls" checked>
+ <span class="toggle-slider"></span>
+ </label>
+ </div>
+ <div class="setting-row">
+ <div class="setting-info">
+ <div class="setting-name">Music Visualizer</div>
+ <div class="setting-desc">Show animated bars in sticky controls</div>
+ </div>
+ <label class="toggle-switch">
+ <input type="checkbox" id="toggleVisualizer" checked>
+ <span class="toggle-slider"></span>
+ </label>
+ </div>
+ <div class="setting-row">
+ <div class="setting-info">
+ <div class="setting-name">Background Animations</div>
+ <div class="setting-desc">Enable animated particles and waves</div>
+ </div>
+ <label class="toggle-switch">
+ <input type="checkbox" id="toggleBackgroundAnim" checked>
+ <span class="toggle-slider"></span>
+ </label>
+ </div>
+ </div>
+
+ <div class="setting-group">
+ <div class="setting-label">
+ <span>🎬</span>
+ <span>Floating Player</span>
+ </div>
+ <div class="setting-description">
+ The floating player can be dragged anywhere on screen and stays visible while browsing.
+ For true picture-in-picture mode that works when minimized, try the "Pop-out Window" button in the floating player.
+ </div>
+ <div class="setting-row">
+ <div class="setting-info">
+ <div class="setting-name">Enable Floating Player</div>
+ <div class="setting-desc">Show draggable video player overlay</div>
+ </div>
+ <label class="toggle-switch">
+ <input type="checkbox" id="toggleFloatingPlayer">
+ <span class="toggle-slider"></span>
+ </label>
+ </div>
+ </div>
+
+ <div class="setting-group">
+ <div class="setting-label">
+ <span>ℹ️</span>
+ <span>About</span>
+ </div>
+ <div class="setting-description">
+ Universal Music Player Pro - Enhanced Edition<br>
+ Features: Community Library, Mood System, Music Visualizer, Floating Player<br>
+ <strong style="color: #43e97b;">🌐 Firebase Connected</strong> - Share playlists with the world!
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <!-- Floating Mini Player -->
+ <div class="floating-player" id="floatingPlayer">
+ <div class="floating-player-header">
+ <div class="floating-player-title">
+ <span>🎵</span>
+ <span>Now Playing</span>
+ </div>
+ <div class="floating-player-actions">
+ <button class="floating-action-btn" id="popoutWindowBtn" title="Open in new window">
+ <span>⧉</span>
+ </button>
+ <button class="floating-action-btn" id="closeFloatingPlayer">×</button>
+ </div>
+ </div>
+ <div class="floating-player-video">
+ <div id="floatingPlayerFrame"></div>
+ </div>
+ <div class="floating-player-info">
+ <div class="floating-player-song" id="floatingSongTitle">No Track</div>
+ <div class="floating-player-artist" id="floatingArtistName">Select a song</div>
+ </div>
+ <div class="floating-player-controls">
+ <button class="floating-control-btn" id="floatingPrevBtn">
+ <svg viewBox="0 0 24 24">
+ <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+ </svg>
+ </button>
+ <button class="floating-control-btn large" id="floatingPlayPauseBtn">
+ <svg viewBox="0 0 24 24">
+ <path d="M8 5v14l11-7z"/>
+ </svg>
+ </button>
+ <button class="floating-control-btn" id="floatingNextBtn">
+ <svg viewBox="0 0 24 24">
+ <path d="M16 18h2V6h-2v12zm-11-7l8.5-6v12z"/>
+ </svg>
+ </button>
+ </div>
+ </div>
+
+ <!-- Sticky Control Bar with Visualizer -->
+ <div class="sticky-controls" id="stickyControls">
+ <div class="sticky-info">
+ <div class="sticky-thumb" id="stickyThumb">
+ <div class="playlist-thumb-placeholder">🎵</div>
+ </div>
+ <div class="sticky-text">
+ <div class="sticky-song" id="stickySongTitle">No Track</div>
+ <div class="sticky-artist" id="stickyArtistName">Select a song</div>
+ </div>
+ </div>
+ 
+ <!-- Music Visualizer -->
+ <div class="music-visualizer paused" id="musicVisualizer">
+ <div class="visualizer-bar"></div>
+ <div class="visualizer-bar"></div>
+ <div class="visualizer-bar"></div>
+ <div class="visualizer-bar"></div>
+ <div class="visualizer-bar"></div>
+ <div class="visualizer-bar"></div>
+ <div class="visualizer-bar"></div>
+ <div class="visualizer-bar"></div>
+ <div class="visualizer-bar"></div>
+ <div class="visualizer-bar"></div>
+ <div class="visualizer-bar"></div>
+ <div class="visualizer-bar"></div>
+ <div class="visualizer-bar"></div>
+ <div class="visualizer-bar"></div>
+ <div class="visualizer-bar"></div>
+ <div class="visualizer-bar"></div>
+ <div class="visualizer-bar"></div>
+ <div class="visualizer-bar"></div>
+ <div class="visualizer-bar"></div>
+ <div class="visualizer-bar"></div>
+ </div>
+ 
+ <div class="sticky-controls-buttons">
+ <button class="sticky-btn" id="stickyPrevBtn">
+ <svg viewBox="0 0 24 24">
+ <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+ </svg>
+ </button>
+ <button class="sticky-btn large" id="stickyPlayPauseBtn">
+ <svg viewBox="0 0 24 24">
+ <path d="M8 5v14l11-7z"/>
+ </svg>
+ </button>
+ <button class="sticky-btn" id="stickyNextBtn">
+ <svg viewBox="0 0 24 24">
+ <path d="M16 18h2V6h-2v12zm-11-7l8.5-6v12z"/>
+ </svg>
+ </button>
+ </div>
+ </div>
+
+ <div class="player-wrapper">
+ <div class="music-player">
+ <!-- Top Bar with Title and Volume -->
+ <div class="top-bar">
+ <div class="app-title">
+ <span>🎵</span>
+ <span>Music Player Pro</span>
+ </div>
+ <div class="volume-control-top">
+ <button class="control-btn small" id="volumeBtn">
+ <svg viewBox="0 0 24 24" id="volumeIcon">
+ <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+ </svg>
+ <svg viewBox="0 0 24 24" id="muteIcon" style="display: none;">
+ <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+ </svg>
+ </button>
+ <div class="volume-slider-top" id="volumeSlider">
+ <div class="volume-fill-top" id="volumeFill"></div>
+ </div>
+ </div>
+ </div>
+
+ <!-- Mood Selector -->
+ <div class="mood-section">
+ <div class="mood-header">
+ <h2 class="mood-title">🎭 Mood</h2>
+ <button class="mood-help-btn" id="moodHelpBtn" title="View all moods">?</button>
+ </div>
+ <div class="random-buttons-row">
+ <button class="random-btn random-btn-mood" id="randomMoodBtn" title="Apply random mood">
+ 🎲 Mood
+ </button>
+ <button class="random-btn random-btn-atmosphere" id="randomAtmosphereBtn" title="Apply random atmosphere">
+ 🎲 Atmosphere
+ </button>
+ <button class="random-btn random-btn-bg" id="randomBgBtn" title="Apply random background effects">
+ 🎲 BG Effects
+ </button>
+ </div>
+ <div class="mood-selector-wrapper">
+ <button class="mood-nav-btn mood-nav-left" id="moodNavLeft">
+ <svg viewBox="0 0 24 24" width="20" height="20">
+ <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+ </svg>
+ </button>
+ <div class="mood-selector" id="moodSelector">
+ <div class="mood-option active" data-mood="default" title="Default Vibes"></div>
+ <div class="mood-option" data-mood="sunset" title="Sunset Chill"></div>
+ <div class="mood-option" data-mood="ocean" title="Ocean Waves"></div>
+ <div class="mood-option" data-mood="forest" title="Forest Calm"></div>
+ <div class="mood-option" data-mood="midnight" title="Midnight Dreams"></div>
+ <div class="mood-option" data-mood="aurora" title="Aurora Lights"></div>
+ <div class="mood-option" data-mood="candy" title="Candy Pop"></div>
+ <div class="mood-option" data-mood="neon" title="Neon Nights"></div>
+ <div class="mood-option" data-mood="tropical" title="Tropical Heat"></div>
+ <div class="mood-option" data-mood="cosmic" title="Cosmic Journey"></div>
+ <div class="mood-option" data-mood="plasma" title="Plasma Orbs"></div>
+ <div class="mood-option" data-mood="starfield" title="Starfield"></div>
+ <div class="mood-option" data-mood="lava" title="Lava Bubbles"></div>
+ <div class="mood-option" data-mood="electric" title="Electric Storm"></div>
+ <div class="mood-option" data-mood="matrix" title="Matrix Code"></div>
+ <div class="mood-option" data-mood="rainbow" title="Rainbow Shimmer"></div>
+ <div class="mood-option" data-mood="vaporwave" title="Vaporwave Grid"></div>
+ <div class="mood-option" data-mood="fire" title="Rising Flames"></div>
+ <div class="mood-option" data-mood="cyberpunk" title="Cyberpunk Glitch"></div>
+ <div class="mood-option" data-mood="galaxy" title="Galaxy Nebula"></div>
+ <div class="mood-option" data-mood="glitch" title="RGB Glitch"></div>
+ <div class="mood-option" data-mood="lightning" title="Lightning Storm"></div>
+ <div class="mood-option" data-mood="pulse" title="Heartbeat Pulse"></div>
+ <div class="mood-option" data-mood="prism" title="Prism Refraction"></div>
+ <div class="mood-option" data-mood="hologram" title="Hologram Scan"></div>
+ <div class="mood-option" data-mood="laser" title="Laser Beams"></div>
+ <div class="mood-option" data-mood="warp" title="Warp Speed"></div>
+ <div class="mood-option" data-mood="disco" title="Disco Lights"></div>
+ <div class="mood-option" data-mood="nuclear" title="Nuclear Glow"></div>
+ <div class="mood-option" data-mood="supernova" title="Supernova Explosion"></div>
+ <div class="mood-option" data-mood="oceanic" title="Oceanic Depths"></div>
+ <div class="mood-option" data-mood="desert" title="Desert Sunset"></div>
+ <div class="mood-option" data-mood="arctic" title="Arctic Freeze"></div>
+ <div class="mood-option" data-mood="jungle" title="Jungle Night"></div>
+ <div class="mood-option" data-mood="cherry" title="Cherry Blossom"></div>
+ <div class="mood-option" data-mood="thunder" title="Thunderstorm"></div>
+ <div class="mood-option" data-mood="mystic" title="Mystic Forest"></div>
+ <div class="mood-option" data-mood="cybergrid" title="Cyber Grid"></div>
+ <div class="mood-option" data-mood="royal" title="Royal Purple"></div>
+ <div class="mood-option" data-mood="golden" title="Golden Hour"></div>
+ <div class="mood-option" data-mood="nebula" title="Nebula Dream"></div>
+ <div class="mood-option" data-mood="crimson" title="Crimson Tide"></div>
+ <div class="mood-option" data-mood="emerald" title="Emerald City"></div>
+ <div class="mood-option" data-mood="solar" title="Solar Flare"></div>
+ <div class="mood-option" data-mood="moonlight" title="Moonlight Serenade"></div>
+ <div class="mood-option" data-mood="sakura" title="Sakura Blossoms"></div>
+ <div class="mood-option" data-mood="volcano" title="Volcano Lava"></div>
+ <div class="mood-option" data-mood="arcticaurora" title="Arctic Aurora"></div>
+ <div class="mood-option" data-mood="amethyst" title="Amethyst Crystal"></div>
+ <div class="mood-option" data-mood="emeraldforest" title="Emerald Forest"></div>
+ <div class="mood-option" data-mood="sunsetbeach" title="Sunset Beach"></div>
+ <div class="mood-option" data-mood="deepocean" title="Deep Ocean"></div>
+ <div class="mood-option" data-mood="rosegold" title="Rose Gold"></div>
+ <div class="mood-option" data-mood="cosmos" title="Cosmos"></div>
+ <div class="mood-option" data-mood="phoenix" title="Phoenix Flame"></div>
+ </div>
+ <button class="mood-nav-btn mood-nav-right" id="moodNavRight">
+ <svg viewBox="0 0 24 24" width="20" height="20">
+ <path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+ </svg>
+ </button>
+ </div>
+
+ <!-- Background Effects Button -->
+ <button class="mood-effects-btn" id="moodEffectsBtn" title="Background Effects">✨</button>
+ </div>
+
+ <!-- Background Effects Popup - Moved outside mood-section to fix transparency -->
+ <div class="mood-effects-popup" id="moodEffectsPopup">
+ <div class="mood-effects-header">
+ <div class="mood-effects-title">✨ Background Effects</div>
+ </div>
+ <div class="mood-effects-body">
+ <!-- Controls -->
+ <div class="effect-controls">
+ <div class="effect-control-group">
+ <label class="effect-control-label">Speed: <span id="effectSpeedValue">1x</span></label>
+ <input type="range" class="effect-slider" id="effectSpeed" min="0.5" max="3" step="0.1" value="1">
+ </div>
+ <div class="effect-control-group">
+ <label class="effect-control-label">Intensity: <span id="effectIntensityValue">50%</span></label>
+ <input type="range" class="effect-slider" id="effectIntensity" min="0" max="100" step="5" value="50">
+ </div>
+ </div>
+
+ <!-- Style Customization -->
+ <div class="effect-category">
+ <div class="effect-category-title" data-category="style">🎨 Style Customization <span>▼</span></div>
+ <div class="effect-options expanded" id="styleEffects" style="grid-template-columns: 1fr;">
+ <div class="style-control">
+ <label>🎨 Background Color</label>
+ <input type="color" id="bgColor" value="#f8f8f8">
+ </div>
+ <div class="style-control">
+ <label>🎵 Audio Textures</label>
+ <div class="texture-grid">
+ <button class="texture-btn active" data-texture="none" title="No Texture">
+ <span class="texture-none-icon">✕</span>
+ </button>
+ <button class="texture-btn texture-speaker-grille" data-texture="speaker-grille" title="Speaker Grille"></button>
+ <button class="texture-btn texture-sound-waves" data-texture="sound-waves" title="Sound Waves"></button>
+ <button class="texture-btn texture-equalizer" data-texture="equalizer" title="Equalizer Bars"></button>
+ <button class="texture-btn texture-waveform" data-texture="waveform" title="Waveform"></button>
+ <button class="texture-btn texture-bass-ripples" data-texture="bass-ripples" title="Bass Ripples"></button>
+ <button class="texture-btn texture-studio-foam" data-texture="studio-foam" title="Studio Foam"></button>
+ <button class="texture-btn texture-audio-jack" data-texture="audio-jack" title="Audio Jack"></button>
+ <button class="texture-btn texture-mic-mesh" data-texture="mic-mesh" title="Microphone Mesh"></button>
+ <button class="texture-btn texture-piano-keys" data-texture="piano-keys" title="Piano Keys"></button>
+ <button class="texture-btn texture-guitar-strings" data-texture="guitar-strings" title="Guitar Strings"></button>
+ <button class="texture-btn texture-drum-skin" data-texture="drum-skin" title="Drum Skin"></button>
+ <button class="texture-btn texture-foam-pyramids" data-texture="foam-pyramids" title="Foam Pyramids"></button>
+ <button class="texture-btn texture-xlr-connector" data-texture="xlr-connector" title="XLR Connector"></button>
+ <button class="texture-btn texture-cassette-tape" data-texture="cassette-tape" title="Cassette Tape"></button>
+ <button class="texture-btn texture-cd-diffraction" data-texture="cd-diffraction" title="CD Diffraction"></button>
+ <button class="texture-btn texture-mixing-console" data-texture="mixing-console" title="Mixing Console"></button>
+ <button class="texture-btn texture-frequency-spectrum" data-texture="frequency-spectrum" title="Frequency Spectrum"></button>
+ <button class="texture-btn texture-oscilloscope" data-texture="oscilloscope" title="Oscilloscope"></button>
+ <button class="texture-btn texture-soundwave-circular" data-texture="soundwave-circular" title="Circular Sound Waves"></button>
+ <button class="texture-btn texture-amplitude-pulse" data-texture="amplitude-pulse" title="Amplitude Pulse"></button>
+ <button class="texture-btn texture-stereo-waves" data-texture="stereo-waves" title="Stereo Waves"></button>
+ <button class="texture-btn texture-frequency-rings" data-texture="frequency-rings" title="Frequency Rings"></button>
+ <button class="texture-btn texture-audio-spectrum-3d" data-texture="audio-spectrum-3d" title="3D Audio Spectrum"></button>
+ <button class="texture-btn texture-sine-waves" data-texture="sine-waves" title="Sine Waves"></button>
+ <button class="texture-btn texture-beat-grid" data-texture="beat-grid" title="Beat Grid"></button>
+ <button class="texture-btn texture-harmonic-waves" data-texture="harmonic-waves" title="Harmonic Waves"></button>
+ </div>
+ </div>
+ <div class="style-control">
+ <label>Opacity: <span id="bgOpacityValue">100%</span></label>
+ <input type="range" class="effect-slider" id="bgOpacity" min="0" max="100" value="100">
+ </div>
+ <div class="style-control">
+ <label>Blur: <span id="bgBlurValue">0px</span></label>
+ <input type="range" class="effect-slider" id="bgBlur" min="0" max="20" value="0">
+ </div>
+ <div class="style-control">
+ <label>Border Radius: <span id="borderRadiusValue">12px</span></label>
+ <input type="range" class="effect-slider" id="borderRadius" min="0" max="50" value="12">
+ </div>
+ <div class="style-control">
+ <label>Shadow Depth: <span id="bgShadowDepthValue">0px</span></label>
+ <input type="range" class="effect-slider" id="bgShadowDepth" min="0" max="30" value="0">
+ </div>
+ <div class="style-control">
+ <label>Border Glow: <span id="bgBorderGlowValue">0px</span></label>
+ <input type="range" class="effect-slider" id="bgBorderGlow" min="0" max="10" value="0">
+ <input type="color" id="bgBorderGlowColor" value="#667eea">
+ </div>
+ </div>
+ </div>
+
+ <!-- Pulse Effects -->
+ <div class="effect-category">
+ <div class="effect-category-title" data-category="pulse">🎵 Pulse Effects <span>▼</span></div>
+ <div class="effect-options expanded" id="pulseEffects">
+ <button class="effect-btn" data-effect="heartbeat">💓 Heartbeat</button>
+ <button class="effect-btn" data-effect="flash">⚡ Flash</button>
+ <button class="effect-btn" data-effect="glowpulse">💫 Glow Pulse</button>
+ <button class="effect-btn" data-effect="scalebounce">🎯 Scale Bounce</button>
+ <button class="effect-btn" data-effect="breathe">🌬️ Breathe</button>
+ <button class="effect-btn" data-effect="beatdrop">💥 Beat Drop</button>
+ </div>
+ </div>
+
+ <!-- Motion Effects -->
+ <div class="effect-category">
+ <div class="effect-category-title" data-category="motion">🌊 Motion Effects <span>▼</span></div>
+ <div class="effect-options" id="motionEffects">
+ <button class="effect-btn" data-effect="shake">📳 Shake</button>
+ <button class="effect-btn" data-effect="sway">🎐 Sway</button>
+ <button class="effect-btn" data-effect="float">☁️ Float</button>
+ <button class="effect-btn" data-effect="wobble">🌀 Wobble</button>
+ <button class="effect-btn" data-effect="tilt3d">🎲 Tilt 3D</button>
+ </div>
+ </div>
+
+ <!-- Visual FX -->
+ <div class="effect-category">
+ <div class="effect-category-title" data-category="visual">✨ Visual FX <span>▼</span></div>
+ <div class="effect-options" id="visualEffects">
+ <button class="effect-btn" data-effect="flicker">📺 Flicker</button>
+ <button class="effect-btn" data-effect="glitch">⚠️ Glitch</button>
+ <button class="effect-btn" data-effect="rgbsplit">🌈 RGB Split</button>
+ <button class="effect-btn" data-effect="wavemotion">🌊 Wave Motion</button>
+ <button class="effect-btn" data-effect="ripple">💧 Ripple</button>
+ <button class="effect-btn" data-effect="prism">🔮 Prism</button>
+ </div>
+ </div>
+
+ <!-- Border Effects -->
+ <div class="effect-category">
+ <div class="effect-category-title" data-category="border">🎨 Border Effects <span>▼</span></div>
+ <div class="effect-options" id="borderEffects">
+ <button class="effect-btn" data-effect="borderpulse">💠 Border Pulse</button>
+ <button class="effect-btn" data-effect="neonglow">💡 Neon Glow</button>
+ <button class="effect-btn" data-effect="rainbowborder">🌈 Rainbow</button>
+ <button class="effect-btn" data-effect="shadowdance">🕴️ Shadow Dance</button>
+ <button class="effect-btn" data-effect="electricedges">⚡ Electric Edges</button>
+ </div>
+ </div>
+
+ <button class="effect-reset-btn" id="effectResetBtn">🔄 Reset All Effects</button>
+ </div>
+ </div>
+
+ <!-- Playlist Tabs with Sticky + Button -->
+ <div class="playlist-tabs-wrapper">
+ <div class="playlist-tabs-container" id="playlistTabs"></div>
+ <button class="add-playlist-btn" id="addPlaylistBtn">+</button>
+ </div>
+
+ <!-- Import Playlist Button -->
+ <button class="import-playlist-btn" id="importPlaylistBtn">
+ <span>▶️</span>
+ <span>Import YouTube Playlist</span>
+ </button>
+
+ <!-- Floating Player Controls -->
+ <div class="pip-controls">
+ <button class="pip-btn" id="floatingPlayerBtn" style="flex: 1;">
+ <span>📺</span>
+ <span>Floating Video Player</span>
+ </button>
+ </div>
+
+ <!-- YouTube Video Player -->
+ <div class="video-player-container">
+ <div id="player"></div>
+ </div>
+
+ <!-- Song Info -->
+ <div class="song-info">
+ <div class="song-title" id="songTitle">No Tracks</div>
+ <div class="artist-name" id="artistName">Import a playlist to begin</div>
+ </div>
+
+ <!-- Progress Bar -->
+ <div class="progress-container">
+ <div class="progress-bar" id="progressBar">
+ <div class="progress-fill" id="progressFill"></div>
+ </div>
+ <div class="time-display">
+ <span id="currentTime">0:00</span>
+ <span id="totalTime">0:00</span>
+ </div>
+ </div>
+
+ <!-- Playback Controls -->
+ <div class="controls">
+ <button class="control-btn small" id="prevBtn">
+ <svg viewBox="0 0 24 24">
+ <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+ </svg>
+ </button>
+
+ <button class="control-btn large" id="playPauseBtn">
+ <svg viewBox="0 0 24 24" id="playIcon">
+ <path d="M8 5v14l11-7z"/>
+ </svg>
+ <svg viewBox="0 0 24 24" id="pauseIcon" style="display: none;">
+ <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+ </svg>
+ </button>
+
+ <button class="control-btn small" id="nextBtn">
+ <svg viewBox="0 0 24 24">
+ <path d="M16 18h2V6h-2v12zm-11-7l8.5-6v12z"/>
+ </svg>
+ </button>
+
+ <button class="control-btn medium" id="shuffleBtn">
+ <svg viewBox="0 0 24 24">
+ <path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/>
+ </svg>
+ </button>
+
+ <button class="control-btn medium" id="repeatBtn">
+ <svg viewBox="0 0 24 24">
+ <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
+ </svg>
+ </button>
+ </div>
+
+ <!-- Horizontal Carousel -->
+ <div class="carousel-section" id="carouselSection" style="display: none;">
+ <div class="carousel-header">
+ <h3>Now Playing</h3>
+ </div>
+ <div class="carousel-container">
+ <button class="carousel-nav prev" id="carouselPrev">
+ <svg viewBox="0 0 24 24">
+ <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+ </svg>
+ </button>
+ <div class="carousel-wrapper">
+ <div class="carousel-track" id="carouselTrack"></div>
+ </div>
+ <button class="carousel-nav next" id="carouselNext">
+ <svg viewBox="0 0 24 24">
+ <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+ </svg>
+ </button>
+ </div>
+ </div>
+
+ <!-- Playlist Library Button -->
+ <button class="library-button" id="libraryBtn">
+ <span>📚</span>
+ <span>Browse Community Library</span>
+ <span style="opacity: 0.7; font-size: 12px;" id="libraryBadge">(Empty)</span>
+ </button>
+
+ <!-- Vertical Playlist -->
+ <div class="playlist-container">
+ <div class="playlist-header">
+ <h3>All Tracks</h3>
+ <button class="playlist-header-add-btn" id="playlistHeaderAddBtn" title="Add song to current playlist">+ Add New</button>
+ <span class="playlist-count" id="playlistCount">0 songs</span>
+ </div>
+ <div class="playlist-scroll" id="playlist">
+ <div class="empty-state">
+ <div class="empty-state-icon">🎵</div>
+ <div class="empty-state-text">
+ Click "Import YouTube Playlist" to add songs<br>
+ or browse the Community Library for instant access!
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <!-- Playlist Library Modal -->
+ <div class="modal-overlay" id="libraryModalOverlay">
+ <div class="modal">
+ <div class="modal-header">
+ <h2 class="modal-title">📚 Community Playlist Library</h2>
+ <button class="modal-close" id="closeLibraryModal">Close</button>
+ </div>
+ <div class="library-search-container">
+ <div class="library-search-wrapper">
+ <input type="text" class="library-search-input" id="librarySearchInput" placeholder="🔍 Search playlists by name, mood, or genre...">
+ <button class="library-search-btn" id="librarySearchBtn">Search</button>
+ </div>
+ <div class="library-search-preview" id="librarySearchPreview"></div>
+ </div>
+ <div class="library-pagination" id="libraryPaginationTop"></div>
+ <div class="modal-body" id="libraryModalBody">
+ <div class="library-status">Loading community playlists...</div>
+ </div>
+ <div class="library-pagination" id="libraryPaginationBottom"></div>
+ </div>
+ </div>
+
+ <!-- Import Playlist Modal -->
+ <div class="modal-overlay" id="playlistModalOverlay">
+ <div class="modal">
+ <div class="modal-header">
+ <h2 class="modal-title" id="playlistModalTitle">Import YouTube Playlist</h2>
+ <button class="modal-close" id="closePlaylistModal">Cancel</button>
+ </div>
+ <div class="input-modal-content">
+ <div class="input-group">
+ <label class="input-label">Playlist Name</label>
+ <input type="text" class="input-field" id="playlistNameInput" placeholder="My Awesome Playlist">
+ </div>
+ 
+ <!-- Manual Playlist Toggle -->
+ <div class="input-group" style="margin-bottom: 16px;">
+ <label class="manual-playlist-toggle">
+ <input type="checkbox" id="manualPlaylistCheckbox">
+ <span class="manual-playlist-label">📝 Manual Playlist (Add songs one by one)</span>
+ </label>
+ </div>
+ 
+ <!-- Regular Playlist URL Input -->
+ <div class="input-group" id="playlistUrlGroup">
+ <label class="input-label">YouTube Playlist URL or ID</label>
+ <input type="text" class="input-field" id="playlistUrlInput" placeholder="https://www.youtube.com/playlist?list=...">
+ </div>
+ 
+ <!-- Manual Playlist Video URL Input (Hidden by default) -->
+ <div class="input-group" id="videoUrlGroup" style="display: none;">
+ <label class="input-label">YouTube Video URL</label>
+ <input type="text" class="input-field" id="videoUrlInput" placeholder="https://www.youtube.com/watch?v=...">
+ </div>
+ 
+ <!-- Community Feature Notice (only for regular playlists) -->
+ <div id="communityNotice" style="padding: 10px; background: rgba(67, 233, 123, 0.1); border-radius: 8px; margin-bottom: 12px; border: 1px solid rgba(67, 233, 123, 0.3);">
+ <div style="font-size: 12px; color: #aaa; line-height: 1.6;">
+ <strong style="color: #43e97b;">🌐 Community Feature:</strong> This playlist will be saved to our shared database and accessible to all users worldwide - helping everyone save on API costs! One import = Everyone benefits! 🎉
+ </div>
+ </div>
+ 
+ <div class="modal-actions">
+ <button class="modal-btn cancel" id="cancelPlaylist">Cancel</button>
+ <button class="modal-btn save" id="loadPlaylist">
+ <span id="loadPlaylistText">Import & Share</span>
+ </button>
+ </div>
+ <div id="playlistStatus" style="margin-top: 12px; font-size: 13px; text-align: center; color: #667eea;"></div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+
+ <!-- Add Song Modal -->
+ <div class="modal-overlay" id="addSongModalOverlay">
+ <div class="modal">
+ <div class="modal-header">
+ <h2 class="modal-title" id="addSongModalTitle">Add Song to Playlist</h2>
+ <button class="modal-close" id="closeAddSongModal">Cancel</button>
+ </div>
+ <div class="input-modal-content">
+ <div class="input-group">
+ <label class="input-label">YouTube Video URL</label>
+ <input type="text" class="input-field" id="addSongVideoUrl" placeholder="https://www.youtube.com/watch?v=...">
+ </div>
+ <div class="modal-actions">
+ <button class="modal-btn cancel" id="cancelAddSong">Cancel</button>
+ <button class="modal-btn save" id="addSongBtn">
+ <span id="addSongBtnText">Add Song</span>
+ </button>
+ </div>
+ <div id="addSongStatus" style="margin-top: 12px; font-size: 13px; text-align: center; color: #667eea;"></div>
+ </div>
+ </div>
+ </div>
+  <!-- Mood Help Modal -->
+  <div class="modal-overlay" id="moodHelpModalOverlay">
+    <div class="modal mood-help-modal">
+      <div class="modal-header">
+        <h2 class="modal-title">🎭 All Available Moods</h2>
+        <button class="modal-close" id="closeMoodHelpModal">&times;</button>
+      </div>
+      <div class="modal-body mood-help-content">
+        <div class="mood-category">
+          <h3 class="mood-category-title">🌟 Classic Vibes</h3>
+          <div class="mood-list">
+            <div class="mood-item" data-mood="default"><span class="mood-emoji">🎨</span><strong>Default Vibes</strong> - Atmospheric gradient animation</div>
+            <div class="mood-item" data-mood="sunset"><span class="mood-emoji">🌅</span><strong>Sunset Chill</strong> - Warm sunset orange and pink</div>
+            <div class="mood-item" data-mood="ocean"><span class="mood-emoji">🌊</span><strong>Ocean Waves</strong> - Cool blue ocean waves</div>
+            <div class="mood-item" data-mood="forest"><span class="mood-emoji">🌲</span><strong>Forest Calm</strong> - Natural green forest</div>
+            <div class="mood-item" data-mood="midnight"><span class="mood-emoji">🌙</span><strong>Midnight Dreams</strong> - Dark midnight blues</div>
+            <div class="mood-item" data-mood="aurora"><span class="mood-emoji">🌈</span><strong>Aurora Lights</strong> - Northern lights colors</div>
+            <div class="mood-item" data-mood="candy"><span class="mood-emoji">🍭</span><strong>Candy Pop</strong> - Sweet pink candy colors</div>
+            <div class="mood-item" data-mood="neon"><span class="mood-emoji">💫</span><strong>Neon Nights</strong> - Vibrant neon colors</div>
+            <div class="mood-item" data-mood="tropical"><span class="mood-emoji">🌺</span><strong>Tropical Heat</strong> - Warm tropical sunset</div>
+            <div class="mood-item" data-mood="cosmic"><span class="mood-emoji">🌌</span><strong>Cosmic Journey</strong> - Deep space purple</div>
+          </div>
+        </div>
+
+        <div class="mood-category">
+          <h3 class="mood-category-title">⚡ Dynamic Effects</h3>
+          <div class="mood-list">
+            <div class="mood-item" data-mood="plasma"><span class="mood-emoji">🔮</span><strong>Plasma Orbs</strong> - Floating plasma orbs with blur</div>
+            <div class="mood-item" data-mood="starfield"><span class="mood-emoji">✨</span><strong>Starfield</strong> - Twinkling stars effect</div>
+            <div class="mood-item" data-mood="lava"><span class="mood-emoji">🌋</span><strong>Lava Bubbles</strong> - Bubbling lava effect</div>
+            <div class="mood-item" data-mood="electric"><span class="mood-emoji">⚡</span><strong>Electric Storm</strong> - Lightning strikes</div>
+            <div class="mood-item" data-mood="matrix"><span class="mood-emoji">💚</span><strong>Matrix Code</strong> - Falling green code</div>
+            <div class="mood-item" data-mood="rainbow"><span class="mood-emoji">🌈</span><strong>Rainbow Shimmer</strong> - Rainbow animation</div>
+            <div class="mood-item" data-mood="vaporwave"><span class="mood-emoji">🌊</span><strong>Vaporwave</strong> - Retro grid aesthetic</div>
+            <div class="mood-item" data-mood="fire"><span class="mood-emoji">🔥</span><strong>Fire</strong> - Rising flames effect</div>
+            <div class="mood-item" data-mood="cyberpunk"><span class="mood-emoji">🎮</span><strong>Cyberpunk</strong> - Glitchy cyber bars</div>
+            <div class="mood-item" data-mood="galaxy"><span class="mood-emoji">🌌</span><strong>Galaxy</strong> - Spinning nebula</div>
+          </div>
+        </div>
+
+        <div class="mood-category">
+          <h3 class="mood-category-title">💥 Bold & Intense</h3>
+          <div class="mood-list">
+            <div class="mood-item" data-mood="glitch"><span class="mood-emoji">⚡</span><strong>Glitch</strong> - RGB split glitch effect</div>
+            <div class="mood-item" data-mood="lightning"><span class="mood-emoji">⚡</span><strong>Lightning</strong> - Flashing lightning</div>
+            <div class="mood-item" data-mood="pulse"><span class="mood-emoji">💓</span><strong>Pulse</strong> - Heartbeat pulsing</div>
+            <div class="mood-item" data-mood="prism"><span class="mood-emoji">🌈</span><strong>Prism</strong> - Refracted rainbow light</div>
+            <div class="mood-item" data-mood="hologram"><span class="mood-emoji">💎</span><strong>Hologram</strong> - Holographic shimmer</div>
+            <div class="mood-item" data-mood="laser"><span class="mood-emoji">🔴</span><strong>Laser</strong> - Sweeping laser beams</div>
+            <div class="mood-item" data-mood="warp"><span class="mood-emoji">🚀</span><strong>Warp</strong> - Warp speed streaks</div>
+            <div class="mood-item" data-mood="disco"><span class="mood-emoji">🪩</span><strong>Disco</strong> - Rotating disco lights</div>
+            <div class="mood-item" data-mood="nuclear"><span class="mood-emoji">☢️</span><strong>Nuclear</strong> - Radioactive glow</div>
+            <div class="mood-item" data-mood="supernova"><span class="mood-emoji">💥</span><strong>Supernova</strong> - Explosive expansion</div>
+          </div>
+        </div>
+
+        <div class="mood-category">
+          <h3 class="mood-category-title">🎨 Atmosphere Collection</h3>
+          <div class="mood-list">
+            <div class="mood-item" data-mood="oceanic"><span class="mood-emoji">🌊</span><strong>Oceanic</strong> - Deep ocean depths</div>
+            <div class="mood-item" data-mood="desert"><span class="mood-emoji">🏜️</span><strong>Desert</strong> - Warm desert sunset</div>
+            <div class="mood-item" data-mood="arctic"><span class="mood-emoji">❄️</span><strong>Arctic</strong> - Frozen arctic ice</div>
+            <div class="mood-item" data-mood="jungle"><span class="mood-emoji">🌿</span><strong>Jungle</strong> - Dense jungle night</div>
+            <div class="mood-item" data-mood="cherry"><span class="mood-emoji">🌸</span><strong>Cherry</strong> - Cherry blossom pink</div>
+            <div class="mood-item" data-mood="thunder"><span class="mood-emoji">⛈️</span><strong>Thunder</strong> - Stormy thunderclouds</div>
+            <div class="mood-item" data-mood="mystic"><span class="mood-emoji">🌳</span><strong>Mystic</strong> - Mystic forest purple</div>
+            <div class="mood-item" data-mood="cybergrid"><span class="mood-emoji">🌐</span><strong>Cybergrid</strong> - Cyber grid lines</div>
+            <div class="mood-item" data-mood="royal"><span class="mood-emoji">👑</span><strong>Royal</strong> - Royal purple luxury</div>
+            <div class="mood-item" data-mood="golden"><span class="mood-emoji">🌟</span><strong>Golden</strong> - Golden hour glow</div>
+            <div class="mood-item" data-mood="nebula"><span class="mood-emoji">🌌</span><strong>Nebula</strong> - Dreamy nebula clouds</div>
+            <div class="mood-item" data-mood="crimson"><span class="mood-emoji">❤️</span><strong>Crimson</strong> - Deep crimson red</div>
+            <div class="mood-item" data-mood="emerald"><span class="mood-emoji">💚</span><strong>Emerald</strong> - Emerald green city</div>
+            <div class="mood-item" data-mood="solar"><span class="mood-emoji">☀️</span><strong>Solar</strong> - Solar flare orange</div>
+            <div class="mood-item" data-mood="moonlight"><span class="mood-emoji">🌙</span><strong>Moonlight</strong> - Moonlight serenade</div>
+          </div>
+        </div>
+
+        <div class="mood-category">
+          <h3 class="mood-category-title">✨ New Creative Themes</h3>
+          <div class="mood-list">
+            <div class="mood-item" data-mood="sakura"><span class="mood-emoji">🌸</span><strong>Sakura Blossoms</strong> - Delicate pink cherry blossom gradients</div>
+            <div class="mood-item" data-mood="volcano"><span class="mood-emoji">🌋</span><strong>Volcano Lava</strong> - Dark red/orange volcanic eruption</div>
+            <div class="mood-item" data-mood="arcticaurora"><span class="mood-emoji">❄️</span><strong>Arctic Aurora</strong> - Ice blue northern lights shimmer</div>
+            <div class="mood-item" data-mood="amethyst"><span class="mood-emoji">💎</span><strong>Amethyst Crystal</strong> - Deep purple gemstone glow</div>
+            <div class="mood-item" data-mood="emeraldforest"><span class="mood-emoji">🌲</span><strong>Emerald Forest</strong> - Rich green forest depths</div>
+            <div class="mood-item" data-mood="sunsetbeach"><span class="mood-emoji">🏖️</span><strong>Sunset Beach</strong> - Warm orange/pink beach sunset</div>
+            <div class="mood-item" data-mood="deepocean"><span class="mood-emoji">🌊</span><strong>Deep Ocean</strong> - Dark blue ocean depths</div>
+            <div class="mood-item" data-mood="rosegold"><span class="mood-emoji">🌹</span><strong>Rose Gold</strong> - Elegant pink metallic shimmer</div>
+            <div class="mood-item" data-mood="cosmos"><span class="mood-emoji">🌌</span><strong>Cosmos</strong> - Deep space purple/blue drift</div>
+            <div class="mood-item" data-mood="phoenix"><span class="mood-emoji">🔥</span><strong>Phoenix Flame</strong> - Bright orange/gold flames rising</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Easter Egg Settings Modal -->
+  <div class="modal-overlay" id="easterEggModalOverlay">
+    <div class="modal easter-egg-modal">
+      <div class="modal-header">
+        <h2 class="modal-title">✨ Advanced Atmosphere Settings</h2>
+        <button class="modal-close" id="closeEasterEggModal">×</button>
+      </div>
+      <div class="easter-egg-content">
+
+        <!-- Player Transparency -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">🎨</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Player Background Opacity</div>
+              <div class="easter-egg-option-desc">Adjust background transparency only</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <input type="range" class="easter-egg-slider" id="playerOpacity" min="0" max="100" value="68">
+            <span class="easter-egg-value" id="playerOpacityValue">68%</span>
+          </div>
+        </div>
+
+        <!-- Sticky Mood Colors -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">🌈</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Sticky Controller Mood Colors</div>
+              <div class="easter-egg-option-desc">Controller changes color with mood</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <label class="easter-egg-toggle">
+              <input type="checkbox" id="stickyMoodColors">
+              <span class="easter-egg-toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Animation Speed -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">⚡</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Animation Speed</div>
+              <div class="easter-egg-option-desc">Control mood animation tempo</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <select class="easter-egg-select" id="animationSpeed">
+              <option value="0.5">Slow (0.5x)</option>
+              <option value="0.75">Relaxed (0.75x)</option>
+              <option value="1" selected>Normal (1x)</option>
+              <option value="1.5">Fast (1.5x)</option>
+              <option value="2">Hyper (2x)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Blur Intensity -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">🌫️</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Backdrop Blur Intensity</div>
+              <div class="easter-egg-option-desc">Glassmorphism effect strength</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <select class="easter-egg-select" id="blurIntensity">
+              <option value="0">None</option>
+              <option value="10">Light (10px)</option>
+              <option value="20" selected>Medium (20px)</option>
+              <option value="30">Heavy (30px)</option>
+              <option value="40">Ultra (40px)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Visualizer Bar Count -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">📊</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Visualizer Complexity</div>
+              <div class="easter-egg-option-desc">Number of visualizer bars</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <input type="range" class="easter-egg-slider" id="visualizerBars" min="20" max="100" value="50" step="10">
+            <span class="easter-egg-value" id="visualizerBarsValue">50</span>
+          </div>
+        </div>
+
+        <!-- Border Glow -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">✨</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Border Glow Effect</div>
+              <div class="easter-egg-option-desc">Glowing borders on player elements</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <label class="easter-egg-toggle">
+              <input type="checkbox" id="borderGlow">
+              <span class="easter-egg-toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Particle Effects -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">🎆</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Floating Particles</div>
+              <div class="easter-egg-option-desc">Animated particles in background</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <label class="easter-egg-toggle">
+              <input type="checkbox" id="particleEffects">
+              <span class="easter-egg-toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Card Shadow Depth -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">📦</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Card Shadow Depth</div>
+              <div class="easter-egg-option-desc">Adjust elevation and depth of cards</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <select class="easter-egg-select" id="shadowDepth">
+              <option value="flat">Flat</option>
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+              <option value="ultra">Ultra</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Text Glow -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">💫</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Text Glow Effect</div>
+              <div class="easter-egg-option-desc">Add glowing text shadows</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <label class="easter-egg-toggle">
+              <input type="checkbox" id="textGlow">
+              <span class="easter-egg-toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Progress Bar Glow -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">📊</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Progress Bar Glow</div>
+              <div class="easter-egg-option-desc">Glowing animated progress bars</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <label class="easter-egg-toggle">
+              <input type="checkbox" id="progressGlow">
+              <span class="easter-egg-toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Button Rotation -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">🔄</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Button Rotation Effect</div>
+              <div class="easter-egg-option-desc">Subtle rotation on hover</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <label class="easter-egg-toggle">
+              <input type="checkbox" id="buttonRotation">
+              <span class="easter-egg-toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Color Saturation -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">🌈</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Color Saturation</div>
+              <div class="easter-egg-option-desc">Adjust color vividness (70-130%)</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <input type="range" class="easter-egg-slider" id="colorSaturation" min="70" max="130" value="100">
+            <span class="easter-egg-value" id="colorSaturationValue">100%</span>
+          </div>
+        </div>
+
+        <div class="easter-egg-footer">
+          <button class="easter-egg-reset" id="resetEasterEgg">Reset to Defaults</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+ <!-- Mobile Floating Add Playlist Button -->
+ <button class="add-playlist-btn-mobile" id="addPlaylistBtnMobile">+</button>
+
+ <!-- Firebase SDK -->
+ <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
+ <!-- YouTube IFrame API -->
+ <script src="https://www.youtube.com/iframe_api"></script>

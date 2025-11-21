@@ -87,7 +87,7 @@ window.openAddSongModal = function(playlistIndex) {
   window.targetPlaylistIndex = playlistIndex;
   const playlistName = window.playlists[playlistIndex].name;
   addSongModalTitle.textContent = 'Add Song to "' + playlistName + '"';
-  addSongVideoUrl.value = '';
+  window.addSongVideoUrl.value = '';
   addSongStatus.textContent = '';
   window.addSongBtn.disabled = false;
   window.addSongModalOverlay.classList.add('active');
@@ -99,7 +99,7 @@ window.closeAddSongModalFunc = function() {
 }
 
 window.addSongToPlaylist = async function() {
-  const videoUrl = addSongVideoUrl.value.trim();
+  const videoUrl = window.addSongVideoUrl.value.trim();
   
   if (!videoUrl) {
     alert('Please enter a video URL');
@@ -595,25 +595,31 @@ window.deleteSong = function(index) {
 
  // LocalStorage
 window.savePlaylists = function() {
- localStorage.setItem('universalMusicPlayerPlaylists', JSON.stringify(playlists));
+ console.log('💾 Saving playlists:', window.playlists.length);
+ localStorage.setItem('universalMusicPlayerPlaylists', JSON.stringify(window.playlists));
  }
 
 window.loadPlaylists = function() {
+ console.log('📂 Loading playlists from localStorage...');
  try {
  const saved = localStorage.getItem('universalMusicPlayerPlaylists');
  if (saved) {
- playlists = JSON.parse(saved);
+ window.playlists = JSON.parse(saved);
+ console.log('✅ Loaded', window.playlists.length, 'playlists from localStorage');
  }
  } catch (e) {
- console.error('Error loading playlists:', e);
+ console.error('❌ Error loading playlists:', e);
  }
- 
- if (playlists.length === 0) {
- playlists = [{
+
+ if (window.playlists.length === 0) {
+ console.log('⚠️ No playlists found, creating default playlist');
+ window.playlists = [{
  id: Date.now(),
  name: 'My Playlist',
  songs: []
  }];
+ }
+ console.log('📋 Total playlists:', window.playlists.length);
  }
 
 // Add Song Modal Event Listeners
@@ -623,8 +629,8 @@ window.addSongBtn.addEventListener('click', window.addSongToPlaylist);
 window.addSongModalOverlay.addEventListener('click', (e) => {
   if (e.target === window.addSongModalOverlay) window.closeAddSongModalFunc();
 });
-addSongVideoUrl.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') addSongToPlaylist();
+window.addSongVideoUrl.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') window.addSongToPlaylist();
 });
  }
 

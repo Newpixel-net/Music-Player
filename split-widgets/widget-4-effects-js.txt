@@ -88,7 +88,7 @@ window.openAddSongModal = function(playlistIndex) {
   const playlistName = window.playlists[playlistIndex].name;
   window.addSongModalTitle.textContent = 'Add Song to "' + playlistName + '"';
   window.addSongVideoUrl.value = '';
-  window.window.addSongStatus.textContent = '';
+  window.addSongStatus.textContent = '';
   window.addSongBtn.disabled = false;
   window.addSongModalOverlay.classList.add('active');
 }

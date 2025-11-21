@@ -1066,31 +1066,31 @@ window.formatTime = function(seconds) {
  
  const newPlaylist = {
  id: Date.now(),
- name: playlistName || `Playlist ${playlists.length + 1}`,
+ name: playlistName || `Playlist ${window.playlists.length + 1}`,
  songs: newSongs,
  youtubePlaylistId: playlistId
  };
- 
- playlists.push(newPlaylist);
- currentPlaylistIndex = playlists.length - 1;
- 
+
+ window.playlists.push(newPlaylist);
+ window.currentPlaylistIndex = window.playlists.length - 1;
+
  // Save to community library
  await window.saveToLibrary(newPlaylist);
- 
- savePlaylists();
- initPlaylistTabs();
- initPlaylist();
- initCarousel();
- 
- if (newSongs.length > 0 && playerReady) {
+
+ window.savePlaylists();
+ window.initPlaylistTabs();
+ window.initPlaylist();
+ window.initCarousel();
+
+ if (newSongs.length > 0 && window.playerReady) {
  window.selectSong(0);
  }
- 
+
  playlistStatus.style.color = '#34C759';
  playlistStatus.textContent = `✓ Imported ${newSongs.length} songs & shared with community!`;
- 
+
  setTimeout(() => {
- closePlaylistModalFunc();
+ window.closePlaylistModalFunc();
  }, 2000);
  
  } catch (error) {
@@ -1120,29 +1120,29 @@ window.formatTime = function(seconds) {
  
  const newPlaylist = {
  id: Date.now(),
- name: playlistName || 'Manual Playlist ' + (playlists.length + 1),
+ name: playlistName || 'Manual Playlist ' + (window.playlists.length + 1),
  songs: [videoInfo],
  isManual: true,
  youtubePlaylistId: null
  };
- 
- playlists.push(newPlaylist);
- currentPlaylistIndex = playlists.length - 1;
- 
- savePlaylists();
- initPlaylistTabs();
- initPlaylist();
- initCarousel();
 
- if (playlists[currentPlaylistIndex].songs.length > 0 && playerReady) {
+ window.playlists.push(newPlaylist);
+ window.currentPlaylistIndex = window.playlists.length - 1;
+
+ window.savePlaylists();
+ window.initPlaylistTabs();
+ window.initPlaylist();
+ window.initCarousel();
+
+ if (window.playlists[window.currentPlaylistIndex].songs.length > 0 && window.playerReady) {
  window.selectSong(0);
  }
- 
+
  playlistStatus.style.color = '#34C759';
  playlistStatus.textContent = '✓ Manual playlist created with 1 song!';
- 
+
  setTimeout(() => {
- closePlaylistModalFunc();
+ window.closePlaylistModalFunc();
  }, 2000);
  
  } catch (error) {
@@ -1335,20 +1335,20 @@ window.addFromLibrary = function(playlistId) {
  songs: JSON.parse(JSON.stringify(libraryPlaylist.songs)),
  youtubePlaylistId: libraryPlaylist.youtubePlaylistId
  };
- 
- playlists.push(newPlaylist);
- currentPlaylistIndex = playlists.length - 1;
- 
- savePlaylists();
- initPlaylistTabs();
- initPlaylist();
- initCarousel();
- 
- if (newPlaylist.songs.length > 0 && playerReady) {
+
+ window.playlists.push(newPlaylist);
+ window.currentPlaylistIndex = window.playlists.length - 1;
+
+ window.savePlaylists();
+ window.initPlaylistTabs();
+ window.initPlaylist();
+ window.initCarousel();
+
+ if (newPlaylist.songs.length > 0 && window.playerReady) {
  window.selectSong(0);
  }
- 
- closeLibraryModalFunc();
+
+ window.closeLibraryModalFunc();
  
  alert(`✓ Added "${libraryPlaylist.name}" with ${libraryPlaylist.trackCount} songs!\n\n🎉 No API calls needed - loaded from community library!`);
  }

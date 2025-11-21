@@ -632,9 +632,8 @@ window.addSongModalOverlay.addEventListener('click', (e) => {
 window.addSongVideoUrl.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') window.addSongToPlaylist();
 });
- }
 
- // Event Listeners - Main Controls
+// Event Listeners - Main Controls
  window.playPauseBtn.addEventListener('click', window.togglePlay);
  window.prevBtn.addEventListener('click', window.prevSong);
  window.nextBtn.addEventListener('click', window.nextSong);

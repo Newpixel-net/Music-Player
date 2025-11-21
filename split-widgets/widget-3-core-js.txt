@@ -5,9 +5,20 @@
 // YouTube Player Event Handlers - MUST be defined before player creation
 window.onPlayerReady = function(event) {
   console.log('✅ YouTube Player Ready!');
+
+  // CRITICAL FIX: Use event.target to get the player object
+  // The player in event.target is guaranteed to be ready
+  window.player = event.target;
   window.playerReady = true;
-  window.player.setVolume(window.volume);
-  console.log('🔊 Volume set to:', window.volume);
+
+  // Set volume (now player is guaranteed to exist)
+  if (window.volume !== undefined) {
+    window.player.setVolume(window.volume);
+    console.log('🔊 Volume set to:', window.volume);
+  } else {
+    window.player.setVolume(70); // Default volume
+    console.log('🔊 Volume set to default: 70');
+  }
 
   const songs = window.getCurrentSongs();
   console.log('📋 Songs in current playlist:', songs.length);

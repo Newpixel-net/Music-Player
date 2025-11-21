@@ -1293,7 +1293,7 @@ window.renderLibrary = function() {
  
  card.innerHTML = `
  <div class="library-card-image">
- ${playlist.thumbnail ? `<img src="${playlist.thumbnail}" alt="${playlist.name}">` : ''}
+ ${playlist.thumbnail ? '<img src="' + playlist.thumbnail + '" alt="' + playlist.name + '">' : ''}
  <div class="library-card-badge">${playlist.trackCount} tracks</div>
  </div>
  <div class="library-card-content">
@@ -1444,7 +1444,7 @@ window.renderLibraryPage = function(pageData) {
 
  card.innerHTML = `
  <div class="library-card-image">
- ${playlist.thumbnail ? `<img src="${playlist.thumbnail}" alt="${playlist.name}">` : ''}
+ ${playlist.thumbnail ? '<img src="' + playlist.thumbnail + '" alt="' + playlist.name + '">' : ''}
  <div class="library-card-badge">${playlist.trackCount} tracks</div>
  </div>
  <div class="library-card-content">

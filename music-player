@@ -15,7 +15,13 @@
  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
  padding: 0;
  margin: 0;
- background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+ background:
+   radial-gradient(circle at 20% 30%, rgba(102, 126, 234, 0.3), transparent 50%),
+   radial-gradient(circle at 80% 70%, rgba(118, 75, 162, 0.3), transparent 50%),
+   radial-gradient(circle at 50% 50%, rgba(67, 233, 123, 0.15), transparent 70%),
+   linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+ background-size: 400% 400%, 400% 400%, 300% 300%, 100% 100%;
+ animation: atmosphericShift 20s ease-in-out infinite;
  min-height: 100vh;
  position: relative;
  overflow-x: hidden;
@@ -939,6 +945,13 @@
  }
 
  /* Dramatic Mood Animations */
+ @keyframes atmosphericShift {
+ 0% { background-position: 0% 50%, 100% 50%, 50% 50%; }
+ 33% { background-position: 100% 80%, 0% 20%, 30% 70%; }
+ 66% { background-position: 50% 20%, 50% 80%, 70% 30%; }
+ 100% { background-position: 0% 50%, 100% 50%, 50% 50%; }
+ }
+
  @keyframes gradientShift {
  0% { background-position: 0% 50%; }
  25% { background-position: 100% 50%; }
@@ -1601,8 +1614,11 @@
  .visualizer-bar:nth-child(20) { animation-delay: 0.05s; }
 
  @keyframes visualize {
- 0%, 100% { height: 8px; opacity: 0.5; }
- 50% { height: 32px; opacity: 1; }
+ 0% { height: 8px; opacity: 0.5; transform: scaleY(1); }
+ 25% { height: 20px; opacity: 0.7; transform: scaleY(1.1); }
+ 50% { height: 32px; opacity: 1; transform: scaleY(1); }
+ 75% { height: 24px; opacity: 0.8; transform: scaleY(0.95); }
+ 100% { height: 8px; opacity: 0.5; transform: scaleY(1); }
  }
 
  .music-visualizer.playing .visualizer-bar {
@@ -3759,7 +3775,7 @@ transform: scale(1.05);
  align-items: center;
  justify-content: center;
  box-shadow: 0 4px 20px rgba(67, 233, 123, 0.5);
- z-index: 10000;
+ z-index: 10600;
  transition: all 0.3s ease;
  }
 
@@ -4331,11 +4347,11 @@ transform: scale(1.05);
             <span class="easter-egg-icon">🎨</span>
             <div class="easter-egg-option-info">
               <div class="easter-egg-option-title">Player Background Opacity</div>
-              <div class="easter-egg-option-desc">Adjust music player transparency</div>
+              <div class="easter-egg-option-desc">Adjust music player transparency (70-100%)</div>
             </div>
           </div>
           <div class="easter-egg-control">
-            <input type="range" class="easter-egg-slider" id="playerOpacity" min="0" max="100" value="98">
+            <input type="range" class="easter-egg-slider" id="playerOpacity" min="70" max="100" value="98">
             <span class="easter-egg-value" id="playerOpacityValue">98%</span>
           </div>
         </div>
@@ -4443,6 +4459,92 @@ transform: scale(1.05);
               <input type="checkbox" id="particleEffects">
               <span class="easter-egg-toggle-slider"></span>
             </label>
+          </div>
+        </div>
+
+        <!-- Card Shadow Depth -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">📦</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Card Shadow Depth</div>
+              <div class="easter-egg-option-desc">Adjust elevation and depth of cards</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <select class="easter-egg-select" id="shadowDepth">
+              <option value="flat">Flat</option>
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+              <option value="ultra">Ultra</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Text Glow -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">💫</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Text Glow Effect</div>
+              <div class="easter-egg-option-desc">Add glowing text shadows</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <label class="easter-egg-toggle">
+              <input type="checkbox" id="textGlow">
+              <span class="easter-egg-toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Progress Bar Glow -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">📊</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Progress Bar Glow</div>
+              <div class="easter-egg-option-desc">Glowing animated progress bars</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <label class="easter-egg-toggle">
+              <input type="checkbox" id="progressGlow">
+              <span class="easter-egg-toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Button Rotation -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">🔄</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Button Rotation Effect</div>
+              <div class="easter-egg-option-desc">Subtle rotation on hover</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <label class="easter-egg-toggle">
+              <input type="checkbox" id="buttonRotation">
+              <span class="easter-egg-toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Color Saturation -->
+        <div class="easter-egg-option">
+          <div class="easter-egg-option-header">
+            <span class="easter-egg-icon">🌈</span>
+            <div class="easter-egg-option-info">
+              <div class="easter-egg-option-title">Color Saturation</div>
+              <div class="easter-egg-option-desc">Adjust color vividness (70-130%)</div>
+            </div>
+          </div>
+          <div class="easter-egg-control">
+            <input type="range" class="easter-egg-slider" id="colorSaturation" min="70" max="130" value="100">
+            <span class="easter-egg-value" id="colorSaturationValue">100%</span>
           </div>
         </div>
 
@@ -6232,6 +6334,12 @@ const visualizerBars = document.getElementById('visualizerBars');
 const visualizerBarsValue = document.getElementById('visualizerBarsValue');
 const borderGlow = document.getElementById('borderGlow');
 const particleEffects = document.getElementById('particleEffects');
+const shadowDepth = document.getElementById('shadowDepth');
+const textGlow = document.getElementById('textGlow');
+const progressGlow = document.getElementById('progressGlow');
+const buttonRotation = document.getElementById('buttonRotation');
+const colorSaturation = document.getElementById('colorSaturation');
+const colorSaturationValue = document.getElementById('colorSaturationValue');
 
 // Mood colors for sticky controller
 const moodColors = {
@@ -6306,6 +6414,22 @@ function loadEasterEggSettings() {
   
   particleEffects.checked = settings.particleEffects || false;
   if (particleEffects.checked) createParticles();
+
+  shadowDepth.value = settings.shadowDepth || 'medium';
+  updateShadowDepth();
+
+  textGlow.checked = settings.textGlow || false;
+  updateTextGlow();
+
+  progressGlow.checked = settings.progressGlow || false;
+  updateProgressGlow();
+
+  buttonRotation.checked = settings.buttonRotation || false;
+  updateButtonRotation();
+
+  colorSaturation.value = settings.colorSaturation || 100;
+  colorSaturationValue.textContent = colorSaturation.value + '%';
+  updateColorSaturation();
 }
 
 // Save settings to localStorage
@@ -6317,7 +6441,12 @@ function saveEasterEggSettings() {
     blurIntensity: parseInt(blurIntensity.value),
     visualizerBars: parseInt(visualizerBars.value),
     borderGlow: borderGlow.checked,
-    particleEffects: particleEffects.checked
+    particleEffects: particleEffects.checked,
+    shadowDepth: shadowDepth.value,
+    textGlow: textGlow.checked,
+    progressGlow: progressGlow.checked,
+    buttonRotation: buttonRotation.checked,
+    colorSaturation: parseInt(colorSaturation.value)
   };
   localStorage.setItem('easterEggSettings', JSON.stringify(settings));
 }
@@ -6404,6 +6533,11 @@ function updateVisualizerBars() {
     for (let i = 0; i < count; i++) {
       const bar = document.createElement('div');
       bar.className = 'visualizer-bar';
+      // Add random animation delay and duration for variety
+      const delay = (Math.random() * 0.5).toFixed(2);
+      const duration = (0.4 + Math.random() * 0.4).toFixed(2);
+      bar.style.animationDelay = delay + 's';
+      bar.style.animationDuration = duration + 's';
       visualizer.appendChild(bar);
     }
   }
@@ -6481,6 +6615,117 @@ function removeParticles() {
   }
 }
 
+
+// Shadow Depth
+shadowDepth.addEventListener('change', () => {
+  updateShadowDepth();
+  saveEasterEggSettings();
+});
+
+function updateShadowDepth() {
+  const depth = shadowDepth.value;
+  const cards = [
+    ...document.querySelectorAll('.carousel-item'),
+    ...document.querySelectorAll('.library-card'),
+    ...document.querySelectorAll('.modal')
+  ];
+  
+  const shadows = {
+    flat: 'none',
+    low: '0 2px 8px rgba(0, 0, 0, 0.1)',
+    medium: '0 4px 15px rgba(0, 0, 0, 0.2)',
+    high: '0 8px 30px rgba(0, 0, 0, 0.3)',
+    ultra: '0 12px 50px rgba(0, 0, 0, 0.4), 0 20px 80px rgba(0, 0, 0, 0.2)'
+  };
+  
+  cards.forEach(el => {
+    if (el) el.style.boxShadow = shadows[depth];
+  });
+}
+
+// Text Glow
+textGlow.addEventListener('change', () => {
+  updateTextGlow();
+  saveEasterEggSettings();
+});
+
+function updateTextGlow() {
+  const titles = [
+    ...document.querySelectorAll('.song-title'),
+    ...document.querySelectorAll('.modal-title'),
+    ...document.querySelectorAll('.app-title'),
+    ...document.querySelectorAll('h2')
+  ];
+  
+  if (textGlow.checked) {
+    titles.forEach(el => {
+      if (el) {
+        el.style.textShadow = '0 0 10px rgba(102, 126, 234, 0.8), 0 0 20px rgba(118, 75, 162, 0.6)';
+      }
+    });
+  } else {
+    titles.forEach(el => {
+      if (el) el.style.textShadow = '';
+    });
+  }
+}
+
+// Progress Bar Glow
+progressGlow.addEventListener('change', () => {
+  updateProgressGlow();
+  saveEasterEggSettings();
+});
+
+function updateProgressGlow() {
+  const progressBars = document.querySelectorAll('.progress');
+  
+  if (progressGlow.checked) {
+    progressBars.forEach(bar => {
+      if (bar) {
+        bar.style.boxShadow = '0 0 15px rgba(102, 126, 234, 0.8), inset 0 0 10px rgba(118, 75, 162, 0.5)';
+        bar.style.filter = 'brightness(1.3)';
+      }
+    });
+  } else {
+    progressBars.forEach(bar => {
+      if (bar) {
+        bar.style.boxShadow = '';
+        bar.style.filter = '';
+      }
+    });
+  }
+}
+
+// Button Rotation
+buttonRotation.addEventListener('change', () => {
+  updateButtonRotation();
+  saveEasterEggSettings();
+});
+
+function updateButtonRotation() {
+  const style = document.createElement('style');
+  style.id = 'button-rotation-style';
+  
+  if (buttonRotation.checked) {
+    style.textContent = '.control-btn:hover, .carousel-btn:hover, .modal-btn:hover { transform: rotate(5deg) scale(1.1); transition: all 0.3s ease; }';
+    document.head.appendChild(style);
+  } else {
+    const existing = document.getElementById('button-rotation-style');
+    if (existing) existing.remove();
+  }
+}
+
+// Color Saturation
+colorSaturation.addEventListener('input', () => {
+  colorSaturationValue.textContent = colorSaturation.value + '%';
+  updateColorSaturation();
+  saveEasterEggSettings();
+});
+
+function updateColorSaturation() {
+  const saturation = parseInt(colorSaturation.value) / 100;
+  document.body.style.filter = 'saturate(' + saturation + ')';
+}
 // Reset to defaults
 resetEasterEgg.addEventListener('click', () => {
   if (confirm('Reset all atmosphere settings to default values?')) {
@@ -6500,6 +6745,17 @@ resetEasterEgg.addEventListener('click', () => {
     updateBorderGlow();
     particleEffects.checked = false;
     removeParticles();
+    shadowDepth.value = 'medium';
+    updateShadowDepth();
+    textGlow.checked = false;
+    updateTextGlow();
+    progressGlow.checked = false;
+    updateProgressGlow();
+    buttonRotation.checked = false;
+    updateButtonRotation();
+    colorSaturation.value = 100;
+    colorSaturationValue.textContent = '100%';
+    updateColorSaturation();
   }
 });
 

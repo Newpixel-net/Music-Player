@@ -7071,15 +7071,15 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  tab.appendChild(tabName);
  
  // Add Song button (➕)
- const addSongBtn = document.createElement('span');
- addSongBtn.className = 'playlist-tab-add-song';
- addSongBtn.innerHTML = '➕';
- addSongBtn.title = 'Add song to this playlist';
- addSongBtn.addEventListener('click', (e) => {
+ const addSongTabBtn = document.createElement('span');
+ addSongTabBtn.className = 'playlist-tab-add-song';
+ addSongTabBtn.innerHTML = '➕';
+ addSongTabBtn.title = 'Add song to this playlist';
+ addSongTabBtn.addEventListener('click', (e) => {
  e.stopPropagation();
  openAddSongModal(index);
  });
- tab.appendChild(addSongBtn);
+ tab.appendChild(addSongTabBtn);
  
  if (playlists.length > 1) {
  const deleteBtn = document.createElement('span');
@@ -7645,6 +7645,25 @@ addSongVideoUrl.addEventListener('keypress', (e) => {
  }
  closePlaylistModal.addEventListener('click', closePlaylistModalFunc);
  cancelPlaylist.addEventListener('click', closePlaylistModalFunc);
+// Manual Playlist Checkbox Toggle
+manualPlaylistCheckbox.addEventListener('change', () => {
+  if (manualPlaylistCheckbox.checked) {
+    // Manual playlist mode
+    playlistUrlGroup.style.display = 'none';
+    videoUrlGroup.style.display = 'block';
+    communityNotice.style.display = 'none';
+    playlistModalTitle.textContent = 'Create Manual Playlist';
+    loadPlaylistText.textContent = 'Create Playlist';
+  } else {
+    // Regular playlist mode
+    playlistUrlGroup.style.display = 'block';
+    videoUrlGroup.style.display = 'none';
+    communityNotice.style.display = 'block';
+    playlistModalTitle.textContent = 'Import YouTube Playlist';
+    loadPlaylistText.textContent = 'Import & Share';
+  }
+});
+
  loadPlaylist.addEventListener('click', async () => {
  const name = playlistNameInput.value.trim();
  

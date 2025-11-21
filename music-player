@@ -2996,6 +2996,42 @@
  flex-shrink: 0;
  }
 
+ .playlist-delete-btn {
+ width: 32px;
+ height: 32px;
+ border-radius: 50%;
+ background: transparent;
+ border: none;
+ cursor: pointer;
+ margin-left: 8px;
+ flex-shrink: 0;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ color: #888;
+ transition: all 0.2s ease;
+ opacity: 0;
+ }
+
+ .playlist-item:hover .playlist-delete-btn {
+ opacity: 1;
+ }
+
+ .playlist-delete-btn:hover {
+ background: rgba(255, 59, 48, 0.1);
+ color: #ff3b30;
+ transform: scale(1.1);
+ }
+
+ .playlist-delete-btn:active {
+ transform: scale(0.95);
+ }
+
+ .playlist-delete-btn svg {
+ width: 18px;
+ height: 18px;
+ }
+
  /* Library Modal */
  .modal-overlay {
  position: fixed;
@@ -6452,9 +6488,27 @@ transform: scale(1.05);
  <div class="playlist-artist">${song.artist}</div>
  </div>
  <div class="playlist-duration">${song.duration}</div>
+ <button class="playlist-delete-btn" title="Remove song">
+ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+ <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6"/>
+ </svg>
+ </button>
  `;
- 
- item.addEventListener('click', () => selectSong(index));
+
+ // Click handler for song selection (but not for delete button)
+ item.addEventListener('click', (e) => {
+ if (!e.target.closest('.playlist-delete-btn')) {
+ selectSong(index);
+ }
+ });
+
+ // Delete button click handler
+ const deleteBtn = item.querySelector('.playlist-delete-btn');
+ deleteBtn.addEventListener('click', (e) => {
+ e.stopPropagation();
+ deleteSong(index);
+ });
+
  playlistContainer.appendChild(item);
  });
  }
@@ -6679,6 +6733,47 @@ transform: scale(1.05);
 
  function closePlaylistModalFunc() {
  playlistModalOverlay.classList.remove('active');
+ }
+
+ // Delete Song from Playlist
+ function deleteSong(index) {
+ const songs = getCurrentSongs();
+ const song = songs[index];
+
+ // Ask for confirmation
+ const confirmed = confirm(`Are you sure you want to remove "${song.title}" by ${song.artist} from this playlist?`);
+
+ if (!confirmed) {
+ return;
+ }
+
+ // Remove the song
+ playlists[currentPlaylistIndex].songs.splice(index, 1);
+
+ // Update current song index if needed
+ if (currentSongIndex === index) {
+ // If deleted song was playing, pause and reset
+ if (isPlaying) {
+ pause();
+ }
+ // If there are more songs, play the next one (which is now at the same index)
+ if (playlists[currentPlaylistIndex].songs.length > 0) {
+ if (index >= playlists[currentPlaylistIndex].songs.length) {
+ currentSongIndex = playlists[currentPlaylistIndex].songs.length - 1;
+ }
+ selectSong(currentSongIndex);
+ } else {
+ currentSongIndex = -1;
+ }
+ } else if (currentSongIndex > index) {
+ // Adjust current song index if it's after the deleted song
+ currentSongIndex--;
+ }
+
+ // Save and refresh
+ savePlaylists();
+ initPlaylist();
+ initCarousel();
  }
 
  // LocalStorage

@@ -5806,12 +5806,12 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  const moodOptions = document.querySelectorAll('.mood-option');
  let currentMood = 'default';
 
- function loadMood() {
+function loadMood() {
  const savedMood = localStorage.getItem('musicPlayerMood') || 'default';
  applyMood(savedMood);
  }
 
- function applyMood(mood) {
+function applyMood(mood) {
  currentMood = mood;
  document.body.className = mood !== 'default' ? `mood-${mood}` : '';
 
@@ -5857,7 +5857,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }
 
  // Settings Management
- function loadSettings() {
+function loadSettings() {
  const saved = localStorage.getItem('musicPlayerSettings');
  if (saved) {
  settings = JSON.parse(saved);
@@ -5865,11 +5865,11 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  applySettings();
  }
 
- function saveSettings() {
+function saveSettings() {
  localStorage.setItem('musicPlayerSettings', JSON.stringify(settings));
  }
 
- function applySettings() {
+function applySettings() {
  toggleStickyControls.checked = settings.stickyControls;
  toggleVisualizer.checked = settings.visualizer;
  toggleBackgroundAnim.checked = settings.backgroundAnim;
@@ -5954,7 +5954,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  });
 
  // Background Animation - Particles
- function createParticles() {
+function createParticles() {
  const particlesContainer = document.getElementById('particles');
  const particleCount = 20;
  
@@ -5969,7 +5969,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }
 
  // Floating Player Functions
- function toggleFloatingPlayer() {
+function toggleFloatingPlayer() {
  floatingPlayerActive = !floatingPlayerActive;
  
  if (floatingPlayerActive) {
@@ -5984,7 +5984,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }
  }
 
- function updateFloatingPlayerInfo() {
+function updateFloatingPlayerInfo() {
  const songs = getCurrentSongs();
  if (songs.length === 0 || currentSongIndex >= songs.length) return;
  
@@ -5994,7 +5994,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }
 
  // Pop-out Window Function
- function openPopoutWindow() {
+function openPopoutWindow() {
  const songs = getCurrentSongs();
  if (songs.length === 0 || currentSongIndex >= songs.length) return;
  
@@ -6024,7 +6024,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  <script src="https://www.youtube.com/iframe_api"><\/script>
  <script>
  let popoutYTPlayer;
- function onYouTubeIframeAPIReady() {
+function onYouTubeIframeAPIReady() {
  popoutYTPlayer = new YT.Player('popout-player', {
  height: '100%',
  width: '100%',
@@ -6046,7 +6046,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }
 
  // Update Sticky Controls Info
- function updateStickyControlsInfo() {
+function updateStickyControlsInfo() {
  const songs = getCurrentSongs();
  if (songs.length === 0 || currentSongIndex >= songs.length) return;
  
@@ -6062,7 +6062,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }
 
  // Update Visualizer State
- function updateVisualizerState() {
+function updateVisualizerState() {
  if (isPlaying) {
  musicVisualizer.classList.remove('paused');
  musicVisualizer.classList.add('playing');
@@ -6073,7 +6073,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }
 
  // Media Session API for Native Mobile Controls
- function setupMediaSession() {
+function setupMediaSession() {
  if ('mediaSession' in navigator) {
  const songs = getCurrentSongs();
  if (songs.length === 0 || currentSongIndex >= songs.length) return;
@@ -6127,7 +6127,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }
 
  // Dragging functionality for floating player
- function setupDragging() {
+function setupDragging() {
  floatingPlayer.addEventListener('mousedown', startDragging);
  document.addEventListener('mousemove', drag);
  document.addEventListener('mouseup', stopDragging);
@@ -6137,7 +6137,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  document.addEventListener('touchend', stopDragging);
  }
 
- function startDragging(e) {
+function startDragging(e) {
  if (e.target.closest('.floating-action-btn') || 
  e.target.closest('.floating-control-btn')) {
  return;
@@ -6153,7 +6153,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  floatingPlayer.style.cursor = 'grabbing';
  }
 
- function drag(e) {
+function drag(e) {
  if (!isDragging) return;
  
  e.preventDefault();
@@ -6172,13 +6172,13 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  floatingPlayer.style.top = newY + 'px';
  }
 
- function stopDragging() {
+function stopDragging() {
  isDragging = false;
  floatingPlayer.style.cursor = 'move';
  }
 
  // Initialize YouTube Player
- function onYouTubeIframeAPIReady() {
+function onYouTubeIframeAPIReady() {
  player = new YT.Player('player', {
  height: '100%',
  width: '100%',
@@ -6198,7 +6198,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  });
  }
 
- function onPlayerReady(event) {
+function onPlayerReady(event) {
  playerReady = true;
  player.setVolume(volume);
  
@@ -6209,7 +6209,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }
  }
 
- function onPlayerStateChange(event) {
+function onPlayerStateChange(event) {
  if (event.data === YT.PlayerState.PLAYING) {
  isPlaying = true;
  playIcon.style.display = 'none';
@@ -6239,7 +6239,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }
  }
 
- function updateAllPlayButtons(state) {
+function updateAllPlayButtons(state) {
  const playIconHTML = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
  const pauseIconHTML = '<svg viewBox="0 0 24 24"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>';
  
@@ -6252,7 +6252,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }
  }
 
- function startProgressUpdater() {
+function startProgressUpdater() {
  stopProgressUpdater();
  progressInterval = setInterval(() => {
  if (player && player.getCurrentTime) {
@@ -6263,14 +6263,14 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }, 100);
  }
 
- function stopProgressUpdater() {
+function stopProgressUpdater() {
  if (progressInterval) {
  clearInterval(progressInterval);
  progressInterval = null;
  }
  }
 
- function updateProgressDisplay(currentTime, duration) {
+function updateProgressDisplay(currentTime, duration) {
  if (duration > 0) {
  const percentage = (currentTime / duration) * 100;
  progressFill.style.width = percentage + '%';
@@ -6280,12 +6280,12 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }
 
  // Helper Functions
- function getRandomColor() {
+function getRandomColor() {
  const colors = ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#43e97b', '#fa709a', '#fee140', '#30cfd0', '#a8edea', '#fed6e3'];
  return colors[Math.floor(Math.random() * colors.length)];
  }
 
- function extractPlaylistId(url) {
+function extractPlaylistId(url) {
  const patterns = [
  /[?&]list=([^&]+)/,
  /^([A-Za-z0-9_-]+)$/
@@ -6300,7 +6300,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }
 
  // Extract Video ID from YouTube URL
- function extractVideoId(url) {
+function extractVideoId(url) {
  const patterns = [
  /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\?\/]+)/,
  /^([A-Za-z0-9_-]{11})$/
@@ -6346,7 +6346,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }
  }
 
- function parseYouTubeDuration(duration) {
+function parseYouTubeDuration(duration) {
  const match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
  if (!match) return '0:00';
  
@@ -6360,7 +6360,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
  }
 
- function formatTime(seconds) {
+function formatTime(seconds) {
  const min = Math.floor(seconds / 60);
  const sec = Math.floor(seconds % 60);
  return `${min}:${sec.toString().padStart(2, '0')}`;
@@ -6584,7 +6584,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }
  }
 
- function saveToLocalStorage(libraryEntry) {
+function saveToLocalStorage(libraryEntry) {
  const exists = playlistLibrary.find(p => p.youtubePlaylistId === libraryEntry.youtubePlaylistId);
  if (!exists) {
  playlistLibrary.unshift(libraryEntry);
@@ -6615,7 +6615,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }
  }
 
- function loadFromLocalStorage() {
+function loadFromLocalStorage() {
  try {
  const saved = localStorage.getItem('playlistLibrary');
  if (saved) {
@@ -6629,7 +6629,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }
  }
 
- function updateLibraryBadge() {
+function updateLibraryBadge() {
  const count = playlistLibrary.length;
  libraryBadge.textContent = count > 0 ? `(${count} available)` : '(Empty)';
  }
@@ -6649,7 +6649,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  const libraryPaginationTop = document.getElementById('libraryPaginationTop');
  const libraryPaginationBottom = document.getElementById('libraryPaginationBottom');
 
- function openLibraryModal() {
+function openLibraryModal() {
  libraryModalOverlay.classList.add('active');
  libraryCurrentPage = 1;
  librarySearchQuery = '';
@@ -6658,12 +6658,12 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  loadLibraryPage(1);
  }
 
- function closeLibraryModalFunc() {
+function closeLibraryModalFunc() {
  libraryModalOverlay.classList.remove('active');
  librarySearchPreview.classList.remove('active');
  }
 
- function renderLibrary() {
+function renderLibrary() {
  if (playlistLibrary.length === 0) {
  libraryModalBody.innerHTML = `
  <div class="library-empty">
@@ -6722,7 +6722,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  });
  }
 
- function addFromLibrary(playlistId) {
+function addFromLibrary(playlistId) {
  const libraryPlaylist = playlistLibrary.find(p => p.id === playlistId);
  
  if (libraryPlaylist) {
@@ -6752,7 +6752,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }
 
  // Library Pagination Functions
- function loadLibraryPage(page) {
+function loadLibraryPage(page) {
  libraryCurrentPage = page;
 
  // Check cache first
@@ -6788,7 +6788,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }, 300);
  }
 
- function showLibrarySkeleton() {
+function showLibrarySkeleton() {
  const skeleton = document.createElement('div');
  skeleton.className = 'library-skeleton';
 
@@ -6815,7 +6815,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }, 150);
  }
 
- function renderLibraryPage(pageData) {
+function renderLibraryPage(pageData) {
  if (pageData.playlists.length === 0) {
  libraryModalBody.innerHTML = `
  <div class="library-empty">
@@ -6880,7 +6880,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  renderPagination(pageData.total);
  }
 
- function renderPagination(totalItems) {
+function renderPagination(totalItems) {
  if (totalItems === 0) {
  libraryPaginationTop.innerHTML = '';
  libraryPaginationBottom.innerHTML = '';
@@ -6945,7 +6945,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }
 
  // Search functionality
- function handleLibrarySearch() {
+function handleLibrarySearch() {
  librarySearchQuery = librarySearchInput.value.trim();
  libraryCurrentPage = 1;
  libraryPageCache = {};
@@ -6953,7 +6953,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  loadLibraryPage(1);
  }
 
- function handleLiveSearch() {
+function handleLiveSearch() {
  clearTimeout(librarySearchTimeout);
  const query = librarySearchInput.value.trim().toLowerCase();
 
@@ -6997,7 +6997,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }
 
  // Carousel Functions
- function initCarousel() {
+function initCarousel() {
  const songs = getCurrentSongs();
  
  if (songs.length === 0) {
@@ -7038,7 +7038,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  scrollCarouselToActive();
  }
 
- function scrollCarouselToActive() {
+function scrollCarouselToActive() {
  const items = carouselTrack.querySelectorAll('.carousel-item');
  const activeIndex = currentSongIndex;
  
@@ -7050,7 +7050,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  carouselTrack.style.transform = `translateX(${carouselOffset}px)`;
  }
 
- function scrollCarousel(direction) {
+function scrollCarousel(direction) {
  const items = carouselTrack.querySelectorAll('.carousel-item');
  if (items.length === 0) return;
  
@@ -7069,11 +7069,11 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  }
 
  // Playlist Management
- function getCurrentPlaylist() {
+function getCurrentPlaylist() {
  return playlists[currentPlaylistIndex] || { songs: [] };
  }
 
- function getCurrentSongs() {
+function getCurrentSongs() {
  return getCurrentPlaylist().songs || [];
  }
 
@@ -7176,9 +7176,9 @@ function initPlaylistTabs() {
  tab.addEventListener('click', () => switchPlaylist(index));
  playlistTabsContainer.appendChild(tab);
  });
- }
+}
 
- function switchPlaylist(index) {
+function switchPlaylist(index) {
  if (index === currentPlaylistIndex) return;
  
  if (player && player.stopVideo) {
@@ -7203,9 +7203,9 @@ function initPlaylistTabs() {
  } else {
  showEmptyState();
  }
- }
+}
 
- function deletePlaylist(index) {
+function deletePlaylist(index) {
  if (playlists.length === 1) {
  alert('Cannot delete the last playlist!');
  return;
@@ -7230,9 +7230,9 @@ function initPlaylistTabs() {
  showEmptyState();
  }
  }
- }
+}
 
- function showEmptyState() {
+function showEmptyState() {
  songTitle.textContent = 'No Tracks';
  artistName.textContent = 'Import a playlist to begin';
  totalTimeEl.textContent = '0:00';
@@ -7253,7 +7253,7 @@ function initPlaylistTabs() {
  }
 
  // Playlist Display
- function initPlaylist() {
+function initPlaylist() {
  const songs = getCurrentSongs();
  playlistContainer.innerHTML = '';
  
@@ -7306,7 +7306,7 @@ function initPlaylistTabs() {
  });
  }
 
- function selectSong(index) {
+function selectSong(index) {
  const songs = getCurrentSongs();
  if (songs.length === 0 || !playerReady) return;
  
@@ -7353,7 +7353,7 @@ function initPlaylistTabs() {
  }
 
  // Playback Controls
- function togglePlay() {
+function togglePlay() {
  const songs = getCurrentSongs();
  if (songs.length === 0 || !playerReady) return;
  
@@ -7364,19 +7364,19 @@ function initPlaylistTabs() {
  }
  }
 
- function play() {
+function play() {
  if (player && player.playVideo) {
  player.playVideo();
  }
  }
 
- function pause() {
+function pause() {
  if (player && player.pauseVideo) {
  player.pauseVideo();
  }
  }
 
- function handleSongEnd() {
+function handleSongEnd() {
  const songs = getCurrentSongs();
 
  if (repeatMode === 2) {
@@ -7410,7 +7410,7 @@ function initPlaylistTabs() {
  }
  }
 
- function prevSong() {
+function prevSong() {
  const songs = getCurrentSongs();
  if (songs.length === 0) return;
  
@@ -7428,7 +7428,7 @@ function initPlaylistTabs() {
  }
  }
 
- function nextSong() {
+function nextSong() {
  const songs = getCurrentSongs();
  if (songs.length === 0) return;
  
@@ -7445,12 +7445,12 @@ function initPlaylistTabs() {
  if (isPlaying) play();
  }
 
- function toggleShuffle() {
+function toggleShuffle() {
  isShuffled = !isShuffled;
  shuffleBtn.classList.toggle('active', isShuffled);
  }
 
- function toggleRepeat() {
+function toggleRepeat() {
  repeatMode = (repeatMode + 1) % 3;
  repeatBtn.classList.toggle('active', repeatMode > 0);
  
@@ -7470,7 +7470,7 @@ function initPlaylistTabs() {
  }
  }
 
- function seekTo(event) {
+function seekTo(event) {
  if (!player || !player.getDuration) return;
  
  const duration = player.getDuration();
@@ -7484,7 +7484,7 @@ function initPlaylistTabs() {
  player.seekTo(seekTime);
  }
 
- function toggleMute() {
+function toggleMute() {
  isMuted = !isMuted;
  volumeIcon.style.display = isMuted ? 'none' : 'block';
  muteIcon.style.display = isMuted ? 'block' : 'none';
@@ -7499,7 +7499,7 @@ function initPlaylistTabs() {
  }
  }
 
- function adjustVolume(event) {
+function adjustVolume(event) {
  const rect = volumeSlider.getBoundingClientRect();
  const clickX = event.clientX - rect.left;
  volume = (clickX / rect.width) * 100;
@@ -7534,12 +7534,12 @@ function openPlaylistModal() {
   loadPlaylistText.textContent = 'Import & Share';
  }
 
- function closePlaylistModalFunc() {
+function closePlaylistModalFunc() {
  playlistModalOverlay.classList.remove('active');
  }
 
  // Delete Song from Playlist
- function deleteSong(index) {
+function deleteSong(index) {
  const songs = getCurrentSongs();
  const song = songs[index];
 
@@ -7580,11 +7580,11 @@ function openPlaylistModal() {
  }
 
  // LocalStorage
- function savePlaylists() {
+function savePlaylists() {
  localStorage.setItem('universalMusicPlayerPlaylists', JSON.stringify(playlists));
  }
 
- function loadPlaylists() {
+function loadPlaylists() {
  try {
  const saved = localStorage.getItem('universalMusicPlayerPlaylists');
  if (saved) {

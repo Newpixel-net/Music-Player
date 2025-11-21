@@ -6013,13 +6013,29 @@ function applyRandomMood() {
 }
 
 function applyRandomAtmosphere() {
- const randomEffect = allAtmosphereEffects[Math.floor(Math.random() * allAtmosphereEffects.length)];
-
  // Clear all effects first
- moodSection.className = 'mood-section';
+ activeEffects = [];
+ document.querySelectorAll('.effect-btn').forEach(btn => {
+ btn.classList.remove('active');
+ });
 
- // Apply random effect
- moodSection.classList.add(`effect-${randomEffect}`);
+ // Pick 1-3 random effects to combine
+ const numEffects = Math.floor(Math.random() * 3) + 1;
+ const availableEffects = ['heartbeat', 'flash', 'glowpulse', 'scalebounce', 'breathe', 'beatdrop', 'shake', 'sway', 'float', 'wobble', 'tilt3d', 'flicker', 'glitch', 'rgbsplit', 'wavemotion', 'ripple', 'prism', 'borderpulse', 'neonglow', 'rainbowborder', 'shadowdance', 'electricedges'];
+
+ // Randomly select effects
+ const shuffled = availableEffects.sort(() => 0.5 - Math.random());
+ const selectedEffects = shuffled.slice(0, numEffects);
+
+ // Add to activeEffects and mark buttons as active
+ selectedEffects.forEach(effect => {
+ activeEffects.push(effect);
+ const btn = document.querySelector(`.effect-btn[data-effect="${effect}"]`);
+ if (btn) btn.classList.add('active');
+ });
+
+ // Apply effects
+ updateEffects();
 
  const btn = document.getElementById('randomAtmosphereBtn');
  btn.classList.add('pulsing');
@@ -6027,32 +6043,58 @@ function applyRandomAtmosphere() {
 }
 
 function applyRandomBgEffects() {
+ // Choose random mode for variety
+ const modes = ['minimal', 'moderate', 'dramatic', 'neon', 'retro'];
+ const mode = modes[Math.floor(Math.random() * modes.length)];
+
  // Random background color
  const randomColor = colorPalette[Math.floor(Math.random() * colorPalette.length)];
  bgColor.value = randomColor;
 
- // Random opacity (50-100%)
- const randomOpacity = Math.floor(Math.random() * 51) + 50;
+ // Random opacity (60-100%) - NOW INCLUDED!
+ const randomOpacity = Math.floor(Math.random() * 41) + 60;
  bgOpacity.value = randomOpacity;
  bgOpacityValue.textContent = randomOpacity + '%';
 
- // Random blur (0-20px)
- const randomBlur = Math.floor(Math.random() * 21);
+ // Random blur based on mode
+ let randomBlur = 0;
+ if (mode === 'dramatic' || mode === 'neon') {
+ randomBlur = Math.floor(Math.random() * 16) + 5; // 5-20px
+ } else if (mode === 'moderate') {
+ randomBlur = Math.floor(Math.random() * 11); // 0-10px
+ } // minimal and retro: no blur
+
  bgBlur.value = randomBlur;
  bgBlurValue.textContent = randomBlur + 'px';
 
- // Random border radius (10-50px)
- const randomRadius = Math.floor(Math.random() * 41) + 10;
+ // Random border radius (8-30px) - LIMITED!
+ const randomRadius = Math.floor(Math.random() * 23) + 8;
  borderRadius.value = randomRadius;
  borderRadiusValue.textContent = randomRadius + 'px';
 
- // Random shadow depth (0-30px)
- const randomShadow = Math.floor(Math.random() * 31);
+ // Random shadow depth based on mode
+ let randomShadow = 0;
+ if (mode === 'dramatic' || mode === 'neon') {
+ randomShadow = Math.floor(Math.random() * 21) + 10; // 10-30px
+ } else if (mode === 'moderate') {
+ randomShadow = Math.floor(Math.random() * 16); // 0-15px
+ } else if (mode === 'retro') {
+ randomShadow = Math.floor(Math.random() * 6); // 0-5px
+ }
+
  bgShadowDepth.value = randomShadow;
  bgShadowDepthValue.textContent = randomShadow + 'px';
 
- // Random border glow (5-10px with random color and animation)
- const randomGlow = Math.floor(Math.random() * 6) + 5;
+ // Random border glow (3-8px) - EVEN SMALLER!
+ let randomGlow = 0;
+ if (mode === 'neon') {
+ randomGlow = Math.floor(Math.random() * 6) + 3; // 3-8px
+ } else if (mode === 'dramatic') {
+ randomGlow = Math.floor(Math.random() * 4) + 3; // 3-6px
+ } else if (mode === 'moderate') {
+ randomGlow = Math.floor(Math.random() * 3) + 3; // 3-5px
+ }
+
  const randomGlowColor = colorPalette[Math.floor(Math.random() * colorPalette.length)];
  bgBorderGlow.value = randomGlow;
  bgBorderGlowValue.textContent = randomGlow + 'px';
@@ -6062,33 +6104,66 @@ function applyRandomBgEffects() {
  const borderAnimations = ['border-flash', 'border-flicker', 'border-breathing', 'border-colorshift'];
  const randomAnimation = borderAnimations[Math.floor(Math.random() * borderAnimations.length)];
 
- // Apply all effects
+ // Random CSS border (width and style) - NEW!
+ let borderStyle = 'none';
+ let borderWidth = 0;
+ let borderColor = randomGlowColor;
+
+ if (mode === 'retro') {
+ borderStyle = ['solid', 'dashed', 'dotted', 'double'][Math.floor(Math.random() * 4)];
+ borderWidth = Math.floor(Math.random() * 3) + 2; // 2-4px
+ } else if (mode === 'dramatic') {
+ borderStyle = 'solid';
+ borderWidth = Math.floor(Math.random() * 2) + 1; // 1-2px
+ }
+
+ // Random filters - NEW!
+ const saturation = Math.floor(Math.random() * 41) + 80; // 80-120%
+ const brightness = Math.floor(Math.random() * 21) + 90; // 90-110%
+ const contrast = Math.floor(Math.random() * 21) + 90; // 90-110%
+
+ // Random transform - NEW!
+ const rotation = (Math.random() * 4 - 2).toFixed(2); // -2 to +2 degrees
+ const scale = (Math.random() * 0.04 + 0.98).toFixed(2); // 0.98 to 1.02
+
+ // Apply all effects to mood section
  moodSection.style.backgroundColor = randomColor;
  moodSection.style.opacity = (randomOpacity / 100);
- moodSection.style.backdropFilter = `blur(${randomBlur}px)`;
+ moodSection.style.backdropFilter = randomBlur > 0 ? `blur(${randomBlur}px)` : '';
  moodSection.style.borderRadius = randomRadius + 'px';
- moodSection.style.boxShadow = `0 ${randomShadow}px ${randomShadow * 2}px rgba(0,0,0,0.3)`;
+ moodSection.style.border = borderWidth > 0 ? `${borderWidth}px ${borderStyle} ${borderColor}` : '';
 
+ // Box shadow
+ let boxShadow = randomShadow > 0 ? `0 ${randomShadow}px ${randomShadow * 2}px rgba(0,0,0,0.3)` : '';
  if (randomGlow > 0) {
- moodSection.style.boxShadow += `, 0 0 ${randomGlow}px ${randomGlow * 2}px ${randomGlowColor}`;
+ const glowShadow = `0 0 ${randomGlow}px ${randomGlow * 2}px ${randomGlowColor}`;
+ boxShadow = boxShadow ? boxShadow + ', ' + glowShadow : glowShadow;
+ }
+ moodSection.style.boxShadow = boxShadow;
+
+ // Filters and transform
+ moodSection.style.filter = `saturate(${saturation}%) brightness(${brightness}%) contrast(${contrast}%)`;
+ moodSection.style.transform = `rotate(${rotation}deg) scale(${scale})`;
+
+ // Border animations
+ moodSection.classList.remove('border-flash', 'border-flicker', 'border-breathing', 'border-colorshift');
+ if (randomGlow > 0) {
+ moodSection.classList.add(randomAnimation);
  }
 
- // Clear previous border animations
- moodSection.classList.remove('border-flash', 'border-flicker', 'border-breathing', 'border-colorshift');
- // Apply new random border animation
- moodSection.classList.add(randomAnimation);
-
- // Apply border glow to video player container
+ // Apply to video player
  const videoPlayerContainer = document.querySelector('.video-player-container');
  if (videoPlayerContainer) {
+ let videoBoxShadow = '0 10px 30px rgba(0, 0, 0, 0.2)';
  if (randomGlow > 0) {
- videoPlayerContainer.style.boxShadow = `0 10px 30px rgba(0, 0, 0, 0.2), 0 0 ${randomGlow}px ${randomGlow * 2}px ${randomGlowColor}`;
- } else {
- videoPlayerContainer.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.2)';
+ videoBoxShadow += `, 0 0 ${randomGlow}px ${randomGlow * 2}px ${randomGlowColor}`;
  }
- // Apply same border animation to video player
+ videoPlayerContainer.style.boxShadow = videoBoxShadow;
+ videoPlayerContainer.style.border = borderWidth > 0 ? `${borderWidth}px ${borderStyle} ${borderColor}` : '';
  videoPlayerContainer.classList.remove('border-flash', 'border-flicker', 'border-breathing', 'border-colorshift');
+ if (randomGlow > 0) {
  videoPlayerContainer.classList.add(randomAnimation);
+ }
  }
 
  const btn = document.getElementById('randomBgBtn');

@@ -7139,7 +7139,8 @@ async function addSongToPlaylist() {
     addSongBtnText.textContent = 'Add Song';
   }
 }
- function initPlaylistTabs() {
+
+function initPlaylistTabs() {
  playlistTabsContainer.innerHTML = '';
  
  playlists.forEach((playlist, index) => {

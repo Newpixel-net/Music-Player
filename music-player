@@ -2141,8 +2141,8 @@
  .mood-header {
  display: flex;
  align-items: center;
- justify-content: space-between;
- margin-bottom: 12px;
+ justify-content: center;
+ margin-bottom: 8px;
  gap: 10px;
  position: relative;
  }
@@ -2187,25 +2187,28 @@
  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
  }
 
- /* Random Effect Buttons */
- .random-buttons-container {
+ /* Random Effect Buttons Row */
+ .random-buttons-row {
  display: flex;
- gap: 8px;
+ gap: 6px;
  align-items: center;
+ justify-content: center;
+ margin-bottom: 12px;
  }
 
  .random-btn {
- padding: 8px 16px;
- border-radius: 12px;
+ padding: 6px 12px;
+ border-radius: 10px;
  border: none;
- font-size: 13px;
+ font-size: 12px;
  font-weight: 600;
  cursor: pointer;
  transition: all 0.3s ease;
  color: white;
  position: relative;
  overflow: hidden;
- box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+ box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+ white-space: nowrap;
  }
 
  .random-btn::before {
@@ -2264,6 +2267,43 @@
 
  .random-btn.pulsing {
  animation: randomPulse 0.6s ease;
+ }
+
+ /* Border Animation Effects */
+ @keyframes borderFlash {
+ 0%, 100% { opacity: 1; }
+ 50% { opacity: 0.3; }
+ }
+
+ @keyframes borderFlicker {
+ 0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+ 20%, 24%, 55% { opacity: 0.4; }
+ }
+
+ @keyframes borderBreathing {
+ 0%, 100% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); }
+ 50% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 20px 10px currentColor; }
+ }
+
+ @keyframes borderColorShift {
+ 0% { filter: hue-rotate(0deg); }
+ 100% { filter: hue-rotate(360deg); }
+ }
+
+ .border-flash {
+ animation: borderFlash 1.5s ease-in-out infinite;
+ }
+
+ .border-flicker {
+ animation: borderFlicker 3s linear infinite;
+ }
+
+ .border-breathing {
+ animation: borderBreathing 2s ease-in-out infinite;
+ }
+
+ .border-colorshift {
+ animation: borderColorShift 4s linear infinite;
  }
 
  /* Background Effects Button & Popup */
@@ -4480,13 +4520,14 @@ transform: scale(1.05);
  font-size: 18px;
  }
 
- .random-buttons-container {
+ .random-buttons-row {
  gap: 4px;
+ margin-bottom: 10px;
  }
 
  .random-btn {
- padding: 6px 10px;
- font-size: 11px;
+ padding: 5px 8px;
+ font-size: 10px;
  }
 
  /* Hide navigation buttons on mobile - touch scrolling works fine */
@@ -4997,21 +5038,19 @@ transform: scale(1.05);
  <!-- Mood Selector -->
  <div class="mood-section">
  <div class="mood-header">
- <div style="display: flex; align-items: center; gap: 10px;">
  <h2 class="mood-title">🎭 Mood</h2>
  <button class="mood-help-btn" id="moodHelpBtn" title="View all moods">?</button>
  </div>
- <div class="random-buttons-container">
+ <div class="random-buttons-row">
  <button class="random-btn random-btn-mood" id="randomMoodBtn" title="Apply random mood">
- 🎲 Random Mood
+ 🎲 Mood
  </button>
  <button class="random-btn random-btn-atmosphere" id="randomAtmosphereBtn" title="Apply random atmosphere">
- 🌟 Random Atmosphere
+ 🎲 Atmosphere
  </button>
  <button class="random-btn random-btn-bg" id="randomBgBtn" title="Apply random background effects">
- 🎨 Random BG Effects
+ 🎲 BG Effects
  </button>
- </div>
  </div>
  <div class="mood-selector-wrapper">
  <button class="mood-nav-btn mood-nav-left" id="moodNavLeft">
@@ -5181,7 +5220,7 @@ transform: scale(1.05);
  </div>
  <div class="style-control">
  <label>Border Glow: <span id="bgBorderGlowValue">0px</span></label>
- <input type="range" class="effect-slider" id="bgBorderGlow" min="0" max="20" value="0">
+ <input type="range" class="effect-slider" id="bgBorderGlow" min="0" max="10" value="0">
  <input type="color" id="bgBorderGlowColor" value="#667eea">
  </div>
  </div>
@@ -6012,12 +6051,16 @@ function applyRandomBgEffects() {
  bgShadowDepth.value = randomShadow;
  bgShadowDepthValue.textContent = randomShadow + 'px';
 
- // Random border glow (0-20px with random color)
- const randomGlow = Math.floor(Math.random() * 21);
+ // Random border glow (5-10px with random color and animation)
+ const randomGlow = Math.floor(Math.random() * 6) + 5;
  const randomGlowColor = colorPalette[Math.floor(Math.random() * colorPalette.length)];
  bgBorderGlow.value = randomGlow;
  bgBorderGlowValue.textContent = randomGlow + 'px';
  bgBorderGlowColor.value = randomGlowColor;
+
+ // Random border animation
+ const borderAnimations = ['border-flash', 'border-flicker', 'border-breathing', 'border-colorshift'];
+ const randomAnimation = borderAnimations[Math.floor(Math.random() * borderAnimations.length)];
 
  // Apply all effects
  moodSection.style.backgroundColor = randomColor;
@@ -6030,12 +6073,22 @@ function applyRandomBgEffects() {
  moodSection.style.boxShadow += `, 0 0 ${randomGlow}px ${randomGlow * 2}px ${randomGlowColor}`;
  }
 
+ // Clear previous border animations
+ moodSection.classList.remove('border-flash', 'border-flicker', 'border-breathing', 'border-colorshift');
+ // Apply new random border animation
+ moodSection.classList.add(randomAnimation);
+
  // Apply border glow to video player container
  const videoPlayerContainer = document.querySelector('.video-player-container');
- if (videoPlayerContainer && randomGlow > 0) {
+ if (videoPlayerContainer) {
+ if (randomGlow > 0) {
  videoPlayerContainer.style.boxShadow = `0 10px 30px rgba(0, 0, 0, 0.2), 0 0 ${randomGlow}px ${randomGlow * 2}px ${randomGlowColor}`;
- } else if (videoPlayerContainer) {
+ } else {
  videoPlayerContainer.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.2)';
+ }
+ // Apply same border animation to video player
+ videoPlayerContainer.classList.remove('border-flash', 'border-flicker', 'border-breathing', 'border-colorshift');
+ videoPlayerContainer.classList.add(randomAnimation);
  }
 
  const btn = document.getElementById('randomBgBtn');

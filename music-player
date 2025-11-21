@@ -5014,8 +5014,8 @@ transform: scale(1.05);
  <input type="range" class="effect-slider" id="borderRadius" min="0" max="50" value="12">
  </div>
  <div class="style-control">
- <label>Shadow Depth: <span id="shadowDepthValue">0px</span></label>
- <input type="range" class="effect-slider" id="shadowDepth" min="0" max="30" value="0">
+ <label>Shadow Depth: <span id="bgShadowDepthValue">0px</span></label>
+ <input type="range" class="effect-slider" id="bgShadowDepth" min="0" max="30" value="0">
  </div>
  <div class="style-control">
  <label>Border Glow: <span id="borderGlowValue">0px</span></label>
@@ -7897,8 +7897,8 @@ const bgBlur = document.getElementById('bgBlur');
 const bgBlurValue = document.getElementById('bgBlurValue');
 const borderRadius = document.getElementById('borderRadius');
 const borderRadiusValue = document.getElementById('borderRadiusValue');
-const shadowDepth = document.getElementById('shadowDepth');
-const shadowDepthValue = document.getElementById('shadowDepthValue');
+const bgShadowDepth = document.getElementById('bgShadowDepth');
+const bgShadowDepthValue = document.getElementById('bgShadowDepthValue');
 const borderGlow = document.getElementById('borderGlow');
 const borderGlowValue = document.getElementById('borderGlowValue');
 const borderGlowColor = document.getElementById('borderGlowColor');
@@ -7989,8 +7989,8 @@ borderRadius.addEventListener('input', () => {
   updateStyleCustomization();
 });
 
-shadowDepth.addEventListener('input', () => {
-  shadowDepthValue.textContent = shadowDepth.value + 'px';
+bgShadowDepth.addEventListener('input', () => {
+  bgShadowDepthValue.textContent = bgShadowDepth.value + 'px';
   updateStyleCustomization();
 });
 
@@ -8009,7 +8009,7 @@ function updateStyleCustomization() {
   const opacity = bgOpacity.value / 100;
   const blur = bgBlur.value;
   const radius = borderRadius.value;
-  const shadow = shadowDepth.value;
+  const shadow = bgShadowDepth.value;
   const glow = borderGlow.value;
   const glowColor = borderGlowColor.value;
 
@@ -8053,8 +8053,8 @@ effectResetBtn.addEventListener('click', () => {
   bgBlurValue.textContent = '0px';
   borderRadius.value = 12;
   borderRadiusValue.textContent = '12px';
-  shadowDepth.value = 0;
-  shadowDepthValue.textContent = '0px';
+  bgShadowDepth.value = 0;
+  bgShadowDepthValue.textContent = '0px';
   borderGlow.value = 0;
   borderGlowValue.textContent = '0px';
   moodSection.style.backgroundColor = '';

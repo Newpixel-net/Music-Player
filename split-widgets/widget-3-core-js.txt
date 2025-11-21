@@ -1424,7 +1424,7 @@ window.renderLibraryPage = function(pageData) {
  <div class="library-empty">
  <div class="library-empty-icon">🔍</div>
  <div class="library-empty-text">
- ${librarySearchQuery ? `No playlists found matching "${librarySearchQuery}"` : 'No playlists available'}
+ ${librarySearchQuery ? 'No playlists found matching "' + librarySearchQuery + '"' : 'No playlists available'}
  </div>
  </div>
  `;

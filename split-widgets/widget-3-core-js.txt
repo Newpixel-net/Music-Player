@@ -14,17 +14,17 @@ document.addEventListener('DOMContentLoaded', function() {
 };
 
  // Initialize Firebase
- let database = null;
- let firebaseAvailable = false;
+ window.database = null;
+ window.firebaseAvailable = false;
 
  try {
  firebase.initializeApp(firebaseConfig);
- database = firebase.database();
- firebaseAvailable = true;
+ window.database = firebase.database();
+ window.firebaseAvailable = true;
  console.log('✓ Firebase connected - Community library active!');
  } catch (e) {
  console.log('⚠️ Firebase unavailable - Using localStorage fallback');
- firebaseAvailable = false;
+ window.firebaseAvailable = false;
  }
 
  // YouTube API Configuration
@@ -79,100 +79,105 @@ document.addEventListener('DOMContentLoaded', function() {
  window.artistName = document.getElementById('artistName');
  window.playlistContainer = document.getElementById('playlist');
  window.playlistCount = document.getElementById('playlistCount');
- var volumeBtn = document.getElementById('volumeBtn');
- var volumeIcon = document.getElementById('volumeIcon');
- var muteIcon = document.getElementById('muteIcon');
- var volumeSlider = document.getElementById('volumeSlider');
- var volumeFill = document.getElementById('volumeFill');
- var playlistTabsContainer = document.getElementById('playlistTabs');
- var addPlaylistBtn = document.getElementById('addPlaylistBtn');
+ window.volumeBtn = document.getElementById('volumeBtn');
+ window.volumeIcon = document.getElementById('volumeIcon');
+ window.muteIcon = document.getElementById('muteIcon');
+ window.volumeSlider = document.getElementById('volumeSlider');
+ window.volumeFill = document.getElementById('volumeFill');
+
+ // Mood section and effects
+ window.moodSection = document.querySelector('.mood-section');
+ window.moodEffectsBtn = document.getElementById('moodEffectsBtn');
+ window.moodEffectsPopup = document.getElementById('moodEffectsPopup');
+ window.playlistTabsContainer = document.getElementById('playlistTabs');
+ window.addPlaylistBtn = document.getElementById('addPlaylistBtn');
  
  // Settings elements
- var settingsBtn = document.getElementById('settingsBtn');
- var settingsModalOverlay = document.getElementById('settingsModalOverlay');
- var closeSettingsModal = document.getElementById('closeSettingsModal');
- var toggleStickyControls = document.getElementById('toggleStickyControls');
- var toggleVisualizer = document.getElementById('toggleVisualizer');
- var toggleBackgroundAnim = document.getElementById('toggleBackgroundAnim');
- var toggleFloatingPlayerSetting = document.getElementById('toggleFloatingPlayer');
+ window.settingsBtn = document.getElementById('settingsBtn');
+ window.settingsModalOverlay = document.getElementById('settingsModalOverlay');
+ window.closeSettingsModal = document.getElementById('closeSettingsModal');
+ window.toggleStickyControls = document.getElementById('toggleStickyControls');
+ window.toggleVisualizer = document.getElementById('toggleVisualizer');
+ window.toggleBackgroundAnim = document.getElementById('toggleBackgroundAnim');
+ window.toggleFloatingPlayerSetting = document.getElementById('toggleFloatingPlayer');
  
  // Floating Player elements
- var floatingPlayer = document.getElementById('floatingPlayer');
- var floatingPlayerBtn = document.getElementById('floatingPlayerBtn');
- var closeFloatingPlayer = document.getElementById('closeFloatingPlayer');
- var popoutWindowBtn = document.getElementById('popoutWindowBtn');
- var floatingSongTitle = document.getElementById('floatingSongTitle');
-var addSongModalOverlay = document.getElementById('addSongModalOverlay');
-var closeAddSongModal = document.getElementById('closeAddSongModal');
-var cancelAddSong = document.getElementById('cancelAddSong');
-var addSongBtn = document.getElementById('addSongBtn');
-var addSongVideoUrl = document.getElementById('addSongVideoUrl');
-var addSongStatus = document.getElementById('addSongStatus');
-var addSongBtnText = document.getElementById('addSongBtnText');
-var addSongModalTitle = document.getElementById('addSongModalTitle');
+ window.floatingPlayer = document.getElementById('floatingPlayer');
+ window.floatingPlayerBtn = document.getElementById('floatingPlayerBtn');
+ window.closeFloatingPlayer = document.getElementById('closeFloatingPlayer');
+ window.popoutWindowBtn = document.getElementById('popoutWindowBtn');
+ window.floatingSongTitle = document.getElementById('floatingSongTitle');
+window.addSongModalOverlay = document.getElementById('addSongModalOverlay');
+window.closeAddSongModal = document.getElementById('closeAddSongModal');
+window.cancelAddSong = document.getElementById('cancelAddSong');
+window.addSongBtn = document.getElementById('addSongBtn');
+window.addSongVideoUrl = document.getElementById('addSongVideoUrl');
+window.addSongStatus = document.getElementById('addSongStatus');
+window.addSongBtnText = document.getElementById('addSongBtnText');
+window.addSongModalTitle = document.getElementById('addSongModalTitle');
 
-let targetPlaylistIndex = null;
+window.targetPlaylistIndex = null;
 
- var floatingArtistName = document.getElementById('floatingArtistName');
- var floatingPlayPauseBtn = document.getElementById('floatingPlayPauseBtn');
- var floatingPrevBtn = document.getElementById('floatingPrevBtn');
- var floatingNextBtn = document.getElementById('floatingNextBtn');
+ window.floatingArtistName = document.getElementById('floatingArtistName');
+ window.floatingPlayPauseBtn = document.getElementById('floatingPlayPauseBtn');
+ window.floatingPrevBtn = document.getElementById('floatingPrevBtn');
+ window.floatingNextBtn = document.getElementById('floatingNextBtn');
  
  // Sticky Controls elements
- var stickyControls = document.getElementById('stickyControls');
- var stickySongTitle = document.getElementById('stickySongTitle');
- var stickyArtistName = document.getElementById('stickyArtistName');
- var stickyThumb = document.getElementById('stickyThumb');
- var stickyPlayPauseBtn = document.getElementById('stickyPlayPauseBtn');
- var stickyPrevBtn = document.getElementById('stickyPrevBtn');
- var stickyNextBtn = document.getElementById('stickyNextBtn');
- var musicVisualizer = document.getElementById('musicVisualizer');
+ window.stickyControls = document.getElementById('stickyControls');
+ window.stickySongTitle = document.getElementById('stickySongTitle');
+ window.stickyArtistName = document.getElementById('stickyArtistName');
+ window.stickyThumb = document.getElementById('stickyThumb');
+ window.stickyPlayPauseBtn = document.getElementById('stickyPlayPauseBtn');
+ window.stickyPrevBtn = document.getElementById('stickyPrevBtn');
+ window.stickyNextBtn = document.getElementById('stickyNextBtn');
+ window.musicVisualizer = document.getElementById('musicVisualizer');
  
  // Carousel elements
  window.carouselSection = document.getElementById('carouselSection');
  window.carouselTrack = document.getElementById('carouselTrack');
- var carouselPrev = document.getElementById('carouselPrev');
- var carouselNext = document.getElementById('carouselNext');
+ window.carouselPrev = document.getElementById('carouselPrev');
+ window.carouselNext = document.getElementById('carouselNext');
  
  // Library elements
- var libraryBtn = document.getElementById('libraryBtn');
- var libraryBadge = document.getElementById('libraryBadge');
- var libraryModalOverlay = document.getElementById('libraryModalOverlay');
- var libraryModalBody = document.getElementById('libraryModalBody');
- var closeLibraryModal = document.getElementById('closeLibraryModal');
+ window.libraryBtn = document.getElementById('libraryBtn');
+ window.libraryBadge = document.getElementById('libraryBadge');
+ window.libraryModalOverlay = document.getElementById('libraryModalOverlay');
+ window.libraryModalBody = document.getElementById('libraryModalBody');
+ window.closeLibraryModal = document.getElementById('closeLibraryModal');
  
  // Import modal elements
- var importPlaylistBtn = document.getElementById('importPlaylistBtn');
- var playlistModalOverlay = document.getElementById('playlistModalOverlay');
- var closePlaylistModal = document.getElementById('closePlaylistModal');
- var cancelPlaylist = document.getElementById('cancelPlaylist');
- var loadPlaylist = document.getElementById('loadPlaylist');
- var playlistUrlInput = document.getElementById('playlistUrlInput');
- var playlistNameInput = document.getElementById('playlistNameInput');
- var playlistStatus = document.getElementById('playlistStatus');
- var loadPlaylistText = document.getElementById('loadPlaylistText');
-var manualPlaylistCheckbox = document.getElementById('manualPlaylistCheckbox');
-var playlistUrlGroup = document.getElementById('playlistUrlGroup');
-var videoUrlGroup = document.getElementById('videoUrlGroup');
-var videoUrlInput = document.getElementById('videoUrlInput');
-var communityNotice = document.getElementById('communityNotice');
-var playlistModalTitle = document.getElementById('playlistModalTitle');
+ window.importPlaylistBtn = document.getElementById('importPlaylistBtn');
+ window.playlistModalOverlay = document.getElementById('playlistModalOverlay');
+ window.closePlaylistModal = document.getElementById('closePlaylistModal');
+ window.cancelPlaylist = document.getElementById('cancelPlaylist');
+ window.loadPlaylist = document.getElementById('loadPlaylist');
+ window.playlistUrlInput = document.getElementById('playlistUrlInput');
+ window.playlistNameInput = document.getElementById('playlistNameInput');
+ window.playlistStatus = document.getElementById('playlistStatus');
+ window.loadPlaylistText = document.getElementById('loadPlaylistText');
+window.manualPlaylistCheckbox = document.getElementById('manualPlaylistCheckbox');
+window.playlistUrlGroup = document.getElementById('playlistUrlGroup');
+window.videoUrlGroup = document.getElementById('videoUrlGroup');
+window.videoUrlInput = document.getElementById('videoUrlInput');
+window.communityNotice = document.getElementById('communityNotice');
+window.playlistModalTitle = document.getElementById('playlistModalTitle');
 
 
  // Mood Management
- const moodOptions = document.querySelectorAll('.mood-option');
- let currentMood = 'default';
+ window.moodOptions = document.querySelectorAll('.mood-option');
+ window.currentMood = 'default';
 
 window.loadMood = function() {
  const savedMood = localStorage.getItem('musicPlayerMood') || 'default';
- applyMood(savedMood);
+ window.applyMood(savedMood);
  }
 
 window.applyMood = function(mood) {
- currentMood = mood;
+ window.currentMood = mood;
  document.body.className = mood !== 'default' ? `mood-${mood}` : '';
 
- moodOptions.forEach(option => {
+ window.moodOptions.forEach(option => {
  option.classList.toggle('active', option.dataset.mood === mood);
  });
 
@@ -184,9 +189,9 @@ window.applyMood = function(mood) {
  }
  }
 
- moodOptions.forEach(option => {
+ window.moodOptions.forEach(option => {
  option.addEventListener('click', () => {
- applyMood(option.dataset.mood);
+ window.applyMood(option.dataset.mood);
  });
  });
 
@@ -220,7 +225,7 @@ window.applyMood = function(mood) {
 
 window.applyRandomMood = function() {
  const randomMood = allMoods[Math.floor(Math.random() * allMoods.length)];
- applyMood(randomMood);
+ window.applyMood(randomMood);
 
  // Randomize MOOD title opacity (30-100%)
  const moodTitle = document.querySelector('.mood-title');
@@ -352,11 +357,11 @@ window.applyRandomBgEffects = function() {
  const contrast = Math.floor(Math.random() * 21) + 90; // 90-110%
 
  // Apply all effects to mood section
- moodSection.style.backgroundColor = randomColor;
- moodSection.style.opacity = (randomOpacity / 100);
- moodSection.style.backdropFilter = randomBlur > 0 ? `blur(${randomBlur}px)` : '';
- moodSection.style.borderRadius = randomRadius + 'px';
- moodSection.style.border = borderWidth > 0 ? `${borderWidth}px ${borderStyle} ${borderColor}` : '';
+ window.moodSection.style.backgroundColor = randomColor;
+ window.moodSection.style.opacity = (randomOpacity / 100);
+ window.moodSection.style.backdropFilter = randomBlur > 0 ? `blur(${randomBlur}px)` : '';
+ window.moodSection.style.borderRadius = randomRadius + 'px';
+ window.moodSection.style.border = borderWidth > 0 ? `${borderWidth}px ${borderStyle} ${borderColor}` : '';
 
  // Box shadow
  let boxShadow = randomShadow > 0 ? `0 ${randomShadow}px ${randomShadow * 2}px rgba(0,0,0,0.3)` : '';
@@ -364,16 +369,16 @@ window.applyRandomBgEffects = function() {
  const glowShadow = `0 0 ${randomGlow}px ${randomGlow * 2}px ${randomGlowColor}`;
  boxShadow = boxShadow ? boxShadow + ', ' + glowShadow : glowShadow;
  }
- moodSection.style.boxShadow = boxShadow;
+ window.moodSection.style.boxShadow = boxShadow;
 
  // Filters only (transform removed to prevent mobile sticky control issues)
- moodSection.style.filter = `saturate(${saturation}%) brightness(${brightness}%) contrast(${contrast}%)`;
- moodSection.style.transform = ''; // Clear any previous transforms
+ window.moodSection.style.filter = `saturate(${saturation}%) brightness(${brightness}%) contrast(${contrast}%)`;
+ window.moodSection.style.transform = ''; // Clear any previous transforms
 
  // Border animations
- moodSection.classList.remove('border-flash', 'border-flicker', 'border-breathing', 'border-colorshift');
+ window.moodSection.classList.remove('border-flash', 'border-flicker', 'border-breathing', 'border-colorshift');
  if (randomGlow > 0) {
- moodSection.classList.add(randomAnimation);
+ window.moodSection.classList.add(randomAnimation);
  }
 
  // Apply to video player
@@ -888,7 +893,7 @@ window.extractVideoId = function(url) {
  }
 
  // Fetch Single Video Info from YouTube
- async function fetchVideoInfo(videoId) {
+ window.fetchVideoInfo = async function(videoId) {
  try {
  const url = `${YOUTUBE_API_BASE}/videos?part=snippet,contentDetails&id=${videoId}&key=${YOUTUBE_API_KEY}`;
  const response = await fetch(url);
@@ -940,7 +945,7 @@ window.formatTime = function(seconds) {
  }
 
  // YouTube API Functions
- async function fetchYouTubePlaylist(playlistId) {
+ window.fetchYouTubePlaylist = async function(playlistId) {
  try {
  let allItems = [];
  let nextPageToken = '';
@@ -1017,7 +1022,7 @@ window.formatTime = function(seconds) {
  }
  }
 
- async function importYouTubePlaylist(playlistIdOrUrl, playlistName) {
+ window.importYouTubePlaylist = async function(playlistIdOrUrl, playlistName) {
  const playlistId = extractPlaylistId(playlistIdOrUrl);
  
  if (!playlistId) {
@@ -1029,7 +1034,7 @@ window.formatTime = function(seconds) {
  loadPlaylist.disabled = true;
  loadPlaylistText.innerHTML = '<span class="loading-spinner"></span> Loading...';
  
- const newSongs = await fetchYouTubePlaylist(playlistId);
+ const newSongs = await window.fetchYouTubePlaylist(playlistId);
  
  if (newSongs.length === 0) {
  throw new Error('No valid videos found in playlist');
@@ -1046,7 +1051,7 @@ window.formatTime = function(seconds) {
  currentPlaylistIndex = playlists.length - 1;
  
  // Save to community library
- await saveToLibrary(newPlaylist);
+ await window.saveToLibrary(newPlaylist);
  
  savePlaylists();
  initPlaylistTabs();
@@ -1075,7 +1080,7 @@ window.formatTime = function(seconds) {
  }
 
  // Create Manual Playlist with Single Video
- async function createManualPlaylist(videoUrl, playlistName) {
+ window.createManualPlaylist = async function(videoUrl, playlistName) {
  const videoId = extractVideoId(videoUrl);
  
  if (!videoId) {
@@ -1087,7 +1092,7 @@ window.formatTime = function(seconds) {
  loadPlaylist.disabled = true;
  loadPlaylistText.innerHTML = '<span class="loading-spinner"></span> Loading...';
  
- const videoInfo = await fetchVideoInfo(videoId);
+ const videoInfo = await window.fetchVideoInfo(videoId);
  
  const newPlaylist = {
  id: Date.now(),
@@ -1127,7 +1132,7 @@ window.formatTime = function(seconds) {
  }
 
  // Firebase Library Functions
- async function saveToLibrary(playlist) {
+ window.saveToLibrary = async function(playlist) {
  const libraryEntry = {
  id: playlist.id,
  name: playlist.name,
@@ -1138,14 +1143,14 @@ window.formatTime = function(seconds) {
  thumbnail: playlist.songs[0]?.thumbnail || null
  };
  
- if (firebaseAvailable) {
+ if (window.firebaseAvailable) {
  try {
- const snapshot = await database.ref('playlists').orderByChild('youtubePlaylistId').equalTo(playlist.youtubePlaylistId).once('value');
+ const snapshot = await window.database.ref('playlists').orderByChild('youtubePlaylistId').equalTo(playlist.youtubePlaylistId).once('value');
  
  if (!snapshot.exists()) {
- await database.ref('playlists').push(libraryEntry);
+ await window.database.ref('playlists').push(libraryEntry);
  console.log('✓ Playlist saved to Firebase community library!');
- await loadLibrary();
+ await window.loadLibrary();
  } else {
  console.log('ℹ️ Playlist already in community library');
  }
@@ -1167,10 +1172,10 @@ window.saveToLocalStorage = function(libraryEntry) {
  }
  }
 
- async function loadLibrary() {
- if (firebaseAvailable) {
+ window.loadLibrary = async function() {
+ if (window.firebaseAvailable) {
  try {
- const snapshot = await database.ref('playlists').orderByChild('dateAdded').once('value');
+ const snapshot = await window.database.ref('playlists').orderByChild('dateAdded').once('value');
  playlistLibrary = [];
  
  snapshot.forEach(childSnapshot => {
@@ -1245,7 +1250,7 @@ window.renderLibrary = function() {
  <div class="library-empty-text">
  No playlists in community library yet.<br>
  Import a YouTube playlist to get started!<br><br>
- ${firebaseAvailable ? '<strong style="color: #43e97b;">🌐 Firebase Connected</strong> - Your imports are shared with everyone!' : '<strong style="color: #ff9500;">⚠️ Using Local Storage</strong> - Enable Firebase for cross-device sharing'}
+ ${window.firebaseAvailable ? '<strong style="color: #43e97b;">🌐 Firebase Connected</strong> - Your imports are shared with everyone!' : '<strong style="color: #ff9500;">⚠️ Using Local Storage</strong> - Enable Firebase for cross-device sharing'}
  </div>
  </div>
  `;

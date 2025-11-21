@@ -6528,10 +6528,11 @@ function formatTime(seconds) {
  currentPlaylistIndex = playlists.length - 1;
  
  savePlaylists();
- renderPlaylistTabs();
- 
- if (playlists[currentPlaylistIndex].songs.length > 0) {
- displaySongs(currentSongIndex);
+ initPlaylistTabs();
+ initPlaylist();
+ initCarousel();
+
+ if (playlists[currentPlaylistIndex].songs.length > 0 && playerReady) {
  selectSong(0);
  }
  

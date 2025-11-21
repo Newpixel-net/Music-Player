@@ -6392,27 +6392,30 @@ let particleContainer = null;
 // Load settings from localStorage
 function loadEasterEggSettings() {
   const settings = JSON.parse(localStorage.getItem('easterEggSettings') || '{}');
-  
+
+  // CRITICAL: Remove any body filter from old versions (breaks position: fixed)
+  document.body.style.filter = '';
+
   playerOpacity.value = settings.playerOpacity || 68;
   playerOpacityValue.textContent = playerOpacity.value + '%';
   const alpha = playerOpacity.value / 100;
   document.querySelector('.music-player').style.background = `rgba(255, 255, 255, ${alpha})`;
-  
+
   stickyMoodColors.checked = settings.stickyMoodColors || false;
-  
+
   animationSpeed.value = settings.animationSpeed || 1;
   document.body.style.animationDuration = (10 / parseFloat(animationSpeed.value)) + 's';
-  
+
   blurIntensity.value = settings.blurIntensity !== undefined ? settings.blurIntensity : 20;
   updateBlur();
-  
+
   visualizerBars.value = settings.visualizerBars || 50;
   visualizerBarsValue.textContent = visualizerBars.value;
   updateVisualizerBars();
-  
+
   borderGlow.checked = settings.borderGlow || false;
   updateBorderGlow();
-  
+
   particleEffects.checked = settings.particleEffects || false;
   if (particleEffects.checked) createParticles();
 
@@ -6726,7 +6729,12 @@ colorSaturation.addEventListener('input', () => {
 
 function updateColorSaturation() {
   const saturation = parseInt(colorSaturation.value) / 100;
-  document.body.style.filter = 'saturate(' + saturation + ')';
+  // Apply filter to visual elements, NOT body (body filter breaks position: fixed)
+  document.querySelector('.player-wrapper').style.filter = 'saturate(' + saturation + ')';
+  document.querySelector('.sticky-controls').style.filter = 'saturate(' + saturation + ')';
+
+  // Apply to all mood background ::before elements via CSS variable
+  document.documentElement.style.setProperty('--saturation-value', saturation);
 }
 // Reset to defaults
 resetEasterEgg.addEventListener('click', () => {
@@ -6747,6 +6755,14 @@ resetEasterEgg.addEventListener('click', () => {
     updateBorderGlow();
     particleEffects.checked = false;
     removeParticles();
+    // Reset color saturation
+    colorSaturation.value = 100;
+    colorSaturationValue.textContent = '100%';
+    document.querySelector('.player-wrapper').style.filter = '';
+    document.querySelector('.sticky-controls').style.filter = '';
+    document.documentElement.style.setProperty('--saturation-value', '1');
+    // Remove old body filter if it exists
+    document.body.style.filter = '';
     shadowDepth.value = 'medium';
     updateShadowDepth();
     textGlow.checked = false;

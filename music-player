@@ -3281,6 +3281,23 @@
  font-size: 13px;
  color: #888;
  font-weight: 500;
+
+ .playlist-header-add-btn {
+ padding: 6px 12px;
+ background: linear-gradient(135deg, #43e97b, #38d9a9);
+ color: white;
+ border: none;
+ border-radius: 6px;
+ font-size: 12px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.2s ease;
+ }
+
+ .playlist-header-add-btn:hover {
+ transform: translateY(-1px);
+ box-shadow: 0 4px 12px rgba(67, 233, 123, 0.3);
+ }
  }
 
  .playlist-container {
@@ -5182,6 +5199,7 @@ transform: scale(1.05);
  <div class="playlist-container">
  <div class="playlist-header">
  <h3>All Tracks</h3>
+ <button class="playlist-header-add-btn" id="playlistHeaderAddBtn" title="Add song to current playlist">+ Add New</button>
  <span class="playlist-count" id="playlistCount">0 songs</span>
  </div>
  <div class="playlist-scroll" id="playlist">
@@ -6509,7 +6527,7 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  playlists.push(newPlaylist);
  currentPlaylistIndex = playlists.length - 1;
  
- saveUserData();
+ savePlaylists();
  renderPlaylistTabs();
  
  if (playlists[currentPlaylistIndex].songs.length > 0) {
@@ -7059,6 +7077,68 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  return getCurrentPlaylist().songs || [];
  }
 
+// Add Song Modal Functions
+function openAddSongModal(playlistIndex) {
+  targetPlaylistIndex = playlistIndex;
+  const playlistName = playlists[playlistIndex].name;
+  addSongModalTitle.textContent = 'Add Song to "' + playlistName + '"';
+  addSongVideoUrl.value = '';
+  addSongStatus.textContent = '';
+  addSongBtn.disabled = false;
+  addSongModalOverlay.classList.add('active');
+}
+
+function closeAddSongModalFunc() {
+  addSongModalOverlay.classList.remove('active');
+  targetPlaylistIndex = null;
+}
+
+async function addSongToPlaylist() {
+  const videoUrl = addSongVideoUrl.value.trim();
+  
+  if (!videoUrl) {
+    alert('Please enter a video URL');
+    return;
+  }
+  
+  const videoId = extractVideoId(videoUrl);
+  
+  if (!videoId) {
+    alert('Invalid video URL. Please check and try again.');
+    return;
+  }
+  
+  try {
+    addSongBtn.disabled = true;
+    addSongBtnText.innerHTML = '<span class="loading-spinner"></span> Loading...';
+    
+    const videoInfo = await fetchVideoInfo(videoId);
+    
+    playlists[targetPlaylistIndex].songs.push(videoInfo);
+    
+    savePlaylists();
+    
+    if (targetPlaylistIndex === currentPlaylistIndex) {
+      initPlaylist();
+      initCarousel();
+    }
+    
+    addSongStatus.style.color = '#34C759';
+    addSongStatus.textContent = '✓ Song added successfully!';
+    
+    setTimeout(() => {
+      closeAddSongModalFunc();
+    }, 1500);
+    
+  } catch (error) {
+    console.error('Error adding song:', error);
+    addSongStatus.style.color = '#FF3B30';
+    addSongStatus.textContent = '✗ Error: ' + error.message;
+    
+    addSongBtn.disabled = false;
+    addSongBtnText.textContent = 'Add Song';
+  }
+}
  function initPlaylistTabs() {
  playlistTabsContainer.innerHTML = '';
  
@@ -7338,64 +7418,6 @@ const playlistModalTitle = document.getElementById('playlistModalTitle');
  } else {
  currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
 
-// Add Song Modal Functions
-function openAddSongModal(playlistIndex) {
-  targetPlaylistIndex = playlistIndex;
-  const playlistName = playlists[playlistIndex].name;
-  addSongModalTitle.textContent = 'Add Song to "' + playlistName + '"';
-  addSongVideoUrl.value = '';
-  addSongStatus.textContent = '';
-  addSongBtn.disabled = false;
-  addSongModalOverlay.classList.add('active');
-}
-
-function closeAddSongModalFunc() {
-  addSongModalOverlay.classList.remove('active');
-  targetPlaylistIndex = null;
-}
-
-async function addSongToPlaylist() {
-  const videoUrl = addSongVideoUrl.value.trim();
-  
-  if (!videoUrl) {
-    alert('Please enter a video URL');
-    return;
-  }
-  
-  const videoId = extractVideoId(videoUrl);
-  
-  if (!videoId) {
-    alert('Invalid video URL. Please check and try again.');
-    return;
-  }
-  
-  try {
-    addSongBtn.disabled = true;
-    addSongBtnText.innerHTML = '<span class="loading-spinner"></span> Loading...';
-    
-    const videoInfo = await fetchVideoInfo(videoId);
-    
-    playlists[targetPlaylistIndex].songs.push(videoInfo);
-    
-    saveUserData();
-    
-    if (targetPlaylistIndex === currentPlaylistIndex) {
-      initPlaylist();
-      initCarousel();
-    }
-    
-    addSongStatus.style.color = '#34C759';
-    addSongStatus.textContent = '✓ Song added successfully!';
-    
-    setTimeout(() => {
-      closeAddSongModalFunc();
-    }, 1500);
-    
-  } catch (error) {
-    console.error('Error adding song:', error);
-    addSongStatus.style.color = '#FF3B30';
-    addSongStatus.textContent = '✗ Error: ' + error.message;
-    
     addSongBtn.disabled = false;
     addSongBtnText.textContent = 'Add Song';
   }
@@ -7609,6 +7631,15 @@ addSongVideoUrl.addEventListener('keypress', (e) => {
  floatingPrevBtn.addEventListener('click', prevSong);
  floatingNextBtn.addEventListener('click', nextSong);
  
+const playlistHeaderAddBtn = document.getElementById('playlistHeaderAddBtn');
+
+// Playlist Header Add Button Event Listener
+if (playlistHeaderAddBtn) {
+  playlistHeaderAddBtn.addEventListener('click', () => {
+    openAddSongModal(currentPlaylistIndex);
+  });
+}
+
  // Event Listeners - Sticky Controls
  stickyPlayPauseBtn.addEventListener('click', togglePlay);
  stickyPrevBtn.addEventListener('click', prevSong);

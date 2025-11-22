@@ -456,6 +456,13 @@
  <span>Import YouTube Playlist</span>
  </button>
 
+ <!-- Community Playlists Button (Top) -->
+ <button class="library-button library-button-top" id="libraryBtnTop">
+ <span>📚</span>
+ <span>Community Playlists</span>
+ <span style="opacity: 0.7; font-size: 12px;" id="libraryBadgeTop">(Empty)</span>
+ </button>
+
  <!-- Floating Player Controls -->
  <div class="pip-controls">
  <button class="pip-btn" id="floatingPlayerBtn" style="flex: 1;">
@@ -547,7 +554,7 @@
  <!-- Playlist Library Button -->
  <button class="library-button" id="libraryBtn">
  <span>📚</span>
- <span>Browse Community Library</span>
+ <span>Community Playlists</span>
  <span style="opacity: 0.7; font-size: 12px;" id="libraryBadge">(Empty)</span>
  </button>
 
@@ -563,7 +570,7 @@
  <div class="empty-state-icon">🎵</div>
  <div class="empty-state-text">
  Click "Import YouTube Playlist" to add songs<br>
- or browse the Community Library for instant access!
+ or browse Community Playlists for instant access!
  </div>
  </div>
  </div>
@@ -575,7 +582,7 @@
  <div class="modal-overlay" id="libraryModalOverlay">
  <div class="modal">
  <div class="modal-header">
- <h2 class="modal-title">📚 Community Playlist Library</h2>
+ <h2 class="modal-title">📚 Community Playlists</h2>
  <button class="modal-close" id="closeLibraryModal">Close</button>
  </div>
  <div class="library-search-container">
@@ -613,7 +620,18 @@
  <span class="manual-playlist-label">📝 Manual Playlist (Add songs one by one)</span>
  </label>
  </div>
- 
+
+ <!-- Fast YT Search Button -->
+ <div class="input-group" id="fastSearchGroup" style="margin-bottom: 16px;">
+ <button class="fast-yt-search-btn" id="fastYTSearchBtn">
+ <span>🔍</span>
+ <span>Fast YT Search - Find playlists instantly!</span>
+ </button>
+ <div style="font-size: 11px; color: #aaa; margin-top: 6px; text-align: center;">
+ Search for artists and import their playlists with one click
+ </div>
+ </div>
+
  <!-- Regular Playlist URL Input -->
  <div class="input-group" id="playlistUrlGroup">
  <label class="input-label">YouTube Playlist URL or ID</label>
@@ -669,6 +687,47 @@
  </div>
  </div>
  </div>
+
+ <!-- Fast YT Search Modal -->
+ <div class="modal-overlay" id="fastYTSearchModalOverlay">
+ <div class="modal fast-yt-search-modal">
+ <div class="modal-header">
+ <h2 class="modal-title">🔍 Fast YouTube Search</h2>
+ <button class="modal-close" id="closeFastYTSearchModal">Close</button>
+ </div>
+ <div class="fast-yt-search-content">
+ <!-- Search Bar -->
+ <div class="yt-search-bar-container">
+ <input type="text" class="yt-search-input" id="ytSearchInput" placeholder="Search for artist, channel, or playlist name...">
+ <button class="yt-search-btn" id="ytSearchBtn">
+ <span>🔍</span>
+ <span>Search</span>
+ </button>
+ </div>
+
+ <!-- Search Tips -->
+ <div class="yt-search-tips">
+ <div class="yt-search-tip">💡 Tip: Search for artist names like "Lofi Girl", "ChilledCow", etc.</div>
+ <div class="yt-search-tip">⚡ Results show channel playlists - import with one click!</div>
+ </div>
+
+ <!-- Loading State -->
+ <div class="yt-search-loading" id="ytSearchLoading" style="display: none;">
+ <div class="yt-loading-spinner"></div>
+ <div class="yt-loading-text">Searching YouTube...</div>
+ </div>
+
+ <!-- Results Container -->
+ <div class="yt-search-results" id="ytSearchResults">
+ <div class="yt-search-empty">
+ <div class="yt-empty-icon">🎵</div>
+ <div class="yt-empty-text">Search for an artist to find their playlists</div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
   <!-- Mood Help Modal -->
   <div class="modal-overlay" id="moodHelpModalOverlay">
     <div class="modal mood-help-modal">

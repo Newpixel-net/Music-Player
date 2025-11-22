@@ -740,7 +740,201 @@ manualPlaylistCheckbox.addEventListener('change', () => {
  window.playlistModalOverlay.addEventListener('click', (e) => {
  if (e.target === window.playlistModalOverlay) closePlaylistModalFunc();
  });
- 
+
+// Event Listeners - Community Playlists Top Button
+const libraryBtnTop = document.getElementById('libraryBtnTop');
+const libraryBadgeTop = document.getElementById('libraryBadgeTop');
+if (libraryBtnTop) {
+  libraryBtnTop.addEventListener('click', openLibraryModal);
+}
+
+// Update both library badges when library changes
+const originalUpdateLibraryBadge = window.updateLibraryBadge || function() {};
+window.updateLibraryBadge = function() {
+  originalUpdateLibraryBadge();
+  if (libraryBadgeTop && window.playlistLibrary) {
+    const count = window.playlistLibrary.length;
+    libraryBadgeTop.textContent = count > 0 ? `(${count})` : '(Empty)';
+  }
+};
+
+// Event Listeners - Fast YT Search
+const fastYTSearchBtn = document.getElementById('fastYTSearchBtn');
+const fastYTSearchModalOverlay = document.getElementById('fastYTSearchModalOverlay');
+const closeFastYTSearchModal = document.getElementById('closeFastYTSearchModal');
+const ytSearchInput = document.getElementById('ytSearchInput');
+const ytSearchBtn = document.getElementById('ytSearchBtn');
+const ytSearchResults = document.getElementById('ytSearchResults');
+const ytSearchLoading = document.getElementById('ytSearchLoading');
+
+// Open Fast YT Search Modal
+if (fastYTSearchBtn) {
+  fastYTSearchBtn.addEventListener('click', () => {
+    fastYTSearchModalOverlay.classList.add('active');
+    ytSearchInput.focus();
+  });
+}
+
+// Close Fast YT Search Modal
+if (closeFastYTSearchModal) {
+  closeFastYTSearchModal.addEventListener('click', () => {
+    fastYTSearchModalOverlay.classList.remove('active');
+  });
+}
+
+// Close modal when clicking outside
+if (fastYTSearchModalOverlay) {
+  fastYTSearchModalOverlay.addEventListener('click', (e) => {
+    if (e.target === fastYTSearchModalOverlay) {
+      fastYTSearchModalOverlay.classList.remove('active');
+    }
+  });
+}
+
+// YouTube Search Function
+async function searchYouTubePlaylists(query) {
+  const YOUTUBE_API_KEY = 'AIzaSyBijIimhG2s_uzGQybB13Iw0SQxwLTwQ4Y';
+  const YOUTUBE_API_BASE = 'https://www.googleapis.com/youtube/v3';
+
+  try {
+    // Search for playlists
+    const searchUrl = `${YOUTUBE_API_BASE}/search?part=snippet&q=${encodeURIComponent(query)}&type=playlist&maxResults=10&key=${YOUTUBE_API_KEY}`;
+    const response = await fetch(searchUrl);
+    const data = await response.json();
+
+    if (data.error) {
+      throw new Error(data.error.message || 'Failed to search YouTube');
+    }
+
+    if (!data.items || data.items.length === 0) {
+      return [];
+    }
+
+    // Get playlist details (to get video count)
+    const playlistIds = data.items.map(item => item.id.playlistId).join(',');
+    const detailsUrl = `${YOUTUBE_API_BASE}/playlists?part=snippet,contentDetails&id=${playlistIds}&key=${YOUTUBE_API_KEY}`;
+    const detailsResponse = await fetch(detailsUrl);
+    const detailsData = await detailsResponse.json();
+
+    return detailsData.items || [];
+  } catch (error) {
+    console.error('Search error:', error);
+    throw error;
+  }
+}
+
+// Display search results
+function displaySearchResults(playlists) {
+  if (playlists.length === 0) {
+    ytSearchResults.innerHTML = `
+      <div class="yt-search-empty">
+        <div class="yt-empty-icon">😕</div>
+        <div class="yt-empty-text">No playlists found. Try a different search term.</div>
+      </div>
+    `;
+    return;
+  }
+
+  const resultsHTML = playlists.map(playlist => {
+    const thumbnail = playlist.snippet.thumbnails.medium.url;
+    const title = playlist.snippet.title;
+    const channel = playlist.snippet.channelTitle;
+    const videoCount = playlist.contentDetails.itemCount;
+    const playlistId = playlist.id;
+
+    return `
+      <div class="yt-result-card">
+        <img src="${thumbnail}" alt="${title}" class="yt-result-thumbnail">
+        <div class="yt-result-info">
+          <div class="yt-result-title" title="${title}">${title}</div>
+          <div class="yt-result-channel">📺 ${channel}</div>
+          <div class="yt-result-meta">
+            <span>🎵 ${videoCount} videos</span>
+          </div>
+        </div>
+        <div class="yt-result-actions">
+          <button class="yt-import-btn" data-playlist-id="${playlistId}" data-playlist-name="${title}">
+            Import
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  ytSearchResults.innerHTML = resultsHTML;
+
+  // Add click event listeners to import buttons
+  const importButtons = ytSearchResults.querySelectorAll('.yt-import-btn');
+  importButtons.forEach(btn => {
+    btn.addEventListener('click', async function() {
+      const playlistId = this.getAttribute('data-playlist-id');
+      const playlistName = this.getAttribute('data-playlist-name');
+
+      // Disable button
+      this.disabled = true;
+      this.textContent = 'Importing...';
+
+      try {
+        // Close Fast YT Search modal
+        fastYTSearchModalOverlay.classList.remove('active');
+
+        // Import playlist
+        await window.importYouTubePlaylist(playlistId, playlistName);
+
+        // Success handled by importYouTubePlaylist function
+      } catch (error) {
+        console.error('Import error:', error);
+        alert('Failed to import playlist: ' + error.message);
+        this.disabled = false;
+        this.textContent = 'Import';
+      }
+    });
+  });
+}
+
+// Search button click handler
+if (ytSearchBtn) {
+  ytSearchBtn.addEventListener('click', async () => {
+    const query = ytSearchInput.value.trim();
+    if (!query) {
+      alert('Please enter a search term');
+      return;
+    }
+
+    // Show loading state
+    ytSearchResults.style.display = 'none';
+    ytSearchLoading.style.display = 'flex';
+
+    try {
+      const playlists = await searchYouTubePlaylists(query);
+
+      // Hide loading, show results
+      ytSearchLoading.style.display = 'none';
+      ytSearchResults.style.display = 'block';
+
+      displaySearchResults(playlists);
+    } catch (error) {
+      ytSearchLoading.style.display = 'none';
+      ytSearchResults.style.display = 'block';
+      ytSearchResults.innerHTML = `
+        <div class="yt-search-empty">
+          <div class="yt-empty-icon">⚠️</div>
+          <div class="yt-empty-text">Error: ${error.message}</div>
+        </div>
+      `;
+    }
+  });
+}
+
+// Enter key to search
+if (ytSearchInput) {
+  ytSearchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      ytSearchBtn.click();
+    }
+  });
+}
+
 
 // Easter Egg Modal - Advanced Atmosphere Settings
 const easterEggModalOverlay = document.getElementById('easterEggModalOverlay');

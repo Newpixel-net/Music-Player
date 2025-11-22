@@ -456,6 +456,13 @@
  <span>Import YouTube Playlist</span>
  </button>
 
+ <!-- Community Playlists Button (Top) -->
+ <button class="library-button library-button-top" id="libraryBtnTop">
+ <span>📚</span>
+ <span>Community Playlists</span>
+ <span style="opacity: 0.7; font-size: 12px;" id="libraryBadgeTop">(Empty)</span>
+ </button>
+
  <!-- Floating Player Controls -->
  <div class="pip-controls">
  <button class="pip-btn" id="floatingPlayerBtn" style="flex: 1;">
@@ -547,7 +554,7 @@
  <!-- Playlist Library Button -->
  <button class="library-button" id="libraryBtn">
  <span>📚</span>
- <span>Browse Community Library</span>
+ <span>Community Playlists</span>
  <span style="opacity: 0.7; font-size: 12px;" id="libraryBadge">(Empty)</span>
  </button>
 
@@ -563,7 +570,7 @@
  <div class="empty-state-icon">🎵</div>
  <div class="empty-state-text">
  Click "Import YouTube Playlist" to add songs<br>
- or browse the Community Library for instant access!
+ or browse Community Playlists for instant access!
  </div>
  </div>
  </div>
@@ -575,7 +582,7 @@
  <div class="modal-overlay" id="libraryModalOverlay">
  <div class="modal">
  <div class="modal-header">
- <h2 class="modal-title">📚 Community Playlist Library</h2>
+ <h2 class="modal-title">📚 Community Playlists</h2>
  <button class="modal-close" id="closeLibraryModal">Close</button>
  </div>
  <div class="library-search-container">
@@ -613,7 +620,18 @@
  <span class="manual-playlist-label">📝 Manual Playlist (Add songs one by one)</span>
  </label>
  </div>
- 
+
+ <!-- Fast YT Search Button -->
+ <div class="input-group" id="fastSearchGroup" style="margin-bottom: 16px;">
+ <button class="fast-yt-search-btn" id="fastYTSearchBtn">
+ <span>🔍</span>
+ <span>Fast YT Search - Find playlists instantly!</span>
+ </button>
+ <div style="font-size: 11px; color: #aaa; margin-top: 6px; text-align: center;">
+ Search for artists and import their playlists with one click
+ </div>
+ </div>
+
  <!-- Regular Playlist URL Input -->
  <div class="input-group" id="playlistUrlGroup">
  <label class="input-label">YouTube Playlist URL or ID</label>
@@ -669,6 +687,47 @@
  </div>
  </div>
  </div>
+
+ <!-- Fast YT Search Modal -->
+ <div class="modal-overlay" id="fastYTSearchModalOverlay">
+ <div class="modal fast-yt-search-modal">
+ <div class="modal-header">
+ <h2 class="modal-title">🔍 Fast YouTube Search</h2>
+ <button class="modal-close" id="closeFastYTSearchModal">Close</button>
+ </div>
+ <div class="fast-yt-search-content">
+ <!-- Search Bar -->
+ <div class="yt-search-bar-container">
+ <input type="text" class="yt-search-input" id="ytSearchInput" placeholder="Search for artist, channel, or playlist name...">
+ <button class="yt-search-btn" id="ytSearchBtn">
+ <span>🔍</span>
+ <span>Search</span>
+ </button>
+ </div>
+
+ <!-- Search Tips -->
+ <div class="yt-search-tips">
+ <div class="yt-search-tip">💡 Tip: Search for artist names like "Lofi Girl", "ChilledCow", etc.</div>
+ <div class="yt-search-tip">⚡ Results show channel playlists - import with one click!</div>
+ </div>
+
+ <!-- Loading State -->
+ <div class="yt-search-loading" id="ytSearchLoading" style="display: none;">
+ <div class="yt-loading-spinner"></div>
+ <div class="yt-loading-text">Searching YouTube...</div>
+ </div>
+
+ <!-- Results Container -->
+ <div class="yt-search-results" id="ytSearchResults">
+ <div class="yt-search-empty">
+ <div class="yt-empty-icon">🎵</div>
+ <div class="yt-empty-text">Search for an artist to find their playlists</div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
   <!-- Mood Help Modal -->
   <div class="modal-overlay" id="moodHelpModalOverlay">
     <div class="modal mood-help-modal">
@@ -5069,6 +5128,261 @@
  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
  }
 
+ /* Library Button Top Variant */
+ .library-button-top {
+ margin: 10px 0;
+ }
+
+ /* Fast YT Search Button */
+ .fast-yt-search-btn {
+ width: 100%;
+ padding: 14px;
+ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+ color: white;
+ border: none;
+ border-radius: 12px;
+ font-size: 14px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.3s ease;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 10px;
+ box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+ }
+
+ .fast-yt-search-btn:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
+ background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+ }
+
+ .fast-yt-search-btn:active {
+ transform: translateY(0);
+ }
+
+ /* Fast YT Search Modal */
+ .fast-yt-search-modal {
+ width: 90%;
+ max-width: 700px;
+ max-height: 85vh;
+ overflow: hidden;
+ display: flex;
+ flex-direction: column;
+ }
+
+ .fast-yt-search-content {
+ padding: 24px;
+ overflow-y: auto;
+ flex: 1;
+ }
+
+ /* YT Search Bar */
+ .yt-search-bar-container {
+ display: flex;
+ gap: 12px;
+ margin-bottom: 16px;
+ }
+
+ .yt-search-input {
+ flex: 1;
+ padding: 14px 18px;
+ background: rgba(255, 255, 255, 0.05);
+ border: 2px solid rgba(102, 126, 234, 0.3);
+ border-radius: 12px;
+ color: #333;
+ font-size: 14px;
+ transition: all 0.3s ease;
+ }
+
+ .yt-search-input:focus {
+ outline: none;
+ border-color: #667eea;
+ background: rgba(255, 255, 255, 0.1);
+ box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+ }
+
+ .yt-search-btn {
+ padding: 14px 28px;
+ background: linear-gradient(135deg, #667eea, #764ba2);
+ color: white;
+ border: none;
+ border-radius: 12px;
+ font-size: 14px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.3s ease;
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+ }
+
+ .yt-search-btn:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+ }
+
+ /* Search Tips */
+ .yt-search-tips {
+ display: flex;
+ flex-direction: column;
+ gap: 8px;
+ margin-bottom: 20px;
+ }
+
+ .yt-search-tip {
+ padding: 10px 14px;
+ background: rgba(67, 233, 123, 0.08);
+ border-left: 3px solid #43e97b;
+ border-radius: 8px;
+ font-size: 12px;
+ color: #666;
+ }
+
+ /* Loading State */
+ .yt-search-loading {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ padding: 60px 20px;
+ }
+
+ .yt-loading-spinner {
+ width: 48px;
+ height: 48px;
+ border: 4px solid rgba(102, 126, 234, 0.1);
+ border-top-color: #667eea;
+ border-radius: 50%;
+ animation: spin 0.8s linear infinite;
+ margin-bottom: 16px;
+ }
+
+ @keyframes spin {
+ to { transform: rotate(360deg); }
+ }
+
+ .yt-loading-text {
+ font-size: 14px;
+ color: #667eea;
+ font-weight: 500;
+ }
+
+ /* Results Container */
+ .yt-search-results {
+ min-height: 200px;
+ }
+
+ /* Empty State */
+ .yt-search-empty {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ padding: 60px 20px;
+ }
+
+ .yt-empty-icon {
+ font-size: 64px;
+ margin-bottom: 16px;
+ opacity: 0.3;
+ }
+
+ .yt-empty-text {
+ font-size: 14px;
+ color: #888;
+ text-align: center;
+ }
+
+ /* Result Cards */
+ .yt-result-card {
+ background: rgba(255, 255, 255, 0.05);
+ border: 1px solid rgba(102, 126, 234, 0.2);
+ border-radius: 12px;
+ padding: 16px;
+ margin-bottom: 12px;
+ transition: all 0.3s ease;
+ display: flex;
+ gap: 16px;
+ align-items: flex-start;
+ }
+
+ .yt-result-card:hover {
+ border-color: rgba(102, 126, 234, 0.4);
+ background: rgba(255, 255, 255, 0.08);
+ transform: translateY(-2px);
+ box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+ }
+
+ .yt-result-thumbnail {
+ width: 120px;
+ height: 90px;
+ border-radius: 8px;
+ object-fit: cover;
+ flex-shrink: 0;
+ }
+
+ .yt-result-info {
+ flex: 1;
+ min-width: 0;
+ }
+
+ .yt-result-title {
+ font-size: 15px;
+ font-weight: 600;
+ color: #333;
+ margin-bottom: 6px;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+ }
+
+ .yt-result-channel {
+ font-size: 13px;
+ color: #888;
+ margin-bottom: 4px;
+ }
+
+ .yt-result-meta {
+ font-size: 12px;
+ color: #aaa;
+ display: flex;
+ gap: 12px;
+ flex-wrap: wrap;
+ }
+
+ .yt-result-actions {
+ display: flex;
+ flex-direction: column;
+ gap: 8px;
+ }
+
+ .yt-import-btn {
+ padding: 10px 20px;
+ background: linear-gradient(135deg, #43e97b, #38d9a9);
+ color: white;
+ border: none;
+ border-radius: 8px;
+ font-size: 13px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.3s ease;
+ white-space: nowrap;
+ }
+
+ .yt-import-btn:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 4px 12px rgba(67, 233, 123, 0.3);
+ }
+
+ .yt-import-btn:disabled {
+ opacity: 0.5;
+ cursor: not-allowed;
+ transform: none;
+ }
+
  /* Vertical Playlist */
  .playlist-header {
  display: flex;
@@ -8912,7 +9226,201 @@ manualPlaylistCheckbox.addEventListener('change', () => {
  window.playlistModalOverlay.addEventListener('click', (e) => {
  if (e.target === window.playlistModalOverlay) closePlaylistModalFunc();
  });
- 
+
+// Event Listeners - Community Playlists Top Button
+const libraryBtnTop = document.getElementById('libraryBtnTop');
+const libraryBadgeTop = document.getElementById('libraryBadgeTop');
+if (libraryBtnTop) {
+  libraryBtnTop.addEventListener('click', openLibraryModal);
+}
+
+// Update both library badges when library changes
+const originalUpdateLibraryBadge = window.updateLibraryBadge || function() {};
+window.updateLibraryBadge = function() {
+  originalUpdateLibraryBadge();
+  if (libraryBadgeTop && window.playlistLibrary) {
+    const count = window.playlistLibrary.length;
+    libraryBadgeTop.textContent = count > 0 ? `(${count})` : '(Empty)';
+  }
+};
+
+// Event Listeners - Fast YT Search
+const fastYTSearchBtn = document.getElementById('fastYTSearchBtn');
+const fastYTSearchModalOverlay = document.getElementById('fastYTSearchModalOverlay');
+const closeFastYTSearchModal = document.getElementById('closeFastYTSearchModal');
+const ytSearchInput = document.getElementById('ytSearchInput');
+const ytSearchBtn = document.getElementById('ytSearchBtn');
+const ytSearchResults = document.getElementById('ytSearchResults');
+const ytSearchLoading = document.getElementById('ytSearchLoading');
+
+// Open Fast YT Search Modal
+if (fastYTSearchBtn) {
+  fastYTSearchBtn.addEventListener('click', () => {
+    fastYTSearchModalOverlay.classList.add('active');
+    ytSearchInput.focus();
+  });
+}
+
+// Close Fast YT Search Modal
+if (closeFastYTSearchModal) {
+  closeFastYTSearchModal.addEventListener('click', () => {
+    fastYTSearchModalOverlay.classList.remove('active');
+  });
+}
+
+// Close modal when clicking outside
+if (fastYTSearchModalOverlay) {
+  fastYTSearchModalOverlay.addEventListener('click', (e) => {
+    if (e.target === fastYTSearchModalOverlay) {
+      fastYTSearchModalOverlay.classList.remove('active');
+    }
+  });
+}
+
+// YouTube Search Function
+async function searchYouTubePlaylists(query) {
+  const YOUTUBE_API_KEY = 'AIzaSyBijIimhG2s_uzGQybB13Iw0SQxwLTwQ4Y';
+  const YOUTUBE_API_BASE = 'https://www.googleapis.com/youtube/v3';
+
+  try {
+    // Search for playlists
+    const searchUrl = `${YOUTUBE_API_BASE}/search?part=snippet&q=${encodeURIComponent(query)}&type=playlist&maxResults=10&key=${YOUTUBE_API_KEY}`;
+    const response = await fetch(searchUrl);
+    const data = await response.json();
+
+    if (data.error) {
+      throw new Error(data.error.message || 'Failed to search YouTube');
+    }
+
+    if (!data.items || data.items.length === 0) {
+      return [];
+    }
+
+    // Get playlist details (to get video count)
+    const playlistIds = data.items.map(item => item.id.playlistId).join(',');
+    const detailsUrl = `${YOUTUBE_API_BASE}/playlists?part=snippet,contentDetails&id=${playlistIds}&key=${YOUTUBE_API_KEY}`;
+    const detailsResponse = await fetch(detailsUrl);
+    const detailsData = await detailsResponse.json();
+
+    return detailsData.items || [];
+  } catch (error) {
+    console.error('Search error:', error);
+    throw error;
+  }
+}
+
+// Display search results
+function displaySearchResults(playlists) {
+  if (playlists.length === 0) {
+    ytSearchResults.innerHTML = `
+      <div class="yt-search-empty">
+        <div class="yt-empty-icon">😕</div>
+        <div class="yt-empty-text">No playlists found. Try a different search term.</div>
+      </div>
+    `;
+    return;
+  }
+
+  const resultsHTML = playlists.map(playlist => {
+    const thumbnail = playlist.snippet.thumbnails.medium.url;
+    const title = playlist.snippet.title;
+    const channel = playlist.snippet.channelTitle;
+    const videoCount = playlist.contentDetails.itemCount;
+    const playlistId = playlist.id;
+
+    return `
+      <div class="yt-result-card">
+        <img src="${thumbnail}" alt="${title}" class="yt-result-thumbnail">
+        <div class="yt-result-info">
+          <div class="yt-result-title" title="${title}">${title}</div>
+          <div class="yt-result-channel">📺 ${channel}</div>
+          <div class="yt-result-meta">
+            <span>🎵 ${videoCount} videos</span>
+          </div>
+        </div>
+        <div class="yt-result-actions">
+          <button class="yt-import-btn" data-playlist-id="${playlistId}" data-playlist-name="${title}">
+            Import
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  ytSearchResults.innerHTML = resultsHTML;
+
+  // Add click event listeners to import buttons
+  const importButtons = ytSearchResults.querySelectorAll('.yt-import-btn');
+  importButtons.forEach(btn => {
+    btn.addEventListener('click', async function() {
+      const playlistId = this.getAttribute('data-playlist-id');
+      const playlistName = this.getAttribute('data-playlist-name');
+
+      // Disable button
+      this.disabled = true;
+      this.textContent = 'Importing...';
+
+      try {
+        // Close Fast YT Search modal
+        fastYTSearchModalOverlay.classList.remove('active');
+
+        // Import playlist
+        await window.importYouTubePlaylist(playlistId, playlistName);
+
+        // Success handled by importYouTubePlaylist function
+      } catch (error) {
+        console.error('Import error:', error);
+        alert('Failed to import playlist: ' + error.message);
+        this.disabled = false;
+        this.textContent = 'Import';
+      }
+    });
+  });
+}
+
+// Search button click handler
+if (ytSearchBtn) {
+  ytSearchBtn.addEventListener('click', async () => {
+    const query = ytSearchInput.value.trim();
+    if (!query) {
+      alert('Please enter a search term');
+      return;
+    }
+
+    // Show loading state
+    ytSearchResults.style.display = 'none';
+    ytSearchLoading.style.display = 'flex';
+
+    try {
+      const playlists = await searchYouTubePlaylists(query);
+
+      // Hide loading, show results
+      ytSearchLoading.style.display = 'none';
+      ytSearchResults.style.display = 'block';
+
+      displaySearchResults(playlists);
+    } catch (error) {
+      ytSearchLoading.style.display = 'none';
+      ytSearchResults.style.display = 'block';
+      ytSearchResults.innerHTML = `
+        <div class="yt-search-empty">
+          <div class="yt-empty-icon">⚠️</div>
+          <div class="yt-empty-text">Error: ${error.message}</div>
+        </div>
+      `;
+    }
+  });
+}
+
+// Enter key to search
+if (ytSearchInput) {
+  ytSearchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      ytSearchBtn.click();
+    }
+  });
+}
+
 
 // Easter Egg Modal - Advanced Atmosphere Settings
 const easterEggModalOverlay = document.getElementById('easterEggModalOverlay');

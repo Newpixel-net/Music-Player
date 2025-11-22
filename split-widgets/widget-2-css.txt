@@ -4132,9 +4132,14 @@
  background: rgba(255, 255, 255, 0.05);
  border: 2px solid rgba(102, 126, 234, 0.3);
  border-radius: 12px;
- color: #333;
+ color: #eee;
  font-size: 14px;
  transition: all 0.3s ease;
+ }
+
+ .yt-search-input::placeholder {
+ color: #999;
+ opacity: 1;
  }
 
  .yt-search-input:focus {
@@ -4142,6 +4147,7 @@
  border-color: #667eea;
  background: rgba(255, 255, 255, 0.1);
  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+ color: #fff;
  }
 
  .yt-search-btn {
@@ -4273,7 +4279,7 @@
  .yt-result-title {
  font-size: 15px;
  font-weight: 600;
- color: #333;
+ color: #f0f0f0;
  margin-bottom: 6px;
  overflow: hidden;
  text-overflow: ellipsis;

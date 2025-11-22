@@ -1631,7 +1631,11 @@ window.applyTexture = function(texture) {
       'texture-mixing-console', 'texture-frequency-spectrum', 'texture-oscilloscope',
       'texture-soundwave-circular', 'texture-amplitude-pulse', 'texture-stereo-waves',
       'texture-frequency-rings', 'texture-audio-spectrum-3d', 'texture-sine-waves',
-      'texture-beat-grid', 'texture-harmonic-waves'
+      'texture-beat-grid', 'texture-harmonic-waves',
+      'texture-pulse-wave', 'texture-digital-eq', 'texture-sound-particle',
+      'texture-waveform-flow', 'texture-bass-pulse', 'texture-audio-ripple',
+      'texture-frequency-burst', 'texture-sound-spiral', 'texture-beat-pulse',
+      'texture-harmonic-flow'
     );
 
     // Add the selected texture class
@@ -1731,7 +1735,11 @@ effectResetBtn.addEventListener('click', () => {
     'texture-mixing-console', 'texture-frequency-spectrum', 'texture-oscilloscope',
     'texture-soundwave-circular', 'texture-amplitude-pulse', 'texture-stereo-waves',
     'texture-frequency-rings', 'texture-audio-spectrum-3d', 'texture-sine-waves',
-    'texture-beat-grid', 'texture-harmonic-waves'
+    'texture-beat-grid', 'texture-harmonic-waves',
+    'texture-pulse-wave', 'texture-digital-eq', 'texture-sound-particle',
+    'texture-waveform-flow', 'texture-bass-pulse', 'texture-audio-ripple',
+    'texture-frequency-burst', 'texture-sound-spiral', 'texture-beat-pulse',
+    'texture-harmonic-flow'
   );
   document.querySelectorAll('.texture-btn').forEach(btn => btn.classList.remove('active'));
   const noneTextureBtn = document.querySelector('.texture-btn[data-texture="none"]');

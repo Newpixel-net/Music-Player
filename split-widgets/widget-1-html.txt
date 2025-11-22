@@ -364,6 +364,16 @@
  <button class="texture-btn texture-sine-waves" data-texture="sine-waves" title="Sine Waves"></button>
  <button class="texture-btn texture-beat-grid" data-texture="beat-grid" title="Beat Grid"></button>
  <button class="texture-btn texture-harmonic-waves" data-texture="harmonic-waves" title="Harmonic Waves"></button>
+ <button class="texture-btn texture-pulse-wave" data-texture="pulse-wave" title="Pulse Wave"></button>
+ <button class="texture-btn texture-digital-eq" data-texture="digital-eq" title="Digital Equalizer"></button>
+ <button class="texture-btn texture-sound-particle" data-texture="sound-particle" title="Sound Particles"></button>
+ <button class="texture-btn texture-waveform-flow" data-texture="waveform-flow" title="Waveform Flow"></button>
+ <button class="texture-btn texture-bass-pulse" data-texture="bass-pulse" title="Bass Pulse"></button>
+ <button class="texture-btn texture-audio-ripple" data-texture="audio-ripple" title="Audio Ripple"></button>
+ <button class="texture-btn texture-frequency-burst" data-texture="frequency-burst" title="Frequency Burst"></button>
+ <button class="texture-btn texture-sound-spiral" data-texture="sound-spiral" title="Sound Spiral"></button>
+ <button class="texture-btn texture-beat-pulse" data-texture="beat-pulse" title="Beat Pulse"></button>
+ <button class="texture-btn texture-harmonic-flow" data-texture="harmonic-flow" title="Harmonic Flow"></button>
  </div>
  </div>
  <div class="style-control">

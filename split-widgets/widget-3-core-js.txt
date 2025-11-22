@@ -354,8 +354,11 @@ window.applyRandomMood = function() {
 }
 
 window.applyRandomAtmosphere = function() {
+ // CRITICAL FIX: Disable transitions during randomization to prevent flickering
+ document.body.classList.add('no-transition');
+
  // Clear all effects first
- activeEffects = [];
+ window.activeEffects = [];
  document.querySelectorAll('.effect-btn').forEach(btn => {
  btn.classList.remove('active');
  });
@@ -370,13 +373,13 @@ window.applyRandomAtmosphere = function() {
 
  // Add to activeEffects and mark buttons as active
  selectedEffects.forEach(effect => {
- activeEffects.push(effect);
+ window.activeEffects.push(effect);
  const btn = document.querySelector(`.effect-btn[data-effect="${effect}"]`);
  if (btn) btn.classList.add('active');
  });
 
  // Apply effects
- updateEffects();
+ window.updateEffects();
 
  // Randomize MOOD title opacity (30-100%)
  const moodTitle = document.querySelector('.mood-title');
@@ -384,6 +387,13 @@ window.applyRandomAtmosphere = function() {
  const randomOpacity = (Math.floor(Math.random() * 71) + 30) / 100; // 30-100%
  moodTitle.style.opacity = randomOpacity;
  }
+
+ // Re-enable transitions after effects are applied
+ requestAnimationFrame(() => {
+ requestAnimationFrame(() => {
+ document.body.classList.remove('no-transition');
+ });
+ });
 
  const btn = document.getElementById('randomAtmosphereBtn');
  btn.classList.add('pulsing');

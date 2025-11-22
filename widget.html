@@ -6883,8 +6883,11 @@ window.applyRandomMood = function() {
 }
 
 window.applyRandomAtmosphere = function() {
+ // CRITICAL FIX: Disable transitions during randomization to prevent flickering
+ document.body.classList.add('no-transition');
+
  // Clear all effects first
- activeEffects = [];
+ window.activeEffects = [];
  document.querySelectorAll('.effect-btn').forEach(btn => {
  btn.classList.remove('active');
  });
@@ -6899,13 +6902,13 @@ window.applyRandomAtmosphere = function() {
 
  // Add to activeEffects and mark buttons as active
  selectedEffects.forEach(effect => {
- activeEffects.push(effect);
+ window.activeEffects.push(effect);
  const btn = document.querySelector(`.effect-btn[data-effect="${effect}"]`);
  if (btn) btn.classList.add('active');
  });
 
  // Apply effects
- updateEffects();
+ window.updateEffects();
 
  // Randomize MOOD title opacity (30-100%)
  const moodTitle = document.querySelector('.mood-title');
@@ -6913,6 +6916,13 @@ window.applyRandomAtmosphere = function() {
  const randomOpacity = (Math.floor(Math.random() * 71) + 30) / 100; // 30-100%
  moodTitle.style.opacity = randomOpacity;
  }
+
+ // Re-enable transitions after effects are applied
+ requestAnimationFrame(() => {
+ requestAnimationFrame(() => {
+ document.body.classList.remove('no-transition');
+ });
+ });
 
  const btn = document.getElementById('randomAtmosphereBtn');
  btn.classList.add('pulsing');
@@ -9437,7 +9447,8 @@ const bgBorderGlowColor = document.getElementById('bgBorderGlowColor');
 // Texture variables
 let currentTexture = 'none';
 
-let activeEffects = [];
+// CRITICAL FIX: Make activeEffects a window property for cross-file access
+window.activeEffects = [];
 let effectSettings = {
   speed: 1,
   intensity: 50
@@ -9487,13 +9498,13 @@ document.querySelectorAll('.effect-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const effect = btn.dataset.effect;
 
-    if (activeEffects.includes(effect)) {
+    if (window.activeEffects.includes(effect)) {
       // Remove effect
-      activeEffects = activeEffects.filter(e => e !== effect);
+      window.activeEffects = window.activeEffects.filter(e => e !== effect);
       btn.classList.remove('active');
     } else {
       // Add effect
-      activeEffects.push(effect);
+      window.activeEffects.push(effect);
       btn.classList.add('active');
     }
 
@@ -9634,7 +9645,7 @@ window.updateStyleCustomization = function() {
 }
 // Reset button
 effectResetBtn.addEventListener('click', () => {
-  activeEffects = [];
+  window.activeEffects = [];
   document.querySelectorAll('.effect-btn').forEach(btn => {
     btn.classList.remove('active');
   });
@@ -9686,13 +9697,13 @@ window.updateEffects = function() {
   const duration = 2 / effectSettings.speed;
   const scale = effectSettings.intensity / 100;
 
-  if (activeEffects.length === 0) {
+  if (window.activeEffects.length === 0) {
     window.moodSection.style.animation = '';
     window.moodSection.style.border = '';
     return;
   }
 
-  const animations = activeEffects.map(effect => {
+  const animations = window.activeEffects.map(effect => {
     let animName = '';
     switch(effect) {
       case 'heartbeat': animName = 'bgHeartbeat'; break;
@@ -9724,7 +9735,7 @@ window.updateEffects = function() {
   window.moodSection.style.animation = animations;
 
   // Add border for border effects
-  if (activeEffects.some(e => ['borderpulse', 'neonglow', 'rainbowborder', 'shadowdance', 'electricedges'].includes(e))) {
+  if (window.activeEffects.some(e => ['borderpulse', 'neonglow', 'rainbowborder', 'shadowdance', 'electricedges'].includes(e))) {
     window.moodSection.style.border = '2px solid transparent';
   }
 }

@@ -363,29 +363,98 @@ window.applyRandomAtmosphere = function() {
  btn.classList.remove('active');
  });
 
- // Pick 1-3 random effects to combine
- const numEffects = Math.floor(Math.random() * 3) + 1;
- const availableEffects = ['heartbeat', 'flash', 'glowpulse', 'scalebounce', 'breathe', 'beatdrop', 'shake', 'sway', 'float', 'wobble', 'tilt3d', 'flicker', 'glitch', 'rgbsplit', 'wavemotion', 'ripple', 'prism', 'borderpulse', 'neonglow', 'rainbowborder', 'shadowdance', 'electricedges'];
+ // === WEIGHTED RANDOMIZATION SYSTEM ===
+ // High-probability core effects (these appear most of the time)
+ if (Math.random() < 0.90) { // 90% chance
+   window.activeEffects.push('wavemotion');
+ }
+ if (Math.random() < 0.85) { // 85% chance
+   window.activeEffects.push('prism');
+ }
+ if (Math.random() < 0.70) { // 70% chance
+   window.activeEffects.push('rainbowborder');
+ }
 
- // Randomly select effects
- const shuffled = availableEffects.sort(() => 0.5 - Math.random());
- const selectedEffects = shuffled.slice(0, numEffects);
+ // === AUDIO TEXTURES (Always applied) ===
+ // Prioritize animated textures for better visual effect
+ const animatedTextures = [
+   'frequency-spectrum', 'oscilloscope', 'soundwave-circular', 'amplitude-pulse',
+   'stereo-waves', 'frequency-rings', 'audio-spectrum-3d', 'sine-waves',
+   'beat-grid', 'harmonic-waves',
+   'pulse-wave', 'digital-eq', 'sound-particle', 'waveform-flow',
+   'bass-pulse', 'audio-ripple', 'frequency-burst', 'sound-spiral',
+   'beat-pulse', 'harmonic-flow'
+ ];
+ const randomTexture = animatedTextures[Math.floor(Math.random() * animatedTextures.length)];
 
- // Add to activeEffects and mark buttons as active
- selectedEffects.forEach(effect => {
- window.activeEffects.push(effect);
- const btn = document.querySelector(`.effect-btn[data-effect="${effect}"]`);
- if (btn) btn.classList.add('active');
+ // Apply texture
+ document.querySelectorAll('.texture-btn').forEach(btn => btn.classList.remove('active'));
+ const textureBtn = document.querySelector(`.texture-btn[data-texture="${randomTexture}"]`);
+ if (textureBtn) textureBtn.classList.add('active');
+
+ // Trigger texture application
+ const textureClickEvent = new Event('click');
+ if (textureBtn) textureBtn.dispatchEvent(textureClickEvent);
+
+ // === PULSE EFFECTS (1-2 random) ===
+ const pulseEffects = ['heartbeat', 'flash', 'glowpulse', 'scalebounce', 'breathe', 'beatdrop'];
+ const numPulse = Math.floor(Math.random() * 2) + 1; // 1 or 2
+ for (let i = 0; i < numPulse; i++) {
+   const effect = pulseEffects[Math.floor(Math.random() * pulseEffects.length)];
+   if (!window.activeEffects.includes(effect)) {
+     window.activeEffects.push(effect);
+   }
+ }
+
+ // === BORDER EFFECTS (1 random, excluding rainbow if already added) ===
+ const borderEffects = window.activeEffects.includes('rainbowborder')
+   ? ['borderpulse', 'neonglow', 'shadowdance', 'electricedges']
+   : ['borderpulse', 'neonglow', 'shadowdance', 'electricedges', 'rainbowborder'];
+
+ const borderEffect = borderEffects[Math.floor(Math.random() * borderEffects.length)];
+ if (!window.activeEffects.includes(borderEffect)) {
+   window.activeEffects.push(borderEffect);
+ }
+
+ // === VISUAL FX (1-2 progressive effects) ===
+ const visualFX = ['flicker', 'glitch', 'rgbsplit', 'ripple'];
+ const numVisual = Math.floor(Math.random() * 2) + 1; // 1 or 2
+ for (let i = 0; i < numVisual; i++) {
+   const effect = visualFX[Math.floor(Math.random() * visualFX.length)];
+   if (!window.activeEffects.includes(effect)) {
+     window.activeEffects.push(effect);
+   }
+ }
+
+ // Mark all active effects
+ window.activeEffects.forEach(effect => {
+   const btn = document.querySelector(`.effect-btn[data-effect="${effect}"]`);
+   if (btn) btn.classList.add('active');
  });
 
  // Apply effects
  window.updateEffects();
 
+ // === OPACITY RANDOMIZATION (60-95% for nice transparency) ===
+ const randomOpacity = Math.floor(Math.random() * 36) + 60; // 60-95%
+ const bgOpacity = document.getElementById('bgOpacity');
+ const bgOpacityValue = document.getElementById('bgOpacityValue');
+ if (bgOpacity && bgOpacityValue) {
+   bgOpacity.value = randomOpacity;
+   bgOpacityValue.textContent = randomOpacity + '%';
+
+   // Apply opacity to mood section
+   const r = parseInt(bgColor.value.slice(1, 3), 16);
+   const g = parseInt(bgColor.value.slice(3, 5), 16);
+   const b = parseInt(bgColor.value.slice(5, 7), 16);
+   window.moodSection.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${randomOpacity / 100})`;
+ }
+
  // Randomize MOOD title opacity (30-100%)
  const moodTitle = document.querySelector('.mood-title');
  if (moodTitle) {
- const randomOpacity = (Math.floor(Math.random() * 71) + 30) / 100; // 30-100%
- moodTitle.style.opacity = randomOpacity;
+ const titleOpacity = (Math.floor(Math.random() * 71) + 30) / 100; // 30-100%
+ moodTitle.style.opacity = titleOpacity;
  }
 
  // Re-enable transitions after effects are applied

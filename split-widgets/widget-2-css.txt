@@ -20,6 +20,26 @@
  position: relative;
  overflow-x: hidden;
  transition: background 1s ease;
+ /* PERFORMANCE: Use GPU acceleration for smoother animations */
+ will-change: background;
+ transform: translateZ(0);
+ -webkit-backface-visibility: hidden;
+ backface-visibility: hidden;
+ }
+
+ /* CRITICAL FIX: Disable transition on initial page load to prevent flickering */
+ body.no-transition {
+ transition: none !important;
+ }
+
+ /* PERFORMANCE OPTIMIZATION: GPU acceleration for all mood backgrounds */
+ body[class*="mood-"] {
+ will-change: background;
+ transform: translateZ(0);
+ -webkit-backface-visibility: hidden;
+ backface-visibility: hidden;
+ /* Reduce animation complexity for better performance */
+ background-attachment: fixed;
  }
 
  /* Mood Backgrounds with Dramatic Animations */

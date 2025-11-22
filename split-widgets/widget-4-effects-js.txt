@@ -1601,21 +1601,30 @@ loadEasterEggSettings();
  const randomAtmosphereBtn = document.getElementById('randomAtmosphereBtn');
  const randomBgBtn = document.getElementById('randomBgBtn');
 
+ // CRITICAL FIX: Use window. prefix since functions are defined in widget-3
  if (randomMoodBtn) {
- randomMoodBtn.addEventListener('click', applyRandomMood);
+ randomMoodBtn.addEventListener('click', window.applyRandomMood);
  }
 
  if (randomAtmosphereBtn) {
- randomAtmosphereBtn.addEventListener('click', applyRandomAtmosphere);
+ randomAtmosphereBtn.addEventListener('click', window.applyRandomAtmosphere);
  }
 
  if (randomBgBtn) {
- randomBgBtn.addEventListener('click', applyRandomBgEffects);
+ randomBgBtn.addEventListener('click', window.applyRandomBgEffects);
  }
 
  // Initialize
+ // CRITICAL FIX: Disable transitions on initial load to prevent flickering
+ document.body.classList.add('no-transition');
  loadMood();
  loadSettings();
+ // Remove no-transition class after mood is applied to enable smooth transitions
+ requestAnimationFrame(() => {
+ requestAnimationFrame(() => {
+ document.body.classList.remove('no-transition');
+ });
+ });
  // CRITICAL FIX: Don't create particles on page load - only if enabled in settings
  // This prevents annoying flickering effect on initial page load
  // Particles will be created by loadEasterEggSettings() if particleEffects is enabled

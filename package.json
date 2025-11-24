@@ -1,0 +1,20 @@
+{
+  "name": "music-player",
+  "version": "1.0.0",
+  "description": "Music Player with YouTube integration and secure API handling",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "music",
+    "player",
+    "youtube",
+    "netlify"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  }
+}

@@ -115,35 +115,38 @@ domIsReady = true;
 console.log('✅ DOM Ready - attempting player initialization...');
 initYouTubePlayerWhenReady();
 
- // Firebase Configuration
- const firebaseConfig = {
- apiKey: "AIzaSyDPjVCn59pOyBUVW0vy0e5gAmbvunR8Eaw",
- authDomain: "music-player-library.firebaseapp.com",
- databaseURL: "https://music-player-library-default-rtdb.firebaseio.com",
- projectId: "music-player-library",
- storageBucket: "music-player-library.firebasestorage.app",
- messagingSenderId: "1021984826826",
- appId: "1:1021984826826:web:b24eaa21402b5a00485b33",
- measurementId: "G-NRMYDTH8BG"
-};
-
- // Initialize Firebase
+ // Firebase Configuration - NOW USING SECURE NETLIFY FUNCTION
+ // Firebase config is loaded from environment variables via serverless function
  window.database = null;
  window.firebaseAvailable = false;
 
+ // Fetch Firebase configuration securely
+ fetch('/.netlify/functions/firebase-config')
+ .then(response => response.json())
+ .then(data => {
+ if (data.available && data.config) {
  try {
- firebase.initializeApp(firebaseConfig);
+ firebase.initializeApp(data.config);
  window.database = firebase.database();
  window.firebaseAvailable = true;
  console.log('✓ Firebase connected - Community library active!');
  } catch (e) {
- console.log('⚠️ Firebase unavailable - Using localStorage fallback');
+ console.log('⚠️ Firebase initialization error:', e);
  window.firebaseAvailable = false;
  }
+ } else {
+ console.log('⚠️ Firebase not configured - Using localStorage fallback');
+ window.firebaseAvailable = false;
+ }
+ })
+ .catch(e => {
+ console.log('⚠️ Firebase config fetch error - Using localStorage fallback:', e);
+ window.firebaseAvailable = false;
+ });
 
- // YouTube API Configuration
- const YOUTUBE_API_KEY = 'AIzaSyBijIimhG2s_uzGQybB13Iw0SQxwLTwQ4Y';
- const YOUTUBE_API_BASE = 'https://www.googleapis.com/youtube/v3';
+ // YouTube API Configuration - NOW USING SECURE NETLIFY FUNCTIONS
+ // API keys are stored securely in Netlify environment variables
+ // All YouTube API calls now go through serverless functions
 
  // Data structures
  window.playlists = [];
@@ -1026,29 +1029,31 @@ window.extractVideoId = function(url) {
  return null;
  }
 
- // Fetch Single Video Info from YouTube
+ // Fetch Single Video Info from YouTube - SECURE NETLIFY FUNCTION
  window.fetchVideoInfo = async function(videoId) {
  try {
- const url = `${YOUTUBE_API_BASE}/videos?part=snippet,contentDetails&id=${videoId}&key=${YOUTUBE_API_KEY}`;
- const response = await fetch(url);
+ const response = await fetch('/.netlify/functions/youtube-video-info', {
+ method: 'POST',
+ headers: {
+ 'Content-Type': 'application/json'
+ },
+ body: JSON.stringify({ videoId })
+ });
+
  const data = await response.json();
- 
- if (!data.items || data.items.length === 0) {
- throw new Error('Video not found');
+
+ if (!response.ok) {
+ throw new Error(data.error || 'Failed to fetch video info');
  }
- 
- const video = data.items[0];
- const snippet = video.snippet;
- const duration = video.contentDetails.duration;
- 
+
  return {
- title: snippet.title,
- artist: snippet.channelTitle || 'Unknown Artist',
- duration: window.parseYouTubeDuration(duration),
+ title: data.title,
+ artist: data.artist,
+ duration: window.parseYouTubeDuration(data.duration),
  albumColor: window.getRandomColor(),
  source: `https://www.youtube.com/watch?v=${videoId}`,
  sourceType: 'youtube',
- thumbnail: snippet.thumbnails?.maxres?.url || snippet.thumbnails?.high?.url || snippet.thumbnails?.medium?.url || snippet.thumbnails?.default?.url || null,
+ thumbnail: data.thumbnail,
  videoId: videoId,
  addedManually: true
  };
@@ -1078,78 +1083,43 @@ window.formatTime = function(seconds) {
  return `${min}:${sec.toString().padStart(2, '0')}`;
  }
 
- // YouTube API Functions
+ // YouTube API Functions - SECURE NETLIFY FUNCTION
  window.fetchYouTubePlaylist = async function(playlistId) {
  try {
- let allItems = [];
- let nextPageToken = '';
- 
  playlistStatus.textContent = 'Fetching playlist...';
- 
- do {
- const url = `${YOUTUBE_API_BASE}/playlistItems?part=snippet,contentDetails&maxResults=50&playlistId=${playlistId}&key=${YOUTUBE_API_KEY}${nextPageToken ? '&pageToken=' + nextPageToken : ''}`;
- 
- const response = await fetch(url);
- const data = await response.json();
- 
- if (data.error) {
- throw new Error(data.error.message || 'Failed to fetch playlist');
- }
- 
- allItems = allItems.concat(data.items || []);
- nextPageToken = data.nextPageToken || '';
- 
- playlistStatus.textContent = `Fetching... (${allItems.length} videos)`;
- 
- } while (nextPageToken);
- 
- playlistStatus.textContent = `Fetching video details...`;
- 
- const videoIds = allItems.map(item => item.contentDetails.videoId).filter(id => id);
- 
- if (videoIds.length === 0) {
- throw new Error('No videos found in playlist');
- }
- 
- const videoDetails = [];
- for (let i = 0; i < videoIds.length; i += 50) {
- const batch = videoIds.slice(i, i + 50);
- const detailsUrl = `${YOUTUBE_API_BASE}/videos?part=contentDetails&id=${batch.join(',')}&key=${YOUTUBE_API_KEY}`;
- 
- const response = await fetch(detailsUrl);
- const data = await response.json();
- 
- if (data.items) {
- videoDetails.push(...data.items);
- }
- 
- playlistStatus.textContent = `Processing... (${Math.min(i + 50, videoIds.length)}/${videoIds.length})`;
- }
- 
- const durationMap = {};
- videoDetails.forEach(video => {
- durationMap[video.id] = video.contentDetails.duration;
+
+ const response = await fetch('/.netlify/functions/youtube-playlist', {
+ method: 'POST',
+ headers: {
+ 'Content-Type': 'application/json'
+ },
+ body: JSON.stringify({ playlistId })
  });
- 
- const newSongs = allItems.map(item => {
- const snippet = item.snippet;
- const videoId = item.contentDetails.videoId;
- const duration = durationMap[videoId] || 'PT0S';
- 
+
+ const data = await response.json();
+
+ if (!response.ok) {
+ throw new Error(data.error || 'Failed to fetch playlist');
+ }
+
+ // Transform the data to match our expected format
+ const newSongs = data.map(item => {
  return {
- title: snippet.title,
- artist: snippet.videoOwnerChannelTitle || snippet.channelTitle || 'Unknown Artist',
- duration: window.parseYouTubeDuration(duration),
+ title: item.title,
+ artist: item.artist,
+ duration: window.parseYouTubeDuration(item.duration),
  albumColor: window.getRandomColor(),
- source: `https://www.youtube.com/watch?v=${videoId}`,
+ source: `https://www.youtube.com/watch?v=${item.id}`,
  sourceType: 'youtube',
- thumbnail: snippet.thumbnails?.maxres?.url || snippet.thumbnails?.high?.url || snippet.thumbnails?.medium?.url || snippet.thumbnails?.default?.url || null,
- videoId: videoId
+ thumbnail: item.thumbnail,
+ videoId: item.id
  };
  }).filter(song => song.title && song.title !== 'Private video' && song.title !== 'Deleted video');
- 
+
+ playlistStatus.textContent = `Processing... (${newSongs.length} videos)`;
+
  return newSongs;
- 
+
  } catch (error) {
  console.error('YouTube API Error:', error);
  throw error;
